@@ -8,3 +8,5 @@ paper.log
 paper.run.xml
 paper.synctex.gz
 paper.blg
+*.pdf
+paper.pdf
