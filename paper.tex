@@ -1,17 +1,13 @@
 \documentclass{article}
 
-\title{Dissertation Proposal}
-\author{Kuang-Chen Lu}
-\date{\today}
-
-\bibliography{bibfile}
-
-
+\usepackage[utf8]{inputenc} % Use UTF-8 encoding
+\usepackage[T1]{fontenc} % Use the T1 font encoding
 \usepackage{geometry} % Adjust page margins
 \usepackage{amsmath, amssymb} % For math symbols and equations
 \usepackage{graphicx} % For including images
 \usepackage{titlesec} % For customizing section titles
-\usepackage{biblatex} % For managing references
+\usepackage[style=authoryear]{biblatex}  % For managing references
+\addbibresource{bibfile.bib}
 \usepackage[colorinlistoftodos]{todonotes}
 \newcommand{\miscon}[1]{\textbf{#1}}
 \newcommand{\surmisedMiscon}[1]{\miscon{#1}$^\ddag$}
@@ -76,7 +72,13 @@
 %% abbrev. for referring to supplementary materials
 \newcommand{\supplRef}[1]{\texttt{#1} in the supplementary materials}
 
+
+\title{Dissertation Proposal}
+\author{Kuang-Chen Lu}
+\date{\today}
+
 \begin{document}
+\maketitle
 
 %% Abstract
 %% Note: \begin{abstract}...\end{abstract} environment must come
@@ -1907,5 +1909,9 @@ escaped from the function (leading to an interpretation of dynamic
 scope). We believe there is a need for significant research to
 investigate these kinds of effects, which are similar to but not
 strictly the same as ``vernacular misconceptions'' \cite{nationalresearchcouncilScienceTeachingReconsidered1997}.
+
+\section{References}
+
+\printbibliography
 
 \end{document}
