@@ -1,0 +1,6 @@
+(defvar x 42)
+(deffun (create)
+  (defvar y 42)
+  y)
+(create)
+(eq? x y)

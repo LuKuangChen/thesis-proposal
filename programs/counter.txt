@@ -1,0 +1,14 @@
+(deffun (make-counter)
+  (let ([count 0])
+    (lambda ()
+      (begin
+        (set! count (+ count 1))
+        count))))
+(defvar f (make-counter))
+(defvar g (make-counter))
+
+(f)
+(g)
+(f)
+(f)
+(g)

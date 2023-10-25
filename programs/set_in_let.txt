@@ -1,0 +1,4 @@
+(defvar x 123)
+(let ([y x])
+  (set! y 10))
+x

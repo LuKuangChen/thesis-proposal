@@ -1,0 +1,6 @@
+(defvar x 5)
+(deffun (reassign var_name new_val)
+  (defvar var_name new_val)
+  (mpair var_name x))
+(reassign x 6)
+x

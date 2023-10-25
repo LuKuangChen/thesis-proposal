@@ -1,0 +1,4 @@
+(defvar x (mvec 123))
+(let ([y x])
+  (vec-set! y 0 10))
+x

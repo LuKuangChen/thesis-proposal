@@ -1,0 +1,6 @@
+(defvar x 10)
+(deffun (f y z)
+  (set! x z)
+  y)
+(f x 20)
+x
