@@ -1,0 +1,9 @@
+.DS_Store
+paper.aux
+paper.bbl
+paper.bcf
+paper.fdb_latexmk
+paper.fls
+paper.log
+paper.run.xml
+paper.synctex.gz

@@ -1,0 +1,1911 @@
+\documentclass{article}
+
+\title{Dissertation Proposal}
+\author{Kuang-Chen Lu}
+\date{\today}
+
+\bibliography{bibfile}
+
+
+\usepackage{geometry} % Adjust page margins
+\usepackage{amsmath, amssymb} % For math symbols and equations
+\usepackage{graphicx} % For including images
+\usepackage{titlesec} % For customizing section titles
+\usepackage{biblatex} % For managing references
+\usepackage[colorinlistoftodos]{todonotes}
+\newcommand{\miscon}[1]{\textbf{#1}}
+\newcommand{\surmisedMiscon}[1]{\miscon{#1}$^\ddag$}
+\newcommand{\pValue}[0]{\textit{p}\nobreakdash-value}
+
+%% Some recommended packages.
+\usepackage{booktabs}   %% For formal tables:
+                        %% http://ctan.org/pkg/booktabs
+\usepackage{subcaption} %% For complex figures with subfigures/subcaptions
+                        %% http://ctan.org/pkg/subcaption
+\usepackage{tabularx}   %% For tables with growable column
+\usepackage{cleveref}   %% For smart ref
+\usepackage{graphicx}   %% For inserting images
+\graphicspath{ {./images/} }  %% configure the graphicx package
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{ragged2e}  %% For \raggedright
+\usepackage{listings}  %% For typesetting code
+\usepackage{enumitem}  %% For noitemsep and topsep
+\lstdefinelanguage{smol} {
+  alsoletter={ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-!?*},
+  morekeywords={defvar,deffun,lambda,set!,let,let*,letrec,begin,if,cond,else,and,or},
+  morecomment=[l]{;},
+  morestring=[b]",
+}
+\lstset{
+  basicstyle=\small\ttfamily,
+  breaklines=true,
+  language=smol,
+  % aboveskip=-0.3 \baselineskip,   % remove extra space before
+  % belowskip=-0.8 \baselineskip,     % and after code blocks
+}
+%% Custom commands:
+%% new terms are introduced with a boldface
+%% (the common style is italic, but KC thinks bf is easier to locate)
+\newcommand{\newterm}[1]{\textbf{#1}}
+
+%% abbrev. for JavaScript etc.
+\newcommand{\js}{JavaScript}
+\newcommand{\py}{Python}
+
+%% abbrev. for quizzes
+\newcommand{\QuizFun}{Quiz 1}
+\newcommand{\QuizState}{Quiz 2}
+\newcommand{\QuizHof}{Quiz 3}
+\newcommand{\quizFun}{Quiz 1}
+\newcommand{\quizState}{Quiz 2}
+\newcommand{\quizHof}{Quiz 3}
+
+%% abbrev. for tutorials
+\newcommand{\TutDef}{The \textbf{def} tutorial}
+\newcommand{\TutSet}{The \textbf{set} tutorial}
+\newcommand{\TutVec}{The \textbf{vec} tutorial}
+\newcommand{\TutLam}{The \textbf{lam} tutorial}
+\newcommand{\TutLet}{The \textbf{let} tutorial}
+\newcommand{\tutDef}{the \textbf{def} tutorial}
+\newcommand{\tutSet}{the \textbf{set} tutorial}
+\newcommand{\tutVec}{the \textbf{vec} tutorial}
+\newcommand{\tutLam}{the \textbf{lam} tutorial}
+\newcommand{\tutLet}{the \textbf{let} tutorial}
+
+%% abbrev. for referring to supplementary materials
+\newcommand{\supplRef}[1]{\texttt{#1} in the supplementary materials}
+
+\begin{document}
+
+%% Abstract
+%% Note: \begin{abstract}...\end{abstract} environment must come
+%% before \maketitle command
+\begin{abstract}
+  Misconceptions about core linguistic concepts like mutable
+  variables, mutable compound data, and their interaction with scope
+  and higher-order functions seem to be widespread.
+  But
+  how do we detect
+  them, given that experts have blind spots and may not realize the
+  myriad ways in which students can misunderstand programs?
+  Furthermore, once identified, what can we do to correct them?
+
+  In this paper, we present a curated list of misconceptions, and an
+  instrument to detect them. These are distilled from student work
+  over several years and match and extend prior research.  We also
+  present an automated, self-guided tutoring system. The tutor builds
+  on strategies in the education literature and is explicitly designed
+  around identifying and correcting misconceptions.
+
+  We have tested the tutor in multiple settings.
+  Our data consistently show that (a) the misconceptions we tackle are
+  widespread, and (b) the tutor appears to improve understanding.
+\end{abstract}
+
+%% \maketitle
+%% Note: \maketitle command must come after title commands, author
+%% commands, abstract environment, Computing Classification System
+%% environment and commands, and keywords command.
+\maketitle
+
+
+\section{Introduction}
+\label{s:intro}
+
+A large number of widely used modern programming languages share a
+common semantic basis:
+\begin{itemize}
+
+  \item lexical scope
+  \item nested scope
+  \item eager evaluation
+  \item sequential evaluation (per ``thread'')
+  \item mutable first-\emph{order} variables
+  \item mutable first-\emph{class} structures (objects, vectors, etc.)
+  \item higher-order functions that close over bindings
+  \item automated memory management (e.g., garbage collection)
+
+\end{itemize}
+This semantic core can be seen in languages from ``object-oriented''
+languages like C\# and Java, to ``scripting'' languages like
+JavaScript, Python, and Ruby, to ``functional'' languages like the ML
+and Lisp families. Of course, there are sometimes restrictions
+(e.g., Java has restrictions on closures) and extensions (such as the
+documented semantic oddities of JavaScript and Python \cite{bernhardtWat2012, guhaEssenceJavascript2010, politzPythonFullMonty2013, politzTestedSemanticsGetters2012}). Still, this semantic core bridges many syntaxes, and
+understanding it helps when transferring knowledge from old languages
+to new ones. In recognition of this deep commonality, in this paper we
+choose to call this the \emph{Standard Model of Languages} (SMoL).
+
+Unfortunately, this combination of features appears to also be non-trivial for
+programmers to understand. Consider the following scenario: to create a
+calculator, we have to construct a callback that can be attached to
+each button. The following Python program seems to achieve the
+construction of these callbacks and the act of pushing the buttons in
+order:
+\newpage
+\begin{lstlisting}[language=Python]
+button_list = []
+
+for i in range(10):
+    button = lambda: print(i)
+    button_list.append(button)
+
+for button in button_list:
+    button()
+\end{lstlisting}
+That is, a user would expect to see \verb|0| through \verb|9|. In
+fact, however, it prints \verb|9| ten times.
+
+As the related work section (\Cref{s:rel-work}) describes,
+multiple researchers, in different
+countries and different kinds of post-secondary educational contexts,
+have studied how students fare with scope and state. They consistently
+find that even advanced students have difficulty with such programs
+and even programs simpler than this.
+
+In fact, these problems are not at all limited to students. This
+specific looping problem even trips up industrial programmers. The
+C\# language \emph{changed} to produce \verb|0| through \verb|9| \cite{lippertClosingLoopVariable2009}. It is now also the focus of a language design
+change in Go \cite{chaseFixingLoopsGo2023} for a new kind of looping
+construct \cite{coxSpecLessErrorprone2023}.
+It continues to trip up programmers
+(e.g., \cite{sharveyCreatingFunctionsLambdas2022})
+despite being
+documented as a ``gotcha'' in Python \cite{reitzHitchhikerGuidePython2016}.
+% SK: But not everyone has read the document. I don't think the document is
+% a Python official document. Also, this sentence sounds like stating that
+% the cited Python programmers are stupid.
+
+Most of the time, however, these misunderstandings do not lead to
+language design changes. Nor are changes necessarily desirable: the
+SMoL feature set has presumably evolved because it is convenient
+for writing non-trivial programs (e.g., mutable structures) without
+being too unwieldy (e.g., no dynamic scope). Furthermore, having a
+good mental model of these features
+is essential to understand ownership \cite{clarkeOwnershipTypesFlexible1998},
+manage parallelism, and more. Thus, we
+still need to train students and other programmers on the semantic
+features \emph{and their interactions} in SMoL.
+
+In response, we have (a) run a multi-year, multi-phase study to
+identify these misunderstandings while trying to work around the blind
+spots of experts (and also drawing on prior work),
+and (b) constructed the SMoL Tutor, an interactive tutor to address
+these misunderstandings. The SMoL Tutor is not a \emph{programming} tutor;
+rather, it assumes the user has some basic facility with programming
+(i.e., that they are already familiar with concepts like vectors,
+mutation, and higher-order functions). It is built around SMoL's
+features and their interactions, and draws on cognitive and
+educational psychology concepts to expressly identify
+and correct misconceptions.
+
+Concretely, we make the following contributions:
+\begin{enumerate}
+
+  \item We provide a collection of brief programs for detecting
+        misconceptions about the features of SMoL and their
+        interaction.
+        These programs are short and
+        most are readily translatable to a wide variety of
+        programming languages that share the SMoL characteristics.
+
+      \item We show that multiple populations have problems with these
+        programs.
+
+      \item We present a list of curated misconceptions generated
+        after multiple rounds of analysis.
+
+      \item We implement these misconceptions as interpreters,
+        which find weaknesses in our manual analysis and hold
+        potential for generative use in the future.
+
+  \item We present a tutoring system that measurably corrects these
+        misconceptions.
+
+\end{enumerate}
+
+\paragraph{A Note on Terminology} We use the term
+``behavior'' to refer to the meaning of programs in terms of the
+answers they produce. A more standard term for this would, of course, be
+``semantics''. However, the term ``semantics tutor'' might
+mislead some readers into thinking it
+teaches people to read or write a formal semantics, e.g., an
+introduction to ``Greek'' notation. Because that is not the kind of
+tutor we are describing, to avoid confusion, we use the term
+``behavior'' instead.
+
+\section{Background: Tutoring Systems and Pedagogic Techniques}
+\label{s:background}
+
+There is an extensive body of literature on tutoring systems (\cite{vanlehnBehaviorTutoringSystems2006a} is
+a quality survey), and indeed whole conferences are dedicated to
+them. We draw on this literature. In particular, it is common in the
+literature to talk about a ``two-loop'' architecture \cite{vanlehnBehaviorTutoringSystems2006a} where the outer
+loop iterates through ``tasks'' (i.e., educational activities) and the inner loop iterates through UI events within a task. We follow the same
+structure in our tutor (\Cref{s:tutor-uiux}).
+
+Many tutoring systems focus on teaching programming
+(such as the well-known and heavily studied LISP Tutor \cite{andersonLISPTutor1985}), and in
+the process undoubtedly address some program behavior
+misconceptions. Our SMoL Tutor differs in a notable way: it does not
+try to teach programming per se. Instead, it assumes a basic
+programming background and focuses entirely on program behavior misconceptions
+and correcting them. We are not aware of a tutoring system (in computer science) that has
+this specific design.
+
+The SMoL Tutor is firmly grounded in one technique from
+cognitive and educational psychology. The fundamental problem is: how
+do you fix a misconception? One approach is to only ``present the
+right answer'', for fear that discussing the wrong conception might
+actually reinforce it. Instead, there is a body of literature starting
+from \cite{posnerTheoryConceptualChange1982} that presents a theory of conceptual
+change, at whose heart is the \emph{refutation text}. A refutation
+text tackles the misconception directly, discussing and providing a
+refutation for the incorrect idea. Several studies \cite{schroederRefutationTextFacilitates2022} have shown
+their effectiveness in multiple other domains.
+
+The SMoL Tutor's content structure is also influenced by work on \emph{case comparisons}
+(which draws analogies between examples).
+\cite{alfieriLearningCaseComparisons2013a} suggests that asking
+(rather than not asking) students to find similarities between cases,
+and providing principles \emph{after} the comparisons (rather than
+before or not at all), are associated with better learning
+outcomes.
+
+\section{The SMoL Language}\label{s:smol}
+
+\begin{figure}[t]
+  \centering
+  \begin{lstlisting}
+    t ::= d
+        | e
+    d ::= (defvar x e)
+        | (deffun (f x ...) body)
+    e ::= c
+        | x
+        | (lambda (x ...) body)
+        | (let ([x e] ...) body)
+        | (begin e ... e)
+        | (set! x e)
+        | (if e e e)
+        | (cond [e body] ... [else body])
+        | (cond [e body] ...)
+        | (e e ...)
+    body    ::= t ... e
+    program ::= t ...
+  \end{lstlisting}
+  \caption{The syntax of SMoL.}
+  \label{f:smol-syntax}
+\end{figure}
+
+\begin{table}[t]
+  \centering\begin{tabularx}{\linewidth}{r X}
+    \textbf{Operators}            & \textbf{Meaning}                                       \\\hline
+    \texttt{+ - * /}              & Arithmetic Operators                                   \\
+    \texttt{< > <= >=}            & Number comparison                                      \\
+    \texttt{mvec}                 & Create a (mutable) vector (a.k.a. array)               \\
+    \texttt{vec-ref}              & Look up a vector element                               \\
+    \texttt{vec-set!}             & Replace a vector element                               \\
+    \texttt{vec-len}              & Get the length of a vector                             \\
+    \texttt{mpair}                & Create a 2-element (mutable) vector                              \\
+    \texttt{left right}           & Look up the first/second element of a 2-element vector \\
+    \texttt{set-left! set-right!} & Replace the first/second element of a 2-element vector \\
+    \texttt{eq?}                    & Equality                                               \\
+  \end{tabularx}
+  \caption{Primitive operators of SMoL.}
+  \label{t:smol-primitives}
+\end{table}
+
+SMoL is designed to capture common features of many modern
+languages.
+The syntax of SMoL is presented in~\Cref{f:smol-syntax}, where
+\lstinline|t| stands for terms, \lstinline|d| stands for definitions, \lstinline|e|
+stands for expressions, \lstinline|c| stands for constants (i.e., number,
+boolean, and string), and \lstinline|x| and \lstinline|f| are identifiers
+(variables). The last kind of expression (i.e., \lstinline|(e e ...)|) is
+function application.
+
+SMoL's Lispy syntax is
+an artifact of the course (\Cref{s:univ-1-course}) using Racket
+\cite{friedmanEssentialsProgrammingLanguages2001, krishnamurthiProgrammingLanguagesApplication2007};
+however, it also proved to be pedagogically valuable.
+We have found the parentheses useful when discussing
+scope in conjunction with local-binding features like \lstinline|let|.
+This avoids the various confusing ``variable lifting'' semantics found
+in languages like Python (\cite{politzPythonFullMonty2013}; see also
+posts like \cite{froadieWhatScopeVariable2022}), where the actual defined range of a
+variable is not apparent from the source code.
+
+Nevertheless, most SMoL programs are easy to translate to other
+languages. We present machine-translated Python and JavaScript
+versions of our programs in \supplRef{Translated\_Programs.html}. Furthermore, we intend to
+make a multi-lingual tutor in the future (\Cref{s:discussion}).
+
+The semantics of SMoL is as described in \Cref{s:intro}.
+SMoL includes limited primitive operators (\Cref{t:smol-primitives}) to work with numbers, strings, and
+vectors. It provides only one equality operator, which tests for exact
+equality between atomic values and for pointer equality between other
+values.
+
+Students are given a working implementation of SMoL, built
+as a \verb|#lang| language inside Racket \cite{felleisenProgrammableProgrammingLanguage2018}. This language
+provides only the defined syntax and semantics of SMoL, with no
+(other) Racket features present.
+(As in Racket, arguments evaluate left-to-right, to give stateful programs an
+unambiguous semantics.) The implementation is available online
+[URL anonymized].
+
+\section{Paper Roadmap}
+\label{s:roadmap}
+\label{s:univ-1-course}
+
+This paper describes a four-year effort to obtain a quality instrument
+to measure misconceptions and to build a tutor to address them.
+
+The first step was a two-year process to generate (a) programs that
+tend to trip up students and (b) incorrect responses to those programs
+(\Cref{s:gen-prob-quizius}), using a tool for the purpose
+(\Cref{s:quizius}). These were then curated (\Cref{s:smol-quizzes}) to
+produce an instrument that was tested for one more year
+(\Cref{s:misconceptions-quiz}). This underwent one more round of
+curation to produce the final instrument~(\Cref{s:tutor-refine-program-set}).
+
+We then present the tutor (\Cref{s:system-tutor}). In particular, we
+present the list of misconceptions---grounded in student data---that
+are the focus of this project (\Cref{s:misconceptions-tutor}). We also
+evaluate the tutor's effectiveness at correcting them
+(\Cref{s:effect-tutor}).
+
+All this work is done with students in a ``Principles of Programming
+Languages'' class at a selective, private US university. The class has
+about 70--75 students per year. It is not required, so students take
+it by choice. Virtually all are computer science majors. Most are in
+their third or fourth year of tertiary education; about 10\% are
+graduate students. All have had at least one semester of imperative
+programming, and most have significantly more experience with it. Most
+have had close to a semester of functional programming. The student
+work described here was required, but students were graded on effort,
+not correctness.
+
+Naturally, we should wonder to what extent the demographic affects the
+results: we may simply be studying weaknesses at this institution! We
+therefore work with two other populations
+(\Cref{s:generality-tutor}). In both, we find similar results.
+
+\section{Generating and Collating Problems}
+\label{s:gen-prob-quizius}
+
+In \Cref{s:rel-work}, we discuss several papers that have provided
+reports of student misconceptions with different fragments of
+SMoL. However, it is difficult to know how comprehensive these
+are. While some are unclear on the origin of their programs, they
+generally seem to be expert-generated.
+
+The problem with expert-generated lists is that they can be quite
+incomplete. Education researchers have documented the
+phenomenon of the \emph{expert blind spot} \cite{nathanExpertBlindSpot2001}: experts
+simply do not conceive of many learner difficulties.
+Thus, we need
+methods to identify problems beyond what experts conceive.
+
+Additionally, in this paper, we intentionally use the word
+mis\emph{conceptions} rather than mis\emph{take}. A mistake can happen
+for any reason (e.g., selecting the wrong answer from a menu). A
+misconception, however, implies a conceptual problem: the student has
+formed an incorrect concept in their head. For instance, they may
+think that mutable structures are copied on function calls, or that
+scope is resolved dynamically. This requires probing what they are
+thinking.
+
+Finally, we are inspired by the significant body of education research
+on \emph{concept inventories} \cite{hestenesForceConceptInventory1992} (with a growing
+number for computer science, as a survey lists \cite{taylorComputerScienceConcept2014}). In
+terms of mechanics, a concept inventory is just an instrument
+consisting of multiple-choice questions (MCQs), where each question has
+one correct answer and several wrong ones. However, the wrong ones are
+chosen with great care. Each one has been validated so that if a
+student picks it, we can quite unambiguously determine \emph{what
+  misconception the student has}. For instance, if the question is
+``What is \verb|sqrt(4)|?'', then \verb|37| is probably an
+uninteresting wrong answer, but if people appear to confuse
+square-roots with squares, then \verb|16| would be present as an
+answer.\footnote{Concept inventories are thus useful in many
+  settings. For instance, an educator can use them with clickers to
+  get quick feedback from a class. If several students pick a
+  specific wrong answer, the educator not only knows they are wrong,
+  but also has a strong inkling of \emph{precisely what} misconception
+  that group has and can address it directly. We expect our
+  instruments to be useful in the same way.}
+
+All these, however, add up to a somewhat challenging demand. We want
+to produce a list of questions (each one an MCQ) such that
+\begin{enumerate}
+
+\item we can get past the expert blind spot,
+
+\item we have a sense of what misconceptions students have, and
+
+\item we can generally associate wrong answers with specific
+  misconceptions, approaching a concept inventory.
+
+\end{enumerate}
+
+\subsection{Generating Problems Using Quizius}
+\label{s:quizius}
+
+Our main solution to the expert blind spot is to use the Quizius system
+\cite{saarinenHarnessingWisdomClasses2019}. In contrast to the very
+heavyweight process (involving a lot of expert time)
+that is generally
+used to create a concept inventory, Quizius uses a lightweight,
+interactive approach to obtain fairly comparable data, which an expert
+can then shape into a quality instrument.
+
+In Quizius, experts create a prompt; in our case, we asked students to
+create small but ``interesting'' programs using the SMoL
+language. Quizius shows this prompt to students and gathers their
+answers. Each student is then shown a set of programs created by other
+students and asked to predict (without running it) the value produced
+by the program.\footnote{In the course (\Cref{s:univ-1-course}),
+  students were given credit for using Quizius but not penalized for wrong
+  answers, reducing their incentive to ``cheat'' by running
+  programs. They were also told that doing so would diminish the value of
+  their answers. Some students seemed to do so anyway, but most
+  honored the directive.} Students are also asked to provide a rationale for why
+they think it will produce that output.
+
+Quizius runs interactively during an assignment period.
+At each point, it needs to determine which
+previously authored program to show a student.
+It can
+either ``exploit'' a given program that already has responses
+or ``explore'' a new
+one. Quizius thus treats this as a multi-armed bandit problem
+\cite{katehakisMultiArmedBanditProblem1987} and uses that to choose a program.
+
+The output from Quizius is (a) a collection of programs; (b) for
+each program, a collection of predicted answers; and (c) for each
+answer, a rationale. Clustering the answers is easy (after
+ignoring some small syntactic differences). Thus, for
+each cluster, we obtain a set of rationales.
+
+After running Quizius in the course (\Cref{s:univ-1-course}),
+we took over as experts. Determining which is the right
+answer is easy. Where expert knowledge is useful is in
+\emph{clustering the rationales}. If all the rationales for a wrong
+answer are fairly similar, this is strong evidence that there is a
+common misconception that generates it. If, however, there are
+multiple rationale clusters, that means the program
+is not discriminative enough to distinguish the misconceptions, and it
+needs to be further refined to tell them apart. Interestingly, even
+the correct answer needs to be analyzed, because sometimes correct
+answers do have incorrect rationales (again, suggesting the program
+needs refinement to discriminate correct conceptions
+from misconceptions).
+
+Prior work using Quizius \cite{saarinenHarnessingWisdomClasses2019} finds that students do author programs
+that the experts did not imagine. In our case, we seeded Quizius with
+programs from prior papers (\Cref{s:rel-work}), which gives the first
+few students programs to respond to. However, we found
+that Quizius significantly expanded the scope of our problems and
+misconceptions. In our final instrument, most programs were directly
+or indirectly inspired by the output of Quizius.
+
+\subsection{Collating Problems}
+\label{s:smol-quizzes}
+
+While Quizius is very useful in principle, it also produced data that
+needed significant curation for the following reasons:
+\begin{itemize}
+
+\item A problem may have produced diverse outputs simply because it
+  was written in a very confusing way. Such programs do not reveal
+  any useful \emph{behavior} misconceptions, and must therefore be
+  filtered out. For instance:
+
+  \begin{lstlisting}
+  (defvar x 1)
+  (defvar y 2)
+  (defvar z 3)
+  (deffun (sum a ...) (+ a ...))
+  (sum x y z)
+  \end{lstlisting}
+
+  A reader might think that \verb|sum| takes variable arguments (so
+  the program produces \verb|6|), but in fact \verb|...| is a single
+  variable, so this produces an arity error.
+
+\item Some programs relied on (or stumbled upon) underspecified aspects
+  of unimportant (in particular, non-standard) parts of SMoL, such as floating-point versus
+  rational arithmetic.
+
+\item A problem may have produced diverse outputs simply because it is
+  hard to parse or to (mentally) trace its execution. One example was a
+  17-line program with 6 similar-looking and -named functions. As
+  another example:
+
+\begin{lstlisting}
+  (defvar a (or (/ 1 (- 0.25 0.25)) (/ 1 0.0)))
+  (defvar b (and (/ 1 (- 0.25 0.25)) (/ 1 0.0)))
+  (defvar c (and (/ 1 0.0) (/ 1 (- 0.25 -0.25))))
+  (defvar d (or (/ 1 0) (/ 1 (- 0.25 -0.25))))
+  (and (or a c) (or b d))
+\end{lstlisting}
+
+  This program is not only confusing, it \emph{also} tests interpretations of (a) exact
+  versus inexact numbers and (b) truthy/falsiness, leading to
+  significant (but not very useful) answer diversity.
+
+\item As noted above, a program's wrong (or even correct) answers may
+  correspond to multiple (mis)conceptions. In these cases, the program
+  must be refined to be more discriminative.
+
+\end{itemize}
+and so on.
+We therefore manually curated the Quizius output
+to address these issues.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/smol-quizzes-example.png}
+  \caption{Screenshot of a SMoL Quiz question.}
+  \label{f:smol-quizzes-example}
+\end{figure}
+
+\subsection{The SMoL Quizzes}%
+\label{s:misconceptions-quiz}
+
+Having curated the output, we had to confirm that these programs were
+still effective! That is, they needed to actually find student errors.
+
+We therefore turned the programs into a set of quizzes (in the US
+sense: namely, a brief test of knowledge) that we call the SMoL
+Quizzes. There were three quizzes, ordered by linguistic
+complexity. The first consisted of only basic operators and
+first-order functions. The second added variable and structure
+mutation. The third added \lstinline|lambda| and higher-order functions.
+
+The goal of the SMoL Quizzes was to confirm that the aforementioned
+processes of cleansing and enriching the problems was successful. The
+quizzes were therefore administered in the third year of this project in the
+same course.
+\Cref{f:smol-quizzes-example} shows a
+sample question. Every question got an ``Other'' option. If chosen,
+the quiz gave the user a text box with the caption ``Please
+specify''. The goal here was to record any other answers, which in
+turn might lead to fresh misconceptions.
+
+Question orders were partially randomized. We wanted students to get
+some easy, warm-up questions initially, so those were kept at the
+beginning. Similarly, we wanted programs that are syntactically
+similar to stay close to each other in the quiz. This is so that, when
+students got a second such program, they would not have to look far to
+find the first one and confirm that they are indeed (slightly)
+different, rather than wonder if they were seeing the same program
+again.
+
+Students only received feedback after having completed a whole
+quiz. At the end of each quiz, they received both summative feedback
+\emph{and} a refutation text that explained every program that
+appeared in the quiz. Students were also encouraged to run the
+programs, but we have little reason to believe that they did (and
+certainly they asked few questions on the class forum about them).
+
+Due to space limitations, we present the entire instrument in \supplRef{SMoL Quizzes/instrument}.
+Here we focus on a few programs where student choices correspond to
+misconceptions identified earlier, thereby also showing
+that the curated programs are
+still effective.
+Syntactically, \verb|#t| and \verb|#f| are true and false,
+while \verb|#(...)| is a vector. We use a * to indicate the correct
+answer (which also matches the implementation's output).
+
+\subsubsection{Quiz 1: Basic Operators and First-Order Functions}%
+\label{s:misconceptions-quiz:fun}
+
+% This quiz starts with two warm-up and not very interesting questions
+% and then other questions. The order of the other questions are fully
+% randomized.
+
+\begin{table}[t]
+  \centering
+  \begin{tabularx}{\linewidth}{l l}
+    \textbf{Questions}                       &
+    \textbf{Frequency Table of Answers}          \\\hline
+    \lstinputlisting{programs/def_twice.txt} & {
+        \begin{tabularx}{1in}{r l}
+          $^\dag$59\%  & \verb|2 0|             \\
+          *32\% & \verb|Error|           \\
+          4\%   & \verb|Other: 2 2|      \\
+          3\%   & ``Nothing is printed'' \\
+          2\%   & \verb|0 0|             \\
+        \end{tabularx}
+    }                                            \\\hline
+    \lstinputlisting{programs/dyn_scope.txt} & {
+        \begin{tabularx}{1in}{r l}
+          *65\% & \verb|Error| \\
+          $^\dag$29\%  & \verb|42 #t| \\
+          6\%   & Other        \\
+        \end{tabularx}
+    }                                            \\\hline
+    \lstinputlisting{programs/reassign.txt}  & {
+        \begin{tabularx}{1in}{r l}
+          *53\% & \verb|#(6 5) 5|                 \\
+          *20\% & \verb|Error|                    \\
+          $^\dag$11\%  & \verb|#(6 6) 5|                 \\
+          $^\dag$11\%  & \verb|#(6 6) 6|                 \\
+          5\%   & ``Nothing is printed'' or Other \\
+        \end{tabularx}
+    }                                            \\\hline
+  \end{tabularx}
+  \caption{Some questions and student answers from \quizFun. Each
+    table row is a program and the (relative) frequencies of
+    student answers. Answers that can be considered correct are marked
+    with \texttt{*}. Wrong answers that we discuss are
+    marked with $^\dag$.}
+  \label{t:quizzes-data-fun}
+\end{table}
+\Cref{t:quizzes-data-fun} lists programs in \quizFun{} that we
+consider the most interesting. These data confirm the presence of
+scope-related misconceptions:
+\begin{enumerate}
+  \item At least 59\% of students incorrectly believe that a
+        variable can be defined twice in one block.
+  \item 29\% of students believe that a variable defined in a function
+        will be available in the top-level (or global) environment
+        after the function is called. That is, these students may have a
+        dynamic scope misconception.
+  \item 22\% (11\% + 11\%) of students believe variables themselves
+        can be passed as arguments and redefined inside the function.
+        They disagree on whether the redefinition persists after the
+        function call.
+\end{enumerate}
+
+\subsubsection{Quiz 2: Adding Variable and Structure Mutation}%
+\label{s:misconceptions-quiz:state}
+
+% This quiz randomizes the order of all questions.
+
+\begin{table}[t]
+  \centering
+  \begin{tabularx}{\linewidth}{l l}
+    \textbf{Question}                           &
+    \textbf{Frequency Table of Answers}             \\\hline
+    \lstinputlisting{programs/circularity.txt}  & {
+        \begin{tabularx}{1in}{r p{2.5in}}
+          $^\dag$50\%  & \verb|#(#(2 #(2 3)) #(2 3))| \\
+          *29\% & \verb|x=#(x x)| or
+          something similar. Both \verb|(left x)| and \verb|(right x)|
+          are \verb|x| itself.                 \\
+          $^\dag$16\%  & \verb|Error|                 \\
+          5\%   & Other                        \\
+        \end{tabularx}
+    }                                               \\\hline
+    \lstinputlisting{programs/mvec_in_mvec.txt} & {
+        \begin{tabularx}{1in}{r p{2.5in}}
+          *62\% & \verb|#(#(100 2 3 4) #(100 2 3 4))| \\
+          $^\dag$26\%  & \verb|#(#(1 2 3 4) #(100 2 3 4))|   \\
+          6\%   & \texttt{Error}                      \\
+          4\%   & \verb|#(#(1 2 3 4) #(1 2 3 4))|     \\
+          2\%   & Other                               \\
+        \end{tabularx}
+    }                                               \\\hline
+    \lstinputlisting{programs/vset_in_let.txt}  & {
+        \begin{tabularx}{1in}{r p{2.5in}}
+          *59\% & \verb|#(10)|  \\
+          $^\dag$36\%  & \verb|#(123)| \\
+          5\%   & Other         \\
+        \end{tabularx}
+    }                                               \\\hline
+    \lstinputlisting{programs/var_as_arg.txt}   & {
+        \begin{tabularx}{1in}{r p{2.5in}}
+          *65\% & \texttt{12} \\
+          $^\dag$31\%  & \texttt{0}  \\
+          4\%   & Other       \\
+        \end{tabularx}
+    }                                               \\\hline
+    \lstinputlisting{programs/setset.txt}       & {
+        \begin{tabularx}{1in}{r p{2.5in}}
+          *59\% & Other: \texttt{5 7}   \\
+          $^\dag$27\% & \texttt{6 7}          \\
+          11\%  & \texttt{5 5}          \\
+          2\%  & Other: \texttt{Error} \\
+          1\%  & Other: \texttt{5 6}   \\
+        \end{tabularx}
+    }                                               \\\hline
+  \end{tabularx}
+  \caption{Some questions and student answers from \quizState. Each
+    table row is a program and the (relative) frequencies of
+    student answers. Answers that can be considered correct are marked
+    with \texttt{*}. Wrong answers that we discuss are
+    marked with $^\dag$.}
+  \label{t:quizzes-data-state}
+\end{table}
+\Cref{t:quizzes-data-state} lists interesting programs after the
+addition of state. These data suggest the students have aliasing-related misconceptions:
+\begin{itemize}
+  \item Up to 50\% of students think vectors are copied rather than
+  aliased.
+  \item 16\% of students think trying to construct and print a
+  self-referring vector would error. (This program is ambiguous:
+  \emph{constructing} works in most SMoL languages, but \emph{printing}
+  may well cause a problem. These identified ambiguities are
+  addressed in \Cref{s:tutor-refine-program-set}.)
+  \item 31\% of students think a variable is aliased by a parameter if
+        the two variables have the same name. Perhaps interestingly,
+        fewer students (27\%) think the variable aliasing would
+        happen if the two variables had different names.
+\end{itemize}
+
+\subsubsection{Quiz 3: Adding Closures and Higher-Order Functions}%
+\label{s:misconceptions-quiz:hof}
+
+% This quiz includes two groups of questions. Each group contains
+% programs that are really similar to each other. The order of the two
+% groups and the other questions are randomized. Question order within
+% each group is also randomized. The first two programs in the
+% \Cref{t:quizzes-data-hof} belongs to one group, which is about
+% changing a function's behavior by mutating a variable defined outside
+% the function. The other group is about equality between functions. The
+% latter group is not included in the main text because we think it is
+% not very related to the theme of this paper.
+
+\begin{table}[t]
+  \centering
+  \begin{tabularx}{\linewidth}{l l}
+    \textbf{Question}                                 &
+    \textbf{Frequency Table of Answers}                   \\\hline
+    \lstinputlisting{programs/fun_returns_lambda.txt} & {
+        \begin{tabularx}{1in}{r p{2.5in}}
+          *82\% & \verb|3|     \\
+          $^\dag$17\%  & \verb|Error| \\
+          1\%   & Other        \\
+        \end{tabularx}
+    }                                                     \\\hline
+    \lstinputlisting{programs/fun_and_state_1.txt}    & {
+        \begin{tabularx}{1in}{r p{2.5in}}
+          *74\% & \verb|4|            \\
+          $^\dag$21\%  & \verb|3|            \\
+          6\%   & Other: \verb|Error| \\
+        \end{tabularx}
+    }                                                     \\\hline
+    \lstinputlisting{programs/fun_and_state_2.txt}    & {
+        \begin{tabularx}{1in}{r p{2.5in}}
+          *88\% & \verb|4|            \\
+          $^\dag$10\%  & \verb|3|            \\
+          3\%   & Other: \verb|Error| \\
+        \end{tabularx}
+    }                                                     \\\hline
+    \lstinputlisting{programs/counter.txt}            & {
+        \begin{tabularx}{1in}{r p{2.5in}}
+          *62\% & \verb|1 1 2 3 2| \\
+          $^\dag$34\%  & \verb|1 1 1 1 1| \\
+          4\%   & Other            \\
+          1\%   & \verb|1 1 2 3 4| \\
+        \end{tabularx}
+    }                                                     \\\hline
+  \end{tabularx}
+  \caption{Some questions and student answers from \quizHof. Each
+    table row is a program and the (relative) frequencies of
+    student answers. Answers that can be considered correct are marked
+    with \texttt{*}. Wrong answers that we discuss are
+    marked with $^\dag$.}
+  \label{t:quizzes-data-hof}
+\end{table}
+\Cref{t:quizzes-data-hof} lists interesting programs
+after the addition of closures and higher-order functions.
+It extends what we saw with loops in
+\Cref{s:intro}: that students have misconceptions about their interaction with mutable variables:
+\begin{itemize}
+  \item 17\% of students think \texttt{lambda} functions can't refer
+        to free variables.
+  \item 21\% of the students think mutating a variable defined outside
+        a lambda can't possibly change the behavior of the lambda.
+        Perhaps interestingly, this
+        misconception seems to depend on how the lambda is constructed
+        (compare the middle two programs).
+  \item Student understanding of the
+        \lstinline|let|-over-\lstinline|lambda| pattern is weak.
+\end{itemize}
+
+\section{The SMoL Tutor}
+\label{s:system-tutor}
+
+So far, we have focused on identifying problems. As noted earlier
+(\Cref{s:smol-quizzes}), we provided students with refutation texts after the quizzes,
+but it is unclear to what extent students read, understood, or
+internalized these. We also wanted to determine whether other
+populations run into these issues, and it was unclear whether we would
+be able to administer passive quizzes to them.
+
+Furthermore, while the quizzes may be a useful diagnostic, our goal is
+not only to find faults but to improve the understanding of basic
+programming language behavior. We believe (and presumably so does
+anyone else who writes a formal semantics!)\ that an understanding of
+these basic program behaviors is important, and even more so when it
+comes to understanding concurrency, ownership, and other advanced
+features. Even more simply, misunderstanding these clearly impacts
+development and debugging time.
+
+In response, we decided to create a \emph{tutor}: the SMoL Tutor. It is built
+around our quiz instruments and the detected misconceptions. We
+describe the Tutor from a user's perspective in \Cref{s:tutor-uiux}, and
+explain how it was populated from the
+SMoL Quizzes in \Cref{s:tutor-refine-program-set}.
+We then discuss what
+we learned from its data (\Cref{s:misconceptions-tutor}), and finally
+evaluate its effectiveness as a \emph{tutor} (\Cref{s:effect-tutor}).
+
+\subsection{The User Experience}
+\label{s:tutor-uiux}
+
+The Tutor covers five major topics, shown on the left in
+\Cref{t:tutor-goal-sentences}. The larger topics are further broken
+down into 2--3 modules. The goal was for students to spend at most
+20--30 minutes per module. Our data show that in practice, students
+spent about 9.8 (median) minutes.
+
+Each tutorial consists of a sequence of
+questions. Most questions in the Tutor are \newterm{interpreting
+questions}.\footnote{The Tutor also asked students to perform some
+other activities, like showing programs and asking for their heap
+content, which we do not cover in this paper.}
+ These questions (illustrated in
+\Cref{f:smol-tutor-example}) are versions of the SMoL
+Quizzes (obtained by the process described in \Cref{s:tutor-refine-program-set}).
+In each of these questions, students are shown a program
+and asked to predict the program's running result(s) by answering an
+MCQ (with an ``Other'' option). After making a choice, students receive
+feedback. If a student chooses incorrectly, they are (a) given an
+explanation that is \emph{based on the misconception associated with
+  that wrong answer} (or a generic one, if there is not a specific
+misconception),
+and then (b) asked to answer a
+second question:
+\begin{enumerate}
+
+\item The second question is semantically the same as the first, but
+  with superficial changes (e.g., variable names, constants, and operators are
+  changed) so that the student cannot immediately
+  guess the answer.
+
+\item Instead of multiple-choice, students must \emph{type} the answer
+  into a text box. (The Tutor normalizes text to accommodate variations.)
+  This is
+  intentional. First, we wanted to force reflection on the
+  explanation just given, whereas with an
+  MCQ, students could just guess. Second, we felt that students would
+  find typing more onerous than clicking. In case students
+  had just guessed on a question, our hope is that the penalty of having to
+  type means, on \emph{subsequent} tasks, they
+  would be more likely to pause and reflect before choosing.
+
+\end{enumerate}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/smol-tutor-example.png}
+  \caption{Screenshots of an interpreting question in SMoL Tutor. The
+    top-left shows the initial state, where the question is presented
+    as an MCQ. If a student chooses a wrong answer, they will receive
+    feedback (bottom-left) and will be asked a similar question
+    (right). The similar question must be answered by typing.}
+  \label{f:smol-tutor-example}
+\end{figure}
+
+In addition to asking students questions, the Tutor along the way
+introduces terminology and states the true conceptions. These are the
+teaching goals of the Tutor. We therefore refer to these as
+\newterm{goal sentences}. \Cref{t:tutor-goal-sentences} lists
+the (abbreviated) goal sentences for each tutorial.
+Readers can find the full Tutor in \supplRef{SMoL Tutor/instrument}.
+
+\begin{table}[t]
+  % \begin{tabularx}{250pt}{|c|X|c|X|} \end{tabularx}
+  \centering\begin{tabularx}{\linewidth}{
+      >{\hsize=.5\hsize\linewidth=\hsize}X
+      >{\hsize=1.5\hsize\linewidth=\hsize}X}
+    \textbf{Tutorial}                             & \textbf{Goal Sentences}
+    \\\hline
+    \newterm{scope}: Variable definitions and function definitions &
+    \begin{enumerate}[topsep=0pt, partopsep=0pt, itemsep=0pt, parsep=0pt]
+      \item Referring to an unbound variable leads to an error.
+      \item Define "blocks".
+      \item SMoL is lexically scoped rather than dynamically scoped.
+      \item SMoL disallows defining a variable twice in one block.
+      \item SMoL is eager (and evaluates from left to right) rather
+            than lazy, reactive, or relational.
+    \end{enumerate}
+    \\\hline
+    \newterm{mut-vars}: Variable updates &
+    \begin{enumerate}[topsep=0pt, partopsep=0pt, itemsep=0pt, parsep=0pt]
+      \item Variable assignment respects the hierarchical structure of blocks.
+      \item Variables do not alias.
+    \end{enumerate}
+    \\\hline
+    \newterm{begin}: Sequencing expressions &
+    A sequencing expression evaluates its sub-expressions from left to right and
+    returns the value of the last sub-expression.
+    \\\hline
+    \newterm{vectors}: Vectors and vector updates &
+    \begin{enumerate}[topsep=0pt, partopsep=0pt, itemsep=0pt, parsep=0pt]
+      \item Define heap and memory addresses.
+      \item Vectors can be referred to by vectors, including themselves.
+      \item Vectors are not copied but aliased by bindings.
+      \item Constructing vectors doesn't alter environments.
+      \item Introducing bindings doesn't alter the (value part of) heap.
+    \end{enumerate}
+    \\\hline
+    \newterm{lambda}: Lambda expressions &
+    \begin{enumerate}[topsep=0pt, partopsep=0pt, itemsep=0pt, parsep=0pt]
+      \item Functions are (first-class) values.
+      \item Functions remember the environment where they were created.
+      \item Functions can be created with lambda expressions.
+      \item A function definition can be viewed as a variable definition plus a lambda expression.
+    \end{enumerate}
+    \\\hline
+    \newterm{local}: Local binding forms &
+    Introduce \texttt{let}, \texttt{letrec}, and \texttt{let*}.
+    % \\\hline
+  \end{tabularx}
+  \caption{SMoL Tutor tutorials and their goal sentences.}
+  \label{t:tutor-goal-sentences}
+\end{table}
+
+Some later tutorials include questions about earlier tutorials so
+that we can check whether students remember the concepts across
+modules. In particular, the \textbf{mut-vars} tutorial starts with questions
+about \textbf{scope}, and \textbf{lambda} starts with questions about
+\textbf{mut-vars} and \textbf{vectors}.
+
+Of the modules, \textbf{local} is the least portable across
+languages. While local binding is of course present in other
+languages, this is mostly covered using nested \lstinline|defvar|s in
+earlier modules, starting with \textbf{scope}. The distinction central
+to this module (between three local-binding constructs with slightly
+different scopes) is primarily a focus of Lispy languages. Therefore,
+we exclude this module from our analysis and instruments, and indeed
+plan to deprecate the module in future versions.
+
+\Cref{s:smol-quizzes} discusses the partial randomization employed by
+the SMoL Quizzes. In contrast, the SMoL Tutor does \emph{not}
+randomize question order. This is because the Tutor consists of more
+than just questions: it also has explanatory text. This text is based
+on the preceding problems. Authoring it is therefore somewhat like
+writing a textbook, with complex dependencies that can easily be
+broken.
+
+\subsection{Collating Problems for the Tutor}%
+\label{s:tutor-refine-program-set}
+
+The SMoL Tutor's interpreting questions are the final instrument of
+this paper.
+We bootstrap it from the SMoL
+Quizzes, but made the following alterations:
+\begin{enumerate}
+
+  % fill gaps in goal sentences
+  \item In the process of developing the goal sentences, we felt the
+        existing programs were insufficient to cover the ideas we wanted
+        students to work through. For instance, SMoL Quizzes did not
+        alias vectors using \lstinline|defvar|, so we added this program:
+
+\begin{lstlisting}
+(defvar x (mvec 100))
+(defvar y x)
+(vec-set! x 0 200)
+y
+\end{lstlisting}
+
+  \item We renamed vector operators to avoid confusion between
+        \lstinline|vset!|, which replaces a vector element, and \lstinline|set!|,
+        which mutates variables. We rename all vector operators from, for example,
+        \lstinline|vset!| to \lstinline|vec-set!|.
+
+  \item We deferred the local binding forms to the end, since we felt
+        they were less essential. We therefore rewrote programs that use
+        it to not depend on it.
+
+        % \item We removed some questions that we deemed ``Lispy'' (e.g.,
+        %   involving the difference between parenthetical and infix syntax).
+
+  \item We removed some programs that relied on underspecified aspects or
+        unimportant aspects of SMoL. For example, some depended on
+        whether operations on pairs could be applied to arbitrary vectors:
+
+\begin{lstlisting}
+  (pair? (mpair 1 2))
+  (pair? (mvec 1 2))
+  (pair? '#(1 2))
+  (pair? '(1 2))
+\end{lstlisting}
+
+        As another example, one hinged on
+        whether or not a function's formal parameter could have the same
+        name as the function itself:
+
+\begin{lstlisting}
+  (deffun (f f) f)
+  (f 5)
+\end{lstlisting}
+
+  \item We resolved ambiguities in some programs, either adding
+    answer choices or even adding other questions to tease
+    out different interpretations.
+
+  \item To reduce the number of concepts, we removed programs that relied
+        upon \emph{im}mutable vectors and lists, because they did not
+        seem to create problems. (For brevity, we leave these out of
+        the presentation of SMoL in \Cref{s:smol}, though they are in the implementation.)
+
+  \item We removed questions related to function equality, which was
+        not a focus of the Tutor.\footnote{However, we believe there is
+          a good deal of confusion about notions of equality. We
+          intend to
+          add that as a major tutorial component in future versions.}
+
+  \item We removed programs of a ``Lispy'' nature, such as one where
+    the answer depended on whether the reader correctly understood
+    this inequality:
+
+\begin{lstlisting}
+      (filter (lambda (n) (> 3 n)) '(1 2 3 4 5))
+\end{lstlisting}
+
+    This checks whether $\verb|n| < \verb|3|$, but some presumably
+    vocalized it as ``greater than \verb|3|, \verb|n|?''.
+
+\end{enumerate}
+Most of these steps either modify or elide programs. Two cases,
+filling gaps in light of the goal sentences and resolving ambiguities,
+introduce
+programs. Starting with the 37 programs in the SMoL Quizzes, we added
+52 more programs to arrive at a total of 89.
+
+In addition to generating this set of programs, we also
+modified the answer options. In addition to retaining the correct and
+incorrect answers from the SMoL Quizzes (and constructing our best
+guess of analogous incorrect answers for the new problems), we added
+more wrong answers.
+
+The reason is as follows. The SMoL Quizzes often have very few wrong
+choices: of the 37 tasks, 26 have only three choices (including the
+correct answer and the ``Other'' option\footnote{In a few cases, we
+  removed the \emph{correct} answer from the choices. A student would
+  therefore have to click on ``Other'' and type it in. The idea was to
+  make the ``Other'' option more salient and plausible.}),
+seven have 4, and only four have 5 or 6.
+Thus, in most
+cases, students have a 25\% or even 33\% chance of just guessing the
+right answer or successfully using a process of elimination. By
+increasing the number of options, we hoped to
+greatly reduce the odds of getting the right answer by chance or
+by elimination.
+
+It was important to add wrong answers that are not utterly
+implausible, because those would become easy to eliminate. Therefore,
+we added numeric constants mentioned in the problem, permuted some of
+the values in case of multiple outputs, and so on. In general, we
+ended up increasing the number of choices substantially:
+only 8 out of the 89 questions have three or four choices; 70
+questions have 5--8 choices; and 11 questions have 9--14 choices. We hope
+this reduced both guessing and elimination, and forced students to
+actually think through the program. Of course, these new answers do
+not have a clear associated misconception, so their mistakes are given
+the generic explanation.
+
+\section{Misconceptions Detected by the SMoL Tutor}%
+\label{s:misconceptions-tutor}
+
+We now examine what we learned from the interpreting
+questions in terms of program behavior
+misconceptions. But first, we explain how we associate incorrect
+answers with misconceptions.
+
+We do not present the results of \textbf{begin} and
+\textbf{local} (\Cref{t:tutor-goal-sentences}), because they focus on constructs not usually found in
+non-Lispy languages. They were included in the Tutor to help students
+write programs for the course, but are not interesting from a SMoL
+perspective.
+
+\subsection{Misinterpreters}
+\label{s:misinterp-intro}
+
+In principle, an expert can identify what misconceptions a particular
+incorrect answer might correspond to. In practice, we found this
+rather difficult for three reasons. First, with 89 programs, each with
+several answers, it's easy to make mistakes. Second, our own expert blind
+spot may prevent us from seeing an interpretation that would
+lead to an additional association. Finally, and specific to our case,
+since we had either curated or written all the programs and answers,
+we were likely to miss some associations we had not intended.
+
+To address this problem, we formalized misconceptions as
+interpreters. That is, for each misconception we created a
+corresponding \emph{misinterpreter}. This is an interpreter for the
+SMoL syntax that intentionally has a semantic error corresponding to
+that misconception. Put differently, a misinterpreter is a like a
+``definitional interpreter for a misconception''.
+
+By running programs through the misinterpreters, we can more uniformly
+and rigorously identify \emph{all} the misconceptions associated with
+a wrong answer. Furthermore, if we identify a new misconception (or
+alter a misinterpreter), it is easy to automatically re-classify all
+the answers. By using misinterpreters, we indeed found new
+interpretations for existing program-answer pairs.
+We provide all the misinterpreters in the artifact.
+
+\subsection{A Catalog of Misconceptions}
+
+We iteratively created
+our final catalog of misconceptions
+(from the perspective of the data in this paper).
+We started
+with misinterpreters representing the misconceptions described in
+\Cref{s:misconceptions-quiz}. These are misconceptions for which we
+have reasonable validation (due to the prose in Quizius), so we call
+them \emph{grounded} misconceptions. We then looked at wrong answers
+not covered by these but chosen by students, and did our best to
+distill these into misconceptions. These are \emph{surmised}
+misconceptions (which we
+identify with a $^\ddag$), which need to be validated in the future.\footnote{To keep
+  the time spent in each module reasonable, the SMoL Tutor does not
+  ask students for rationales for their programs. However, we could
+  easily modify it to do so a small number of times per user, to make
+  progress towards this need.} We then re-ran the misinterpreters
+against the chosen answers. We terminated when all the remaining wrong
+answers were either (a) found in very few students (we found a gap
+between 23\% and 13\%, and hence took 14\% as the threshold),
+(b) difficult for
+us to attribute to a misconception, or (c) appeared to us to be
+``Lispy'' and hence not of broad interest.
+
+\Cref{t:tutor-grounded-misconceptions-1,t:tutor-grounded-misconceptions-2,t:tutor-surmised-misconceptions}
+list the final catalog.
+For each, we also
+present a Tutor question
+for which the marked wrong answer can be explained by \emph{only} the
+named misconception.
+That is, that program-answer pair is a representative example of that
+misconception.\footnote{An astute reader may well imagine another
+  misinterpretation; but we presumably did not find evidence of it in our
+  data. We do welcome other misinterpretations, for which we
+  can add more misinterpreters!}
+
+  \begin{table}[t]
+    \centering
+    \begin{tabularx}{\linewidth}{m{0.3\textwidth} l l}
+      \textbf{Misconception}                                                     &
+      \textbf{Question}                                                          &
+      \textbf{Table of Answers}
+      \\\hline
+      \miscon{CallByRef} Function calls alias variables.                         &
+       % mut-vars.not_aliased_by_funarg_2 (35)
+       \lstinputlisting{programs/call-by-ref.txt}                                                                    & {
+        \begin{tabularx}{1in}{r l}
+          78\%  & \verb|12|      \\
+          11\% & \verb|error|      \\
+          **10\%   & \verb|0|  \\
+          1\%   & \verb|23|  \\
+        \end{tabularx}
+    }
+      \\\hline
+      \miscon{CallsCopyStructs} Function calls copy data structures.      &
+      % vectors2.alias_with_funcall (48)
+      \lstinputlisting{programs/calls-copy-structs.txt}
+      & {
+        \begin{tabularx}{1in}{r l}
+          90\%  & \verb|#(173 0)|      \\
+          **10\%   & \verb|#(1 0)|  \\
+        \end{tabularx}
+    } \\\hline
+      \miscon{DeepClosure} Closures copy the \textit{values} of free variables.  &
+      % lambda3.lambda_remembers_env (70)
+      \lstinputlisting{programs/deep-closure.txt}                                & {
+          \begin{tabularx}{1in}{r l}
+            86\%  & \verb|4|      \\
+            **10\% & \verb|3|      \\
+            3\%   & \verb|error|  \\
+            1\%   & \verb|lambda| \\
+          \end{tabularx}
+      }                                                                                   \\\hline
+      \miscon{DefByRef} Variable definitions alias variables.                    &
+      % mut-vars.not_aliased_by_defvar_1 (29)
+      \lstinputlisting{programs/def-by-ref.txt}                                  & {
+          \begin{tabularx}{1in}{r p{0.2\textwidth}}
+            85\%   & \verb|0 12|                \\
+            **12\% & \verb|0 0|                 \\
+            2\%    & \verb|error|               \\
+            1\%    & depends on implementation. \\
+          \end{tabularx}
+        }
+      \\\hline
+      \miscon{DefOrSet}  Both definitions and variable assignments are
+      interpreted as follows: if a variable is not defined in the
+      current environment, it is defined. Otherwise, it is mutated to
+      the new value.
+      &
+      % program: mut-vars.update_undefined (28)
+      \lstinputlisting{programs/def-or-set.txt}                                  & {
+          \begin{tabularx}{1in}{r l}
+            85\%   & \verb|error| \\
+            **15\% & \verb|2|     \\
+          \end{tabularx}
+        }
+      \\\hline
+      \miscon{DefsCopyStructs} Variable definitions copy structures recursively. &
+      % vectors2.alias_with_defvar (47)
+      \lstinputlisting{programs/defs-copy-structs.txt}                                & {
+          \begin{tabularx}{1in}{r l}
+            **67\% & \verb|#(100)| \\
+            30\%   & \verb|#(200)| \\
+            1\%    & \verb|#(300)| \\
+            1\%    & \verb|error|  \\
+          \end{tabularx}
+      }                                                                                   \\\hline
+    \end{tabularx}
+    \caption{Ground misconceptions identified by the SMoL~Tutor. Answers marked
+      with ``**'' represent the misconception. (Part I)}
+    \label{t:tutor-grounded-misconceptions-1}
+  \end{table}
+
+  \begin{table}[t]
+    \centering
+    \begin{tabularx}{\linewidth}{m{0.3\textwidth} l l}
+      \textbf{Misconception}                                                     &
+      \textbf{Question}                                                          &
+      \textbf{Table of Answers}
+      \\\hline
+      \miscon{FlatEnv} There is only one environment, the global
+      environment. (This misconception is a kind of dynamic scope.)              &
+      % scope.error_when_refer_to_undefined (9)
+      \lstinputlisting{programs/flat-env.txt}                                    & {
+          \begin{tabularx}{1in}{r l}
+            96\%  & \verb|error| \\
+            **4\% & \verb|402|   \\
+          \end{tabularx}
+        }
+      \\\hline
+      \miscon{FunNotVal} Functions are \textit{not} considered
+      first-class values. They can't be bound to other variables, passed as arguments, or referred to by data structures.
+                                                                                 &
+      % lambda1.fun_as_parameter (62)
+      \lstinputlisting{programs/fun-not-val.txt}                                 & {
+          \begin{tabularx}{1in}{r l}
+            83\%   & \verb|4|     \\
+            **11\% & \verb|error| \\
+            4\%    & \verb|2|     \\
+            1\%    & \verb|8|     \\
+          \end{tabularx}
+      }                                                                                   \\\hline
+      \miscon{IsolatedFun} Functions can't refer to free variables
+      except for the built-in ones.
+                                                                                 &
+      % scope.refer_global_is_possible (5)
+      \lstinputlisting{programs/isolated-fun.txt}                                & {
+          \begin{tabularx}{1in}{r l}
+            77\%   & \verb|3|     \\
+            **23\% & \verb|error| \\
+          \end{tabularx}
+        }
+      \\\hline
+      \miscon{NoCircularity} Data structures can't (possibly indirectly)
+      refer to themselves.                                                       &
+      % vector2.warmup_circularity (53)
+      \lstinputlisting{programs/no-circularity.txt}                              & {
+          \begin{tabularx}{1in}{r p{0.2\textwidth}}
+            76\%   & \verb|3|                   \\
+            **14\% & \verb|error|               \\
+            9\%    & Run out of memory or time. \\
+            1\%    & \verb|+inf|                \\
+          \end{tabularx}
+      }                                                                                   \\\hline
+      \miscon{StructByRef} Data structures might refer to variables by their references.                                                       &
+      % vector2.alias_var_in_mvec (49)
+      \lstinputlisting{programs/struct-by-ref.txt}                              & {
+          \begin{tabularx}{1in}{r p{0.2\textwidth}}
+            67\%   & \verb|#(1 2 3)|                   \\
+            **24\% & \verb|#(1 2 4)|               \\
+            9\%    & error \\
+          \end{tabularx}
+      }                                                                                   \\\hline
+      \miscon{StructsCopyStructs} Storing data structures into data structures makes copies.                                                       &
+      % lambda1.smol_quiz_circularity (58)
+      \lstinputlisting{programs/structs-copy-struct.txt}                              & {
+          \begin{tabularx}{1in}{r p{0.2\textwidth}}
+            65\%   & \verb|#0=#(#0# #0#)| (Racket circular object notation) \\
+            24\%   & \verb|#(#(2 3) #(2 3))|               \\
+            **6\%   & \verb|#(#(2 #(2 3)) #(2 3))|                   \\
+            6\%    & error \\
+          \end{tabularx}
+      }                                                                                   \\\hline
+    \end{tabularx}
+    \caption{Ground misconceptions identified by the SMoL~Tutor. Answers marked
+      with ``**'' represent the misconception. (Part II)}
+    \label{t:tutor-grounded-misconceptions-2}
+  \end{table}
+
+\begin{table}[t]
+  \centering
+  \begin{tabularx}{\linewidth}{m{0.3\textwidth} l l}
+    \textbf{Misconception}                                                             &
+    \textbf{Question}                                                                  &
+    \textbf{Table of Answers}                                                              \\\hline
+    \surmisedMiscon{NestedDef} Sequences of definitions are
+    interpreted as if they are written in nested blocks. A definition
+    is not in the scope of later definitions.
+    &
+    % program: scope.what_is_x_4 (13)
+    \lstinputlisting{programs/nested-def.txt}                                          & {
+        \begin{tabularx}{1in}{r l}
+          92\%  & \verb|2| \\
+          **8\% & \verb|1| \\
+        \end{tabularx}
+    }                                                                                      \\\hline
+    \surmisedMiscon{Lazy} Expressions are only evaluated when their values are needed. &
+    % order.bad_order (20)
+    \lstinputlisting{programs/lazy.txt}                                                & {
+        \begin{tabularx}{1in}{r l}
+          **57\% & \verb|1 3|   \\
+          43\%   & \verb|error| \\
+        \end{tabularx}
+    }                                                                                      \\\hline
+  \end{tabularx}
+  \caption{Surmised misconceptions identified by the SMoL~Tutor. Answers marked
+    with ``**'' represent the misconception.}
+  \label{t:tutor-surmised-misconceptions}
+\end{table}
+
+\paragraph{Confirmed Misconceptions}
+
+The Tutor confirmed all the misconceptions from Quizius via the SMoL Quizzes.
+
+\paragraph{Added Misconceptions}
+
+The misinterpreters helped us find misinterpretations that we had
+overlooked. For instance, consider this program from \quizState:
+\begin{lstlisting}
+(defvar x 12)
+(deffun (f x)
+  (set! x 0))
+(f x)
+x
+\end{lstlisting}
+We had assumed the wrong answer
+\texttt{0} is caused by \miscon{CallByRef}.
+However, our misinterpreters made us realize it can also be explained
+by \miscon{FlatEnv}. This could also explain why we see a difference in
+error rate when the formal and actual parameter have the same
+name (as mentioned in \Cref{s:misconceptions-quiz:state}).
+
+% Tutor's refined program sets and misinterpreters also helped us to
+% identify programs that detect one of the misconceptions but not the
+% other. Consider this new program
+% % mut-vars.not_aliased_by_defvar_1 (29)
+% \begin{lstlisting}
+%   (defvar x 12)
+%   (defvar y x)
+%   (set! x 0)
+%   x
+%   y
+% \end{lstlisting}
+% 12\% of students asserted that the following program produces
+% \texttt{0 0}, which suggest that they have the \textbf{BindByRef}
+% misconception. Students with a \miscon{FlatEnv} misconception would
+% have chosen \texttt{0 12}, which happens to be the correct answer.
+% (1\% wrote \textit{depends on
+% implementation}; 2\% asserted \texttt{error}; the remaining 85\%
+% asserted \texttt{0 12}).
+
+% The second program in \Cref{t:quizzes-data-fun} is already a good
+% detector for \miscon{FlatEnv}. SMoL Tutor includes an alternative
+% program that does not depend on equality checks.
+% % scope.error_when_refer_to_undefined (9)
+% \begin{lstlisting}
+%   (deffun (addy x)
+%     (defvar y 200)
+%     (+ x y))
+%   (+ (addy 2) y)
+% \end{lstlisting}
+% 4\% of students asserted that the following program produces
+% \texttt{402}, which suggest that they have the \miscon{FlatEnv}
+% misconception. Students with a \textbf{BindByRef} misconception would
+% have chosen \texttt{error}, which happens to be the correct answer.
+% (the remaining 96\% asserted \texttt{error}).
+
+\paragraph{A New Potential Misconception}
+
+For the following program, added in the Tutor:
+\begin{lstlisting}
+  (defvar y (+ x 2))
+  (defvar x 1)
+  x
+  y
+\end{lstlisting}
+56\% of students asserted that it produces
+\texttt{1 3}. Based on this, we surmise that students might have
+another misconception, which we define as \surmisedMiscon{Lazy}. (Recall that
+SMoL is eager, but even in many lazy languages, this would be an error.)
+
+\paragraph{Another Potential Misconception, and Its Effect on
+  Interpreting Descriptions.}%
+\label{ss:misinterpreters:submisconception}
+
+Consider this program from the SMoL Tutor:
+\begin{lstlisting}
+(defvar x 1)
+(deffun (main)
+  (deffun (get-x) x)
+  (defvar x 2)
+  (get-x))
+
+(main)
+\end{lstlisting}
+This program, suitably translated, would produce \verb|2| in a wide
+variety of languages (Python, JavaScript, Racket, Java, etc.), because
+\verb|get-x| and the inner \verb|x| are in the same scope block. The
+answer \verb|1| cannot be explained by any of our existing
+misconceptions. Based on this, we surmise a new misconception,
+\surmisedMiscon{NestedDef}. (Though its frequency falls below our
+threshold, our reading of answers suggests this may be more
+widespread, and we feel it needs to be investigated more.)
+
+Once we turned this into a misinterpreter, we found that it
+unexpectedly captured the program-answer pair for the following
+program from \quizFun---which should be an error, due to the
+double-binding of \verb|x| in the same scope block---and the answer
+\verb|2 0|:
+\begin{lstlisting}
+  (defvar x 0)
+  (defvar y x)
+  (defvar x 2)
+  x
+  y
+\end{lstlisting}
+Previously, we had interpreted this only as \miscon{DefOrSet}, because
+students had stated that the second \lstinline|(defvar x ....)|
+``mutates'' or ``redefines'' \verb|x|. This is reminiscent of the
+behavior of languages like Python, which use the same syntax both for
+binding new variables and for mutating existing ones.
+
+The problem here is that the word ``redefine'' underspecifies how the
+second definition is interpreted. We had interpreted it as
+\textit{mutating} the binding established by the first definition,
+which fits \miscon{DefOrSet}. However, another possibility is that
+it \emph{shadows} the binding (i.e., establishes a new scope block). We
+did not recognize that the original misconception is underspecified
+until we uncovered the new (surmised) misconception.
+
+\paragraph{Summary}
+
+To summarize, we used the SMoL Tutor, with an expanded set of
+programs, to investigate student misconceptions. We implemented the
+idea of misinterpreters to help us properly classify student
+performance. We were able to reconfirm all the previously identified
+misconceptions, refine some of them, and also identify potential new
+ones (that need further investigation).
+
+\section{Is The Tutor Effective?}
+\label{s:effect-tutor}
+
+\begin{figure}[t]
+
+  \includegraphics[width=1\textwidth]{images/Misconceptions_Decay.png}
+
+  \caption{How many students chose a wrong answer that (uniquely)
+    represents a misconception? (Downward tendency suggests improvement
+    over time.)}
+  \label{f:tutor-trend-plots}
+
+\end{figure}
+
+Recall that the SMoL Tutor is not only a collection of MCQs: it is
+also a \emph{tutor}! So far, we have investigated the value of the
+MCQs. Now we examine its tutoring aspect. Concretely, we ask:
+\begin{description}
+
+\item[RQ] How effective is the Tutor at correcting each misconception?
+
+\end{description}
+To study this, we perform the following analysis per
+misconception. Using misinterpreters, we identify those questions
+whose wrong answers fit only one misconception (i.e., only one output
+matches that produced by that misinterpreter, and it matches only that
+misinterpreter). We then examine student performance over time across
+those questions. This would let us examine how they do on just that
+topic, in isolation, over time.
+
+We present the result of this analysis in two forms. Graphically, we
+show plots in \Cref{f:tutor-trend-plots}. Each figure shows the percentage of students who
+chose the answer corresponding to that misconception. Ideally, we
+would like to see these percentages diminish.
+
+Indeed, that is what we see in most of the graphs. The exceptions are
+\miscon{CallsCopyStructs}, \surmisedMiscon{NestedDef}, and
+\miscon{StructsCopyStructs}, which have only one problem (and hence no
+trend), and \miscon{DefOrSet} and \miscon{FunNotVal}, which show an
+increase. The lack of improvement for \miscon{FunNotVal} is
+unsurprising because the Tutor does not explicitly address this issue,
+focusing on closures created by \lstinline|lambda|s rather than named
+functions. (However, this does not explain the increase!)
+
+We also perform a logistic regression to see whether these
+improvements are significant (at a $p < 0.05$ threshold); details are
+in \supplRef{Paper.html}. Of the 11:
+\begin{itemize}
+
+\item Of the nine seemingly improved (i.e., decreased)
+  misconceptions:
+  \begin{itemize}
+  \item Two are \emph{not} significant: \miscon{CallByRef}
+      (\pValue\ = .074); \miscon{NoCircularity} (\pValue\ = .075).
+    \item The other seven \emph{are} significant.
+    \end{itemize}
+  \item However, the two with an increasing trend (\miscon{DefOrSet}
+    and \miscon{FunNotVal}) are \emph{also} significant.
+\end{itemize}
+
+These data broadly suggest that the Tutor is a net positive.
+Ultimately, however, what these data really show is a need for
+improvement in the Tutor. When designing the Tutor questions, many
+more were intended to be representative of single
+misconceptions. However, as noted in \Cref{s:misinterp-intro}, it is
+easy to be incomplete (or incorrect) in ascribing
+misconceptions. Furthermore, as their set grows, it is difficult to
+reassess all the problems manually. Once evaluated using
+misinterpreters, we found far fewer problems than we would have liked.
+Concretely, only 40 of the 71 eligible problems (after removing the
+non-SMoL modules) were useful in the above
+analysis.
+
+We therefore view the above data as
+purely formative: they suggest that the Tutor \emph{most likely did
+  not do harm} and perhaps even \emph{may have done some
+  good}. However, it would be improper to read too much into the
+analysis. It is quite possible that some of the other problems would
+have found issues. Rather, what we really see is value in the
+misinterpreter concept. It is not only useful for analysis, it is also
+valuable for \emph{problem design}: in the next iteration of the
+Tutor, we will use misinterpreters actively to shape the incorrect answers and,
+as necessary, update the programs as well. We therefore hope to have
+much more thorough analyses in future work.
+
+\section{Performance on Other Populations}
+\label{s:generality-tutor}
+
+There is, of course, a significant danger that the data above have
+been overfitted to only one institution (\Cref{s:univ-1-course},
+henceforth University 1),
+thereby actually reflecting the state of its curriculum rather than
+some greater truth about program behavior understanding.  We already
+have some reason to believe this is not the case: the related work
+discussed in \Cref{s:rel-work} is drawn from many institutions in
+multiple countries with different educational preparations, levels,
+and demographics. Nevertheless, that gives us only
+limited information about the specific questions and misconceptions
+described above.
+
+Fortunately, we were able to deploy the Tutor on two other
+populations:
+\begin{itemize}
+
+\item University 2 is a primarily public university in the US. It is
+  one of the largest Hispanic-serving institutions in the country. As
+  such, its demographic is extremely different from those whose data
+  were used above. The Tutor was used in one course in Spring 2023,
+  taken by 12 students.
+  The course is a third-year, programming
+  language course. The students are required to have taken two
+  introductory programming courses (C++ focused).
+
+\item A separate instance of the Tutor was published on the
+  website of a programming languages textbook [ANON]. Over the course
+  of 8 months, 597 people started with the first module and 103
+  users made it to the last one. To protect privacy, we intentionally
+  do not record demographic information, but we conjecture that the
+  population is largely self-learners  (who are known to use the
+  accompanying book),
+  including some professional
+  programmers. It is extremely
+  unlikely to be the students from either university, because they
+  would not get credit for their work on the public instance; they
+  needed to use the university-specific instance. Furthermore, since
+  they were not penalized for wrong answers, it would make little
+  sense to do a ``test run'' on the public instance. Finally, we note
+  that there is no overlap between the dates of submission on the
+  public instance and the semester at University 1.
+
+\end{itemize}
+These two populations are therefore at least somewhat different from
+the original population, and help us assess whether the problems we
+identify are merely an artifact of the first institution.
+
+To evaluate, we computed a Spearman's rank correlation $\rho$, ranking
+questions by what percentage of students got the question
+right. Between the original university and University 2,
+we obtain a \pValue~=~2.013e-07. Between the original university and
+the online population, we obtain a \pValue~<~2.2e-16. These show that
+the other two populations performed similarly to the original one.
+While
+further validation on other populations remains essential, these
+suggest that the questions are \emph{finding misconceptions that may
+  be universal}.
+
+\section{Related Work}
+\label{s:rel-work}
+
+\begin{table}[t]
+  \centering
+  \begin{tabularx}{\textwidth}{>{\hsize=.6\hsize\RaggedRight}X >{\hsize=.8\hsize\RaggedRight}X >{\hsize=.5\hsize\RaggedRight}X >{\hsize=1.4\hsize\RaggedRight}X}
+    \textbf{Publication}                       &
+    \textbf{Population}                       &
+    \textbf{Languages}                       &
+    \textbf{Misconceptions}
+    \\\hline
+    \cite{fleuryParameterPassingRules1991} &
+    Unclear, likely CS2 students &
+    Pascal &
+    \surmisedMiscon{CallerEnv}; \miscon{IsolatedFun}; \miscon{DefOrSet}
+    (See their RULEs 2, 3a, and 3b in TABLE 2;
+    RULE 1 doesn't apply to us.)
+    \\\hline
+    \cite{goldmanIdentifyingImportantDifficult2008,goldmanSettingScopeConcept2010} &
+    CS1 students &
+    Java, Python, Scheme &
+    Scope and memory model (See their Figures 4 and 5)
+    \\\hline
+    \cite{fislerAssessingTeachingScope2017} &
+    Third- and fourth-year undergrads &
+    Java and Scheme &
+    \miscon{FlatEnv}; \miscon{CallByRef}; \miscon{CallsCopyStruct}; \miscon{DefByRef}
+    (See their Section 4)
+    \\\hline
+    \cite{saarinenHarnessingWisdomClasses2019} &
+    CS2 students &
+    Java &
+    \miscon{StructByRef} (Their G2); \miscon{DefByRef} or \miscon{DefCopyStructs} (Their G3); \miscon{CallsCopyStruct} (Their G4).
+    \\\hline
+    \cite{strombackProgressionStudentsAbility2023} &
+    CS masters &
+    Python &
+    \miscon{FlatEnv}; \miscon{CallByRef}; \miscon{DefsCopyStruct}
+    (See their section 4.2)
+    \\\hline
+    \cite{strombackProgressionStudentsAbility2023} &
+    CS undergrads &
+    C++ &
+    \miscon{FlatEnv}; \miscon{CallByRef}; \miscon{DefsCopyStruct}
+    (See their section 4.2)
+    \\\hline
+  \end{tabularx}
+  \caption{Similar misconceptions found in prior research.}
+  \label{t:rel-work}
+\end{table}
+
+\paragraph{Misconceptions}
+
+Misconceptions related to scope, mutation, and higher-order functions have been
+widely identified in varying populations
+(from CS1 students to graduate students to users of online forums)
+over many years (since at last 1991)
+in varying programming languages (from Java to Racket) and in
+different countries (such as the USA and Sweden).
+\Cref{t:rel-work} lists works that seem most relevant to us.
+
+There are some small differences.
+\cite{fleuryParameterPassingRules1991} identifies a dynamic scope misconception
+that is different from \miscon{FlatEnv}:
+\begin{description}
+  \item[\surmisedMiscon{CallerEnv}] Function values don't remember their environments.
+  When a function is called, the function body is evaluated in an
+  environment that extends from the \textit{caller's} environment.
+\end{description}
+We don't include \surmisedMiscon{CallerEnv} in our analysis because in our
+data, all wrong answers that can be explained by \surmisedMiscon{CallerEnv}
+are also explainable by \miscon{FlatEnv}.
+
+Appendix A of \cite{sorvaVisualProgramSimulation2012} provides an
+extensive survey of misconceptions reported
+in research up to 2012.
+There are overlaps between our survey and
+theirs. For instance, our \surmisedMiscon{CallerEnv} is their No.~47.
+However, because their descriptions are brief, it is difficult to tell
+whether a misconception in their survey matches our misconceptions.
+Because
+they provide neither misinterpreters nor representative program-output
+pairs, it is difficult to determine the overlaps precisely (showing
+the value of providing these two machine-runnable descriptions).
+At any rate,
+we certainly find
+no equivalent of \miscon{FlatEnv}, \miscon{DeepClosure}, and
+\miscon{DefByRef} in their survey.
+
+\paragraph{Goal Sentences}
+
+Our idea of ``goal sentences'' is not substantially different from the
+\textit{rules of program behavior} from \cite{duranRulesProgramBehavior2021}.
+We only used these sentences (or rules) to guide the
+design of the Tutor and as text in the Tutor itself.
+\cite{duranRulesProgramBehavior2021} argue for other uses of such
+sentences.
+
+\paragraph{Misinterpreters}
+
+Our idea of misinterpreters is related to mystery languages
+\cite{diwanPLdetectiveSystemTeaching2004,
+pombrioTeachingProgrammingLanguages2017}. Both approaches use
+evaluators that represent alternative semantics to the same syntax.
+However, the two are complementary.
+In mystery languages, instructors design the space of semantics with
+pedagogic intent, and
+students must create programs to explore that space. Misinterpreters,
+in contrast, are driven by student input, while the programs are provided
+by instructors. The two approaches also have different goals:
+mystery languages focus on encouraging students to experiment with
+languages; misinterpreters aim at capturing students' misconceptions.
+
+\section{Threats to Validity}
+\label{s:threats}
+
+\subsection{Construct Validity}
+
+Did we measure the right thing?
+While our goal is to study student understanding of language
+behavior, what we actually measure is performance on MCQs on select
+programs. MCQs as a mechanism introduce various clear biases, though
+we add the ``Other'' options to somewhat alleviate them. The small
+size, syntactic details (such as intentionally meaningless variable
+names), and other aspects of the programs may also impact our ability
+to measure understanding. (This could go both ways: students may have
+no trouble understanding behavior in a small program but may struggle
+to do so in a larger one.)
+
+A particularly notable threat is the use of Lispy
+syntax. We chose it for two reasons: both because it helps clarify
+scope (\Cref{s:smol}) and because the rest of the course used
+Racket. However, students may well perform differently with more
+familiar syntaxes. It seems unlikely their performance would be \emph{too}
+different given the many languages that have produced similar
+misconceptions (\Cref{t:rel-work}). Nevertheless, we intend to use a
+variety of syntaxes to examine this issue further.
+
+Finally, we curated programs by hand, so they may well reflect our own
+biases about misconceptions. It may be possible to mitigate this
+problem by synthesizing MCQ programs using the misinterpreters.
+
+\subsection{Internal Validity}
+
+Is our reasoning valid? We have applied standard techniques and
+measurements for evaluating student responses. However, our
+instruments still lack the validity of a proper concept
+inventory. Their creation requires heavyweight processes (such as
+Delphi methods \cite{goldmanSettingScopeConcept2010}) that require many hours of expert attention as
+well as conversations with learners, and can hence be prohibitive in
+cost. The Quizius method (\Cref{s:quizius}) was created precisely to
+be an inexpensive method that provides a good proxy.
+
+Ultimately, our goal is to provide a reasonable instrument for
+widespread use. While the set of all misconceptions could be
+unbounded, we believe our tasks, especially as embedded in the Tutor,
+provide a good starting point for others. In particular, if students
+select a wrong answer, that is still of \emph{some} use to an
+educator, even if the precise misconception cannot be pinned down with
+the highest accuracy. We therefore believe our instruments, and our
+misinterpreter technique, are of general value.
+
+A failure in our Tutor's logging infrastructure led us to miss some
+responses. These are unlikely to be task-specific because the Tutor
+has a generic framework that should perform the same across
+tasks. Moreover, on average only $0.4\%\ (\textrm{sd} = 0.6\%)$ of values are missing. Therefore, we do not believe
+this had a noticeable impact. (In addition, every wrong answer is
+still wrong! We may just not have exactly the right proportions of
+them.)
+
+\subsection{External Validity}
+
+How well do our results generalize? Certainly there is reason to
+question whether our results would apply to other
+populations. \Cref{s:generality-tutor} provides preliminary evidence
+that the results are not specific to one institution, and
+\Cref{s:rel-work} suggests these issues are widespread. Nevertheless,
+much more broad testing is needed to confirm our specific instruments.
+
+The other major concern is the tie to Lispy syntax. Learners in other
+settings may do worse or even better with it. Building a Tutor that
+supports multiple, and more traditional, syntaxes should help address
+this issue. We defer this to future work.
+
+\section{Discussion}%
+\label{s:discussion}
+
+The paper has already identified several areas for future work:
+\begin{itemize}
+\item testing on more varied populations;
+\item using other syntaxes;
+\item having more questions that uniquely identify minsconceptions;
+  and,
+\item enabling textual responses in the Tutor so we can better
+  characterize wrong answers.
+\end{itemize}
+These can help get us even closer to a good approximation of a true concept
+inventory. We would also like the Tutor to make more use of the education
+theories discussed in \Cref{s:background}.
+
+We focus here on some issues that we think warrant broader
+discussion.
+
+\paragraph{The State-Aliasing-Function Triangle}
+
+Our problematic programs hardly include any ``advanced'' programming
+features: there are no threads, asynchrony, sophisticated type systems, ownership,
+inversion of control, etc. Indeed, many of those features typically
+build on an understanding of these basics (e.g., it is hard to make
+sense of ownership \cite{clarkeOwnershipTypesFlexible1998} without a good understanding of this
+triangle). But many populations seem to struggle even with this, which
+may explain why concepts like ownership are considered hard \cite{crichtonGroundedConceptualModel2023}.
+
+It is worth noting that we find problems even without all three
+components, as \Cref{s:smol-quizzes} shows! Nevertheless, we think it
+would be useful for curricula to focus on achieving mastery of this
+triangle. This may require a deep revision of widely accepted
+pedagogy. For instance, it is common to explain variables as
+``boxes''. But if taken seriously by a learner, this metaphor may
+cause more harm than good. As prior research \cite{putnamSummaryMisconceptionsHigh1986,groverMeasuringStudentLearning2017,hermansThinkingOutBox2018} shows, students expect that a variable can then contain more
+than one value, removing one makes the other accessible, etc.  That
+research has not explored aliasing, but the metaphor may affect that
+too. A box is a closed object, so a (mutable) value put ``into'' it
+clearly can't be modified by another ``box'' (variable)---i.e., it not
+only doesn't explain but is antithetical to aliasing.
+
+\paragraph{Terminology}
+
+It is common to teach programming using the terms ``call-by-value''
+and ``call-by-reference''. The reader will note that we instead have
+\emph{three} \miscon{ByRef} misconceptions.
+
+The emphasis on ``calling'' suggests that the semantics is associated
+\emph{only} with calls. That leaves open what happens when one simply
+binds a variable. In a reasonable language (and definitionally, in
+SMoL), the behavior is exactly the same: the formal parameter can be
+viewed as a binding to the value of the actual. But students often
+form inconsistent views because the ``call'' terminology breaks this
+deep similarity. We therefore recommend that languages in general use
+the term \emph{bind-by-}, to emphasize the underlying semantic unity
+of these syntactically different mechanisms.
+
+We feel that further confusion is caused by terms like ``pass'' and
+``return''. We often vocalize the call \verb|(f x)| as ``passing
+\verb|x| to \verb|f|''; saying ``passing \emph{the value of} \verb|x|
+to \verb|f|'' is a mouthful. But is it then surprising that students
+think \verb|x| is being aliased? Similarly, consider a statement like
+\verb|return y| (in Python syntax). Of course, semanticists understand
+that it is the \emph{value} of \verb|y|, not \verb|y| itself, that is
+being returned. Nevertheless, it is not surprising if this also
+results in assumptions that \verb|y| is either aliased or that it has
+escaped from the function (leading to an interpretation of dynamic
+scope). We believe there is a need for significant research to
+investigate these kinds of effects, which are similar to but not
+strictly the same as ``vernacular misconceptions'' \cite{nationalresearchcouncilScienceTeachingReconsidered1997}.
+
+\end{document}
