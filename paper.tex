@@ -1,5 +1,9 @@
 \documentclass{article}
 
+\usepackage[switch]{lineno}
+\usepackage{xcolor}
+\renewcommand\thelinenumber{\textcolor{red}{\arabic{linenumber}}}
+
 \usepackage[utf8]{inputenc} % Use UTF-8 encoding
 \usepackage[T1]{fontenc} % Use the T1 font encoding
 \usepackage{geometry} % Adjust page margins
@@ -79,6 +83,7 @@
 \date{\today}
 
 \begin{document}
+\linenumbers
 \maketitle
 
 %% Abstract
