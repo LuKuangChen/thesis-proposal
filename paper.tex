@@ -925,10 +925,7 @@ the (abbreviated) goal sentences for each tutorial.
 Readers can find the full Tutor in \supplRef{SMoL Tutor/instrument}.
 
 \begin{table}[t]
-  % \begin{tabularx}{250pt}{|c|X|c|X|} \end{tabularx}
-  \centering\begin{tabularx}{\linewidth}{
-      >{\hsize=.5\hsize\linewidth=\hsize}X
-      >{\hsize=1.5\hsize\linewidth=\hsize}X}
+  \centering\begin{tabularx}{\linewidth}{p{0.2\linewidth} X}
     \textbf{Tutorial}                             & \textbf{Goal Sentences}
     \\\hline
     \newterm{scope}: Variable definitions and function definitions &
@@ -1198,7 +1195,7 @@ misconception.\footnote{An astute reader may well imagine another
 
   \begin{table}[t]
     \centering
-    \begin{tabularx}{\textwidth}{m{0.25\textwidth} l Y}
+    \begin{tabularx}{\linewidth}{p{0.25\linewidth} l X}
       \textbf{Misconception}                                                     &
       \textbf{Question}                                                          &
       \textbf{Table of Answers}
@@ -1206,7 +1203,7 @@ misconception.\footnote{An astute reader may well imagine another
       \miscon{CallByRef} Function calls alias variables.                         &
        % mut-vars.not_aliased_by_funarg_2 (35)
        \lstinputlisting{programs/call-by-ref.txt}                                                                    & {
-        \begin{tabularx}{1in}{r l}
+        \begin{tabularx}{\linewidth}{r X}
           78\%  & \verb|12|      \\
           11\% & \verb|error|      \\
           **10\%   & \verb|0|  \\
@@ -1218,7 +1215,7 @@ misconception.\footnote{An astute reader may well imagine another
       % vectors2.alias_with_funcall (48)
       \lstinputlisting{programs/calls-copy-structs.txt}
       & {
-        \begin{tabularx}{1in}{r l}
+        \begin{tabularx}{\linewidth}{r X}
           90\%  & \verb|#(173 0)|      \\
           **10\%   & \verb|#(1 0)|  \\
         \end{tabularx}
@@ -1226,7 +1223,7 @@ misconception.\footnote{An astute reader may well imagine another
       \miscon{DeepClosure} Closures copy the \textit{values} of free variables.  &
       % lambda3.lambda_remembers_env (70)
       \lstinputlisting{programs/deep-closure.txt}                                & {
-          \begin{tabularx}{1in}{r l}
+          \begin{tabularx}{\linewidth}{r X}
             86\%  & \verb|4|      \\
             **10\% & \verb|3|      \\
             3\%   & \verb|error|  \\
@@ -1236,7 +1233,7 @@ misconception.\footnote{An astute reader may well imagine another
       \miscon{DefByRef} Variable definitions alias variables.                    &
       % mut-vars.not_aliased_by_defvar_1 (29)
       \lstinputlisting{programs/def-by-ref.txt}                                  & {
-          \begin{tabularx}{1in}{r Y}
+          \begin{tabularx}{\linewidth}{r X}
             85\%   & \verb|0 12|                \\
             **12\% & \verb|0 0|                 \\
             2\%    & \verb|error|               \\
@@ -1251,7 +1248,7 @@ misconception.\footnote{An astute reader may well imagine another
       &
       % program: mut-vars.update_undefined (28)
       \lstinputlisting{programs/def-or-set.txt}                                  & {
-          \begin{tabularx}{1in}{r l}
+          \begin{tabularx}{\linewidth}{r X}
             85\%   & \verb|error| \\
             **15\% & \verb|2|     \\
           \end{tabularx}
@@ -1260,7 +1257,7 @@ misconception.\footnote{An astute reader may well imagine another
       \miscon{DefsCopyStructs} Variable definitions copy structures recursively. &
       % vectors2.alias_with_defvar (47)
       \lstinputlisting{programs/defs-copy-structs.txt}                                & {
-          \begin{tabularx}{1in}{r l}
+          \begin{tabularx}{\linewidth}{r X}
             **67\% & \verb|#(100)| \\
             30\%   & \verb|#(200)| \\
             1\%    & \verb|#(300)| \\
