@@ -19,6 +19,7 @@
 \usepackage{subcaption} %% For complex figures with subfigures/subcaptions
                         %% http://ctan.org/pkg/subcaption
 \usepackage{tabularx}   %% For tables with growable column
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
 \usepackage{cleveref}   %% For smart ref
 \usepackage{graphicx}   %% For inserting images
 \graphicspath{ {./images/} }  %% configure the graphicx package
@@ -632,11 +633,11 @@ answer (which also matches the implementation's output).
 
 \begin{table}[t]
   \centering
-  \begin{tabularx}{\linewidth}{l l}
+  \begin{tabularx}{\linewidth}{l X}
     \textbf{Questions}                       &
-    \textbf{Frequency Table of Answers}          \\\hline
+    \textbf{Table of Answers}          \\\hline
     \lstinputlisting{programs/def_twice.txt} & {
-        \begin{tabularx}{1in}{r l}
+        \begin{tabularx}{\linewidth}{r X}
           $^\dag$59\%  & \verb|2 0|             \\
           *32\% & \verb|Error|           \\
           4\%   & \verb|Other: 2 2|      \\
@@ -645,14 +646,14 @@ answer (which also matches the implementation's output).
         \end{tabularx}
     }                                            \\\hline
     \lstinputlisting{programs/dyn_scope.txt} & {
-        \begin{tabularx}{1in}{r l}
+        \begin{tabularx}{\linewidth}{r X}
           *65\% & \verb|Error| \\
           $^\dag$29\%  & \verb|42 #t| \\
           6\%   & Other        \\
         \end{tabularx}
     }                                            \\\hline
     \lstinputlisting{programs/reassign.txt}  & {
-        \begin{tabularx}{1in}{r l}
+        \begin{tabularx}{\linewidth}{r X}
           *53\% & \verb|#(6 5) 5|                 \\
           *20\% & \verb|Error|                    \\
           $^\dag$11\%  & \verb|#(6 6) 5|                 \\
@@ -691,11 +692,11 @@ scope-related misconceptions:
 
 \begin{table}[t]
   \centering
-  \begin{tabularx}{\linewidth}{l l}
+  \begin{tabularx}{\linewidth}{l X}
     \textbf{Question}                           &
-    \textbf{Frequency Table of Answers}             \\\hline
+    \textbf{Table of Answers}             \\\hline
     \lstinputlisting{programs/circularity.txt}  & {
-        \begin{tabularx}{1in}{r p{2.5in}}
+        \begin{tabularx}{\linewidth}{r X}
           $^\dag$50\%  & \verb|#(#(2 #(2 3)) #(2 3))| \\
           *29\% & \verb|x=#(x x)| or
           something similar. Both \verb|(left x)| and \verb|(right x)|
@@ -705,7 +706,7 @@ scope-related misconceptions:
         \end{tabularx}
     }                                               \\\hline
     \lstinputlisting{programs/mvec_in_mvec.txt} & {
-        \begin{tabularx}{1in}{r p{2.5in}}
+        \begin{tabularx}{\linewidth}{r X}
           *62\% & \verb|#(#(100 2 3 4) #(100 2 3 4))| \\
           $^\dag$26\%  & \verb|#(#(1 2 3 4) #(100 2 3 4))|   \\
           6\%   & \texttt{Error}                      \\
@@ -714,21 +715,21 @@ scope-related misconceptions:
         \end{tabularx}
     }                                               \\\hline
     \lstinputlisting{programs/vset_in_let.txt}  & {
-        \begin{tabularx}{1in}{r p{2.5in}}
+        \begin{tabularx}{\linewidth}{r X}
           *59\% & \verb|#(10)|  \\
           $^\dag$36\%  & \verb|#(123)| \\
           5\%   & Other         \\
         \end{tabularx}
     }                                               \\\hline
     \lstinputlisting{programs/var_as_arg.txt}   & {
-        \begin{tabularx}{1in}{r p{2.5in}}
+        \begin{tabularx}{\linewidth}{r X}
           *65\% & \texttt{12} \\
           $^\dag$31\%  & \texttt{0}  \\
           4\%   & Other       \\
         \end{tabularx}
     }                                               \\\hline
     \lstinputlisting{programs/setset.txt}       & {
-        \begin{tabularx}{1in}{r p{2.5in}}
+        \begin{tabularx}{\linewidth}{r X}
           *59\% & Other: \texttt{5 7}   \\
           $^\dag$27\% & \texttt{6 7}          \\
           11\%  & \texttt{5 5}          \\
@@ -775,32 +776,32 @@ addition of state. These data suggest the students have aliasing-related misconc
 
 \begin{table}[t]
   \centering
-  \begin{tabularx}{\linewidth}{l l}
+  \begin{tabularx}{\linewidth}{l X}
     \textbf{Question}                                 &
-    \textbf{Frequency Table of Answers}                   \\\hline
+    \textbf{Table of Answers}                   \\\hline
     \lstinputlisting{programs/fun_returns_lambda.txt} & {
-        \begin{tabularx}{1in}{r p{2.5in}}
+        \begin{tabularx}{\linewidth}{r X}
           *82\% & \verb|3|     \\
           $^\dag$17\%  & \verb|Error| \\
           1\%   & Other        \\
         \end{tabularx}
     }                                                     \\\hline
     \lstinputlisting{programs/fun_and_state_1.txt}    & {
-        \begin{tabularx}{1in}{r p{2.5in}}
+        \begin{tabularx}{\linewidth}{r X}
           *74\% & \verb|4|            \\
           $^\dag$21\%  & \verb|3|            \\
           6\%   & Other: \verb|Error| \\
         \end{tabularx}
     }                                                     \\\hline
     \lstinputlisting{programs/fun_and_state_2.txt}    & {
-        \begin{tabularx}{1in}{r p{2.5in}}
+        \begin{tabularx}{\linewidth}{r X}
           *88\% & \verb|4|            \\
           $^\dag$10\%  & \verb|3|            \\
           3\%   & Other: \verb|Error| \\
         \end{tabularx}
     }                                                     \\\hline
     \lstinputlisting{programs/counter.txt}            & {
-        \begin{tabularx}{1in}{r p{2.5in}}
+        \begin{tabularx}{\linewidth}{r X}
           *62\% & \verb|1 1 2 3 2| \\
           $^\dag$34\%  & \verb|1 1 1 1 1| \\
           4\%   & Other            \\
@@ -1197,7 +1198,7 @@ misconception.\footnote{An astute reader may well imagine another
 
   \begin{table}[t]
     \centering
-    \begin{tabularx}{\linewidth}{m{0.3\textwidth} l l}
+    \begin{tabularx}{\textwidth}{m{0.25\textwidth} l Y}
       \textbf{Misconception}                                                     &
       \textbf{Question}                                                          &
       \textbf{Table of Answers}
@@ -1235,7 +1236,7 @@ misconception.\footnote{An astute reader may well imagine another
       \miscon{DefByRef} Variable definitions alias variables.                    &
       % mut-vars.not_aliased_by_defvar_1 (29)
       \lstinputlisting{programs/def-by-ref.txt}                                  & {
-          \begin{tabularx}{1in}{r p{0.2\textwidth}}
+          \begin{tabularx}{1in}{r Y}
             85\%   & \verb|0 12|                \\
             **12\% & \verb|0 0|                 \\
             2\%    & \verb|error|               \\
