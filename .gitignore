@@ -10,3 +10,16 @@ paper.synctex.gz
 paper.blg
 *.pdf
 paper.pdf
+proposal.aux
+proposal.fdb_latexmk
+proposal.fls
+proposal.log
+proposal.synctex.gz
+proposal.aux
+proposal.fdb_latexmk
+proposal.fls
+proposal.log
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
