@@ -6,4 +6,6 @@
 *.synctex.gz
 *.aux
 *.fdb_latexmk
+*.bcf
+*.blg
 .DS_Store
