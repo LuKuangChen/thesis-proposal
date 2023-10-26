@@ -12,6 +12,7 @@
 \usepackage{titlesec} % For customizing section titles
 \usepackage[style=authoryear]{biblatex}  % For managing references
 \addbibresource{bibfile.bib}
+\usepackage{hyperref}
 \usepackage[colorinlistoftodos]{todonotes}
 \newcommand{\miscon}[1]{\textbf{#1}}
 \newcommand{\surmisedMiscon}[1]{\miscon{#1}$^\ddag$}
@@ -99,16 +100,18 @@
   myriad ways in which students can misunderstand programs?
   Furthermore, once identified, what can we do to correct them?
 
-  In this paper, we present a curated list of misconceptions, and an
+  In this proposal, I present a curated list of misconceptions, and an
   instrument to detect them. These are distilled from student work
-  over several years and match and extend prior research.  We also
+  over several years and match and extend prior research.  I also
   present an automated, self-guided tutoring system. The tutor builds
   on strategies in the education literature and is explicitly designed
   around identifying and correcting misconceptions.
 
-  We have tested the tutor in multiple settings.
-  Our data consistently show that (a) the misconceptions we tackle are
+  I have tested the tutor in multiple settings.
+  Our data consistently show that (a) the misconceptions I tackle are
   widespread, and (b) the tutor appears to improve understanding.
+
+  [FILL future work]
 \end{abstract}
 
 %% \maketitle
@@ -202,8 +205,9 @@ This lead to my \textbf{research questions}:
   behavior, apply to most modern programming languages, and present
   (even) in students with prior programming backgrounds?
   \item[RQ2] What would be a tutoring system (the SMoL Tutor) that
-  draws on cognitive and educational psychology concepts and that aim
-  at correcting the misconceptions?
+  draws on cognitive and educational psychology concepts, utilizes a
+  notional machine (the Stacker), and aims at correcting the
+  misconceptions?
   \item[RQ3] How effective is SMoL Tutor at correcting the
   misconceptions?
 \end{description}
@@ -223,23 +227,23 @@ and correct misconceptions.
 Concretely, I have made the following contributions:
 \begin{enumerate}
 
-  \item We provide a collection of brief programs for detecting
+  \item I provide a collection of brief programs for detecting
         misconceptions about the features of SMoL and their
         interaction. These programs are short and most are readily
         translatable to a wide variety of programming languages that
         share the SMoL characteristics.
 
-  \item We show that multiple populations have problems with these
+  \item I show that multiple populations have problems with these
         programs.
 
-  \item We present a list of curated misconceptions generated
+  \item I present a list of curated misconceptions generated
         after multiple rounds of analysis.
 
-  \item We implement these misconceptions as interpreters, which
+  \item I implement these misconceptions as interpreters, which
         find weaknesses in our manual analysis and hold potential for
         generative use in the future.
 
-  \item We present a tutoring system, the SMoL Tutor, that measurably
+  \item I present a tutoring system, the SMoL Tutor, that measurably
         corrects these misconceptions.
 
 \end{enumerate}
@@ -247,14 +251,14 @@ Concretely, I have made the following contributions:
 This document first presents the current results and ends with future
 work \& timeline (\cref{s:future-work}).
 
-\paragraph{A Note on Terminology} We use the term
+\paragraph{A Note on Terminology} I use the term
 ``behavior'' to refer to the meaning of programs in terms of the
 answers they produce. A more standard term for this would, of course, be
 ``semantics''. However, the term ``semantics tutor'' might
 mislead some readers into thinking it
 teaches people to read or write a formal semantics, e.g., an
 introduction to ``Greek'' notation. Because that is not the kind of
-tutor we are describing, to avoid confusion, we use the term
+tutor I are describing, to avoid confusion, I use the term
 ``behavior'' instead.
 
 \section{Background: Tutoring Systems and Pedagogic Techniques}
@@ -262,9 +266,9 @@ tutor we are describing, to avoid confusion, we use the term
 
 There is an extensive body of literature on tutoring systems (\cite{vanlehnBehaviorTutoringSystems2006a} is
 a quality survey), and indeed whole conferences are dedicated to
-them. We draw on this literature. In particular, it is common in the
+them. I draw on this literature. In particular, it is common in the
 literature to talk about a ``two-loop'' architecture \cite{vanlehnBehaviorTutoringSystems2006a} where the outer
-loop iterates through ``tasks'' (i.e., educational activities) and the inner loop iterates through UI events within a task. We follow the same
+loop iterates through ``tasks'' (i.e., educational activities) and the inner loop iterates through UI events within a task. I follow the same
 structure in our tutor (\Cref{s:tutor-uiux}).
 
 Many tutoring systems focus on teaching programming
@@ -273,7 +277,7 @@ the process undoubtedly address some program behavior
 misconceptions. Our SMoL Tutor differs in a notable way: it does not
 try to teach programming per se. Instead, it assumes a basic
 programming background and focuses entirely on program behavior misconceptions
-and correcting them. We are not aware of a tutoring system (in computer science) that has
+and correcting them. I are not aware of a tutoring system (in computer science) that has
 this specific design.
 
 The SMoL Tutor is firmly grounded in one technique from
@@ -352,7 +356,7 @@ SMoL's Lispy syntax is
 an artifact of the course (\Cref{s:univ-1-course}) using Racket
 \cite{friedmanEssentialsProgrammingLanguages2001, krishnamurthiProgrammingLanguagesApplication2007};
 however, it also proved to be pedagogically valuable.
-We have found the parentheses useful when discussing
+I have found the parentheses useful when discussing
 scope in conjunction with local-binding features like \lstinline|let|.
 This avoids the various confusing ``variable lifting'' semantics found
 in languages like Python (\cite{politzPythonFullMonty2013}; see also
@@ -360,7 +364,7 @@ posts like \cite{froadieWhatScopeVariable2022}), where the actual defined range 
 variable is not apparent from the source code.
 
 Nevertheless, most SMoL programs are easy to translate to other
-languages. We present machine-translated Python and JavaScript
+languages. I present machine-translated Python and JavaScript
 versions of our programs in \supplRef{Translated\_Programs.html}. Furthermore, we intend to
 make a multi-lingual tutor in the future (\Cref{s:future-work}).
 
@@ -375,14 +379,14 @@ as a \verb|#lang| language inside Racket \cite{felleisenProgrammableProgrammingL
 provides only the defined syntax and semantics of SMoL, with no
 (other) Racket features present.
 (As in Racket, arguments evaluate left-to-right, to give stateful programs an
-unambiguous semantics.) The implementation is available online
-[URL anonymized].
+unambiguous semantics.) The implementation is available online:
+\href{https://github.com/shriram/smol}{https://github.com/shriram/smol}.
 
-\section{Paper Roadmap}
+\section{Proposal Roadmap}
 \label{s:roadmap}
 \label{s:univ-1-course}
 
-This paper describes a four-year effort to obtain a quality instrument
+This proposal describes a four-year effort to obtain a quality instrument
 to measure misconceptions and to build a tutor to address them.
 
 The first step was a two-year process to generate (a) programs that
@@ -393,9 +397,9 @@ produce an instrument that was tested for one more year
 (\Cref{s:misconceptions-quiz}). This underwent one more round of
 curation to produce the final instrument~(\Cref{s:tutor-refine-program-set}).
 
-We then present the tutor (\Cref{s:system-tutor}). In particular, we
+I then present the tutor (\Cref{s:system-tutor}). In particular, we
 present the list of misconceptions---grounded in student data---that
-are the focus of this project (\Cref{s:misconceptions-tutor}). We also
+are the focus of this project (\Cref{s:misconceptions-tutor}). I also
 evaluate the tutor's effectiveness at correcting them
 (\Cref{s:effect-tutor}).
 
@@ -457,10 +461,10 @@ answer.\footnote{Concept inventories are thus useful in many
   get quick feedback from a class. If several students pick a
   specific wrong answer, the educator not only knows they are wrong,
   but also has a strong inkling of \emph{precisely what} misconception
-  that group has and can address it directly. We expect our
+  that group has and can address it directly. I expect our
   instruments to be useful in the same way.}
 
-All these, however, add up to a somewhat challenging demand. We want
+All these, however, add up to a somewhat challenging demand. I want
 to produce a list of questions (each one an MCQ) such that
 \begin{enumerate}
 
@@ -585,7 +589,7 @@ needed significant curation for the following reasons:
 
 \end{itemize}
 and so on.
-We therefore manually curated the Quizius output
+I therefore manually curated the Quizius output
 to address these issues.
 
 \begin{figure}[t]
@@ -601,7 +605,7 @@ to address these issues.
 Having curated the output, we had to confirm that these programs were
 still effective! That is, they needed to actually find student errors.
 
-We therefore turned the programs into a set of quizzes (in the US
+I therefore turned the programs into a set of quizzes (in the US
 sense: namely, a brief test of knowledge) that we call the SMoL
 Quizzes. There were three quizzes, ordered by linguistic
 complexity. The first consisted of only basic operators and
@@ -618,7 +622,7 @@ the quiz gave the user a text box with the caption ``Please
 specify''. The goal here was to record any other answers, which in
 turn might lead to fresh misconceptions.
 
-Question orders were partially randomized. We wanted students to get
+Question orders were partially randomized. I wanted students to get
 some easy, warm-up questions initially, so those were kept at the
 beginning. Similarly, we wanted programs that are syntactically
 similar to stay close to each other in the quiz. This is so that, when
@@ -640,7 +644,7 @@ misconceptions identified earlier, thereby also showing
 that the curated programs are
 still effective.
 Syntactically, \verb|#t| and \verb|#f| are true and false,
-while \verb|#(...)| is a vector. We use a * to indicate the correct
+while \verb|#(...)| is a vector. I use a * to indicate the correct
 answer (which also matches the implementation's output).
 
 \subsubsection{Quiz 1: Basic Operators and First-Order Functions}%
@@ -857,13 +861,13 @@ It extends what we saw with loops in
 So far, we have focused on identifying problems. As noted earlier
 (\Cref{s:smol-quizzes}), we provided students with refutation texts after the quizzes,
 but it is unclear to what extent students read, understood, or
-internalized these. We also wanted to determine whether other
+internalized these. I also wanted to determine whether other
 populations run into these issues, and it was unclear whether we would
 be able to administer passive quizzes to them.
 
 Furthermore, while the quizzes may be a useful diagnostic, our goal is
 not only to find faults but to improve the understanding of basic
-programming language behavior. We believe (and presumably so does
+programming language behavior. I believe (and presumably so does
 anyone else who writes a formal semantics!)\ that an understanding of
 these basic program behaviors is important, and even more so when it
 comes to understanding concurrency, ownership, and other advanced
@@ -875,7 +879,7 @@ around our quiz instruments and the detected misconceptions. We
 describe the Tutor from a user's perspective in \Cref{s:tutor-uiux}, and
 explain how it was populated from the
 SMoL Quizzes in \Cref{s:tutor-refine-program-set}.
-We then discuss what
+I then discuss what
 we learned from its data (\Cref{s:misconceptions-tutor}), and finally
 evaluate its effectiveness as a \emph{tutor} (\Cref{s:effect-tutor}).
 
@@ -938,7 +942,7 @@ second question:
 
 In addition to asking students questions, the Tutor along the way
 introduces terminology and states the true conceptions. These are the
-teaching goals of the Tutor. We therefore refer to these as
+teaching goals of the Tutor. I therefore refer to these as
 \newterm{goal sentences}. \Cref{t:tutor-goal-sentences} lists
 the (abbreviated) goal sentences for each tutorial.
 Readers can find the full Tutor in \supplRef{SMoL Tutor/instrument}.
@@ -1020,7 +1024,7 @@ broken.
 
 The SMoL Tutor's interpreting questions are the final instrument of
 this paper.
-We bootstrap it from the SMoL
+I bootstrap it from the SMoL
 Quizzes, but made the following alterations:
 \begin{enumerate}
 
@@ -1037,19 +1041,19 @@ Quizzes, but made the following alterations:
 y
 \end{lstlisting}
 
-  \item We renamed vector operators to avoid confusion between
+  \item I renamed vector operators to avoid confusion between
         \lstinline|vset!|, which replaces a vector element, and \lstinline|set!|,
-        which mutates variables. We rename all vector operators from, for example,
+        which mutates variables. I rename all vector operators from, for example,
         \lstinline|vset!| to \lstinline|vec-set!|.
 
-  \item We deferred the local binding forms to the end, since we felt
-        they were less essential. We therefore rewrote programs that use
+  \item I deferred the local binding forms to the end, since we felt
+        they were less essential. I therefore rewrote programs that use
         it to not depend on it.
 
-        % \item We removed some questions that we deemed ``Lispy'' (e.g.,
+        % \item I removed some questions that we deemed ``Lispy'' (e.g.,
         %   involving the difference between parenthetical and infix syntax).
 
-  \item We removed some programs that relied on underspecified aspects or
+  \item I removed some programs that relied on underspecified aspects or
         unimportant aspects of SMoL. For example, some depended on
         whether operations on pairs could be applied to arbitrary vectors:
 
@@ -1069,7 +1073,7 @@ y
   (f 5)
 \end{lstlisting}
 
-  \item We resolved ambiguities in some programs, either adding
+  \item I resolved ambiguities in some programs, either adding
     answer choices or even adding other questions to tease
     out different interpretations.
 
@@ -1078,13 +1082,13 @@ y
         seem to create problems. (For brevity, we leave these out of
         the presentation of SMoL in \Cref{s:smol}, though they are in the implementation.)
 
-  \item We removed questions related to function equality, which was
+  \item I removed questions related to function equality, which was
         not a focus of the Tutor.\footnote{However, we believe there is
           a good deal of confusion about notions of equality. We
           intend to
           add that as a major tutorial component in future versions.}
 
-  \item We removed programs of a ``Lispy'' nature, such as one where
+  \item I removed programs of a ``Lispy'' nature, such as one where
     the answer depended on whether the reader correctly understood
     this inequality:
 
@@ -1128,7 +1132,7 @@ we added numeric constants mentioned in the problem, permuted some of
 the values in case of multiple outputs, and so on. In general, we
 ended up increasing the number of choices substantially:
 only 8 out of the 89 questions have three or four choices; 70
-questions have 5--8 choices; and 11 questions have 9--14 choices. We hope
+questions have 5--8 choices; and 11 questions have 9--14 choices. I hope
 this reduced both guessing and elimination, and forced students to
 actually think through the program. Of course, these new answers do
 not have a clear associated misconception, so their mistakes are given
@@ -1137,12 +1141,12 @@ the generic explanation.
 \section{Misconceptions Detected by the SMoL Tutor}%
 \label{s:misconceptions-tutor}
 
-We now examine what we learned from the interpreting
+I now examine what we learned from the interpreting
 questions in terms of program behavior
 misconceptions. But first, we explain how we associate incorrect
 answers with misconceptions.
 
-We do not present the results of \textbf{begin} and
+I do not present the results of \textbf{begin} and
 \textbf{local} (\Cref{t:tutor-goal-sentences}), because they focus on constructs not usually found in
 non-Lispy languages. They were included in the Tutor to help students
 write programs for the course, but are not interesting from a SMoL
@@ -1173,18 +1177,18 @@ a wrong answer. Furthermore, if we identify a new misconception (or
 alter a misinterpreter), it is easy to automatically re-classify all
 the answers. By using misinterpreters, we indeed found new
 interpretations for existing program-answer pairs.
-We provide all the misinterpreters in the artifact.
+I provide all the misinterpreters in the artifact.
 
 \subsection{A Catalog of Misconceptions}
 
-We iteratively created
+I iteratively created
 our final catalog of misconceptions
 (from the perspective of the data in this paper).
-We started
+I started
 with misinterpreters representing the misconceptions described in
 \Cref{s:misconceptions-quiz}. These are misconceptions for which we
 have reasonable validation (due to the prose in Quizius), so we call
-them \emph{grounded} misconceptions. We then looked at wrong answers
+them \emph{grounded} misconceptions. I then looked at wrong answers
 not covered by these but chosen by students, and did our best to
 distill these into misconceptions. These are \emph{surmised}
 misconceptions (which we
@@ -1192,8 +1196,8 @@ identify with a $^\ddag$), which need to be validated in the future.\footnote{To
   the time spent in each module reasonable, the SMoL Tutor does not
   ask students for rationales for their programs. However, we could
   easily modify it to do so a small number of times per user, to make
-  progress towards this need.} We then re-ran the misinterpreters
-against the chosen answers. We terminated when all the remaining wrong
+  progress towards this need.} I then re-ran the misinterpreters
+against the chosen answers. I terminated when all the remaining wrong
 answers were either (a) found in very few students (we found a gap
 between 23\% and 13\%, and hence took 14\% as the threshold),
 (b) difficult for
@@ -1209,7 +1213,7 @@ named misconception.
 That is, that program-answer pair is a representative example of that
 misconception.\footnote{An astute reader may well imagine another
   misinterpretation; but we presumably did not find evidence of it in our
-  data. We do welcome other misinterpretations, for which we
+  data. I do welcome other misinterpretations, for which we
   can add more misinterpreters!}
 
   \begin{table}[!h]
@@ -1410,7 +1414,7 @@ overlooked. For instance, consider this program from \quizState:
 (f x)
 x
 \end{lstlisting}
-We had assumed the wrong answer
+I had assumed the wrong answer
 \texttt{0} is caused by \miscon{CallByRef}.
 However, our misinterpreters made us realize it can also be explained
 by \miscon{FlatEnv}. This could also explain why we see a difference in
@@ -1508,7 +1512,7 @@ behavior of languages like Python, which use the same syntax both for
 binding new variables and for mutating existing ones.
 
 The problem here is that the word ``redefine'' underspecifies how the
-second definition is interpreted. We had interpreted it as
+second definition is interpreted. I had interpreted it as
 \textit{mutating} the binding established by the first definition,
 which fits \miscon{DefOrSet}. However, another possibility is that
 it \emph{shadows} the binding (i.e., establishes a new scope block). We
@@ -1518,9 +1522,9 @@ until we uncovered the new (surmised) misconception.
 \paragraph{Summary}
 
 To summarize, we used the SMoL Tutor, with an expanded set of
-programs, to investigate student misconceptions. We implemented the
+programs, to investigate student misconceptions. I implemented the
 idea of misinterpreters to help us properly classify student
-performance. We were able to reconfirm all the previously identified
+performance. I were able to reconfirm all the previously identified
 misconceptions, refine some of them, and also identify potential new
 ones (that need further investigation).
 
@@ -1550,11 +1554,11 @@ To study this, we perform the following analysis per
 misconception. Using misinterpreters, we identify those questions
 whose wrong answers fit only one misconception (i.e., only one output
 matches that produced by that misinterpreter, and it matches only that
-misinterpreter). We then examine student performance over time across
+misinterpreter). I then examine student performance over time across
 those questions. This would let us examine how they do on just that
 topic, in isolation, over time.
 
-We present the result of this analysis in two forms. Graphically, we
+I present the result of this analysis in two forms. Graphically, we
 show plots in \Cref{f:tutor-trend-plots}. Each figure shows the percentage of students who
 chose the answer corresponding to that misconception. Ideally, we
 would like to see these percentages diminish.
@@ -1568,7 +1572,7 @@ unsurprising because the Tutor does not explicitly address this issue,
 focusing on closures created by \lstinline|lambda|s rather than named
 functions. (However, this does not explain the increase!)
 
-We also perform a logistic regression to see whether these
+I also perform a logistic regression to see whether these
 improvements are significant (at a $p < 0.05$ threshold); details are
 in \supplRef{Paper.html}. Of the 11:
 \begin{itemize}
@@ -1597,7 +1601,7 @@ Concretely, only 40 of the 71 eligible problems (after removing the
 non-SMoL modules) were useful in the above
 analysis.
 
-We therefore view the above data as
+I therefore view the above data as
 purely formative: they suggest that the Tutor \emph{most likely did
   not do harm} and perhaps even \emph{may have done some
   good}. However, it would be improper to read too much into the
@@ -1606,7 +1610,7 @@ have found issues. Rather, what we really see is value in the
 misinterpreter concept. It is not only useful for analysis, it is also
 valuable for \emph{problem design}: in the next iteration of the
 Tutor, we will use misinterpreters actively to shape the incorrect answers and,
-as necessary, update the programs as well. We therefore hope to have
+as necessary, update the programs as well. I therefore hope to have
 much more thorough analyses in future work.
 
 \section{Performance on Other Populations}
@@ -1616,7 +1620,7 @@ There is, of course, a significant danger that the data above have
 been overfitted to only one institution (\Cref{s:univ-1-course},
 henceforth University 1),
 thereby actually reflecting the state of its curriculum rather than
-some greater truth about program behavior understanding.  We already
+some greater truth about program behavior understanding.  I already
 have some reason to believe this is not the case: the related work
 discussed in \Cref{s:rel-work} is drawn from many institutions in
 multiple countries with different educational preparations, levels,
@@ -1739,7 +1743,7 @@ that is different from \miscon{FlatEnv}:
   When a function is called, the function body is evaluated in an
   environment that extends from the \textit{caller's} environment.
 \end{description}
-We don't include \surmisedMiscon{CallerEnv} in our analysis because in our
+I don't include \surmisedMiscon{CallerEnv} in our analysis because in our
 data, all wrong answers that can be explained by \surmisedMiscon{CallerEnv}
 are also explainable by \miscon{FlatEnv}.
 
@@ -1763,7 +1767,7 @@ no equivalent of \miscon{FlatEnv}, \miscon{DeepClosure}, and
 
 Our idea of ``goal sentences'' is not substantially different from the
 \textit{rules of program behavior} from \cite{duranRulesProgramBehavior2021}.
-We only used these sentences (or rules) to guide the
+I only used these sentences (or rules) to guide the
 design of the Tutor and as text in the Tutor itself.
 \cite{duranRulesProgramBehavior2021} argue for other uses of such
 sentences.
@@ -1800,7 +1804,7 @@ no trouble understanding behavior in a small program but may struggle
 to do so in a larger one.)
 
 A particularly notable threat is the use of Lispy
-syntax. We chose it for two reasons: both because it helps clarify
+syntax. I chose it for two reasons: both because it helps clarify
 scope (\Cref{s:smol}) and because the rest of the course used
 Racket. However, students may well perform differently with more
 familiar syntaxes. It seems unlikely their performance would be \emph{too}
@@ -1814,7 +1818,7 @@ problem by synthesizing MCQ programs using the misinterpreters.
 
 \subsection{Internal Validity}
 
-Is our reasoning valid? We have applied standard techniques and
+Is our reasoning valid? I have applied standard techniques and
 measurements for evaluating student responses. However, our
 instruments still lack the validity of a proper concept
 inventory. Their creation requires heavyweight processes (such as
@@ -1829,7 +1833,7 @@ unbounded, we believe our tasks, especially as embedded in the Tutor,
 provide a good starting point for others. In particular, if students
 select a wrong answer, that is still of \emph{some} use to an
 educator, even if the precise misconception cannot be pinned down with
-the highest accuracy. We therefore believe our instruments, and our
+the highest accuracy. I therefore believe our instruments, and our
 misinterpreter technique, are of general value.
 
 A failure in our Tutor's logging infrastructure led us to miss some
@@ -1837,7 +1841,7 @@ responses. These are unlikely to be task-specific because the Tutor
 has a generic framework that should perform the same across
 tasks. Moreover, on average only $0.4\%\ (\textrm{sd} = 0.6\%)$ of values are missing. Therefore, we do not believe
 this had a noticeable impact. (In addition, every wrong answer is
-still wrong! We may just not have exactly the right proportions of
+still wrong! I may just not have exactly the right proportions of
 them.)
 
 Because we don't randomize Tutor question order, it is hard to tell
@@ -1858,7 +1862,7 @@ much more broad testing is needed to confirm our specific instruments.
 The other major concern is the tie to Lispy syntax. Learners in other
 settings may do worse or even better with it. Building a Tutor that
 supports multiple, and more traditional, syntaxes should help address
-this issue. We defer this to future work (\cref{s:future-work}).
+this issue. I defer this to future work (\cref{s:future-work}).
 
 \section{Future Work \& Timeline}%
 \label{s:future-work}
