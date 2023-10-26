@@ -1,7 +1,7 @@
 # Makefile for LaTeX document using latexmk
 
 # Set the main filename (without extension)
-MAIN = paper
+MAIN = proposal
 
 # PDF viewer (change to your preferred viewer)
 PDFVIEWER = open
