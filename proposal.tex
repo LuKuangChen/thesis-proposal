@@ -299,6 +299,154 @@ and providing principles \emph{after} the comparisons (rather than
 before or not at all), are associated with better learning
 outcomes.
 
+\section{Background: Misconceptions}
+
+
+\begin{table}[t]
+  \centering
+  \begin{tabularx}{\textwidth}{>{\hsize=.6\hsize\RaggedRight}X >{\hsize=.8\hsize\RaggedRight}X >{\hsize=.5\hsize\RaggedRight}X >{\hsize=1.4\hsize\RaggedRight}X}
+    \textbf{Publication}                       &
+    \textbf{Population}                       &
+    \textbf{Languages}                       &
+    \textbf{Misconceptions}
+    \\\hline
+    \cite{fleuryParameterPassingRules1991} &
+    Unclear, likely CS2 students &
+    Pascal &
+    \surmisedMiscon{CallerEnv}; \miscon{IsolatedFun}; \miscon{DefOrSet}
+    (See their RULEs 2, 3a, and 3b in TABLE 2;
+    RULE 1 doesn't apply to us.)
+    \\\hline
+    \cite{goldmanIdentifyingImportantDifficult2008,goldmanSettingScopeConcept2010} &
+    CS1 students &
+    Java, Python, Scheme &
+    Scope and memory model (See their Figures 4 and 5)
+    \\\hline
+    \cite{fislerAssessingTeachingScope2017} &
+    Third- and fourth-year undergrads &
+    Java and Scheme &
+    \miscon{FlatEnv}; \miscon{CallByRef}; \miscon{CallsCopyStruct}; \miscon{DefByRef}
+    (See their Section 4)
+    \\\hline
+    \cite{saarinenHarnessingWisdomClasses2019} &
+    CS2 students &
+    Java &
+    \miscon{StructByRef} (Their G2); \miscon{DefByRef} or \miscon{DefCopyStructs} (Their G3); \miscon{CallsCopyStruct} (Their G4).
+    \\\hline
+    \cite{strombackProgressionStudentsAbility2023} &
+    CS masters &
+    Python &
+    \miscon{FlatEnv}; \miscon{CallByRef}; \miscon{DefsCopyStruct}
+    (See their section 4.2)
+    \\\hline
+    \cite{strombackProgressionStudentsAbility2023} &
+    CS undergrads &
+    C++ &
+    \miscon{FlatEnv}; \miscon{CallByRef}; \miscon{DefsCopyStruct}
+    (See their section 4.2)
+    \\\hline
+  \end{tabularx}
+  \caption{Similar misconceptions found in prior research.}
+  \label{t:rel-work}
+\end{table}
+
+Misconceptions related to scope, mutation, and higher-order functions have been
+widely identified in varying populations
+(from CS1 students to graduate students to users of online forums)
+over many years (since at last 1991)
+in varying programming languages (from Java to Racket) and in
+different countries (such as the USA and Sweden).
+\Cref{t:rel-work} lists works that seem most relevant to us.
+
+There are some small differences.
+\cite{fleuryParameterPassingRules1991} identifies a dynamic scope misconception
+that is different from \miscon{FlatEnv}:
+\begin{description}
+  \item[\surmisedMiscon{CallerEnv}] Function values don't remember their environments.
+  When a function is called, the function body is evaluated in an
+  environment that extends from the \textit{caller's} environment.
+\end{description}
+I don't include \surmisedMiscon{CallerEnv} in our analysis because in our
+data, all wrong answers that can be explained by \surmisedMiscon{CallerEnv}
+are also explainable by \miscon{FlatEnv}.
+
+Appendix A of \cite{sorvaVisualProgramSimulation2012} provides an
+extensive survey of misconceptions reported
+in research up to 2012.
+There are overlaps between our survey and
+theirs. For instance, our \surmisedMiscon{CallerEnv} is their No.~47.
+However, because their descriptions are brief, it is difficult to tell
+whether a misconception in their survey matches our misconceptions.
+Because
+they provide neither misinterpreters nor representative program-output
+pairs, it is difficult to determine the overlaps precisely (showing
+the value of providing these two machine-runnable descriptions).
+At any rate,
+we certainly find
+no equivalent of \miscon{FlatEnv}, \miscon{DeepClosure}, and
+\miscon{DefByRef} in their survey.
+
+\section{Background: Program Behavior}
+
+Our idea of ``goal sentences'' is not substantially different from the
+\textit{rules of program behavior} from \cite{duranRulesProgramBehavior2021}.
+I only used these sentences (or rules) to guide the
+design of the Tutor and as text in the Tutor itself.
+\cite{duranRulesProgramBehavior2021} argue for other uses of such
+sentences.
+
+\section{Research Methodology}%
+\label{s:research-methodology}
+
+\subsection{\textbf{RQ1:} What are the misconceptions that are about program behavior, apply to most modern programming languages, and present (even) in students with prior programming backgrounds?}
+
+This research question imposes three predicates on misconceptions:
+\begin{enumerate}
+  \item are about program behavior,
+  \item apply to most modern programming languages, and
+  \item present (even) in students with prior programming background
+\end{enumerate}
+The first predicate is the probably the most subtle, so I will talk
+about it last. I approach the second predicate by modeling the
+``consensus'' of modern programming language with SMoL. Because SMoL
+represents the semantic core, misconceptions about SMoL presumably
+also apply to most modern PLs. I approach the third and last predicate
+by collecting data in population that very likely have prior experience.
+For example, my priliminary results are build upon data collected in
+a upper-year programming language course.
+
+Let me come back to the first predicate. I would like to measure misconceptions
+with tasks like the following:
+
+[FILL]
+
+I think tasks like the following
+is best suited for measuring program-behavior misconceptions, in comparison
+to tasks commonly found in literature.
+
+
+% To find misconceptions about
+% program behavior, I need to
+% \begin{enumerate}
+%   \item define what counts as a misconception about program behavior, and
+%   \item describe how to find such a misconception
+% \end{enumerate}
+% Only conception that causes a student to predict a wrong result of a program
+% counts as a misconception about program behavior. Here are a few example
+% of misconceptions that I do \textit{not} consider about program behavior:
+% \begin{enumerate}
+%   \item \texttt{[1, 2, 3]} allocates 3 bytes. [CITE]
+%   \item Variables reside on heap [CITE]
+% \end{enumerate}
+% I do not consider them because they go too deep into implementation
+% details [FILL]. By limiting the scope to program behavior, I suspect
+% the misconceptions I found would be more relevant to most reading,
+% writing, and debugging tasks.
+
+% Misconceptions about program behavior should not be specific to
+% certain variable names, constants, or indentation. [FILL]
+
+
 \section{The SMoL Language}\label{s:smol}
 
 \begin{figure}[t]
@@ -1674,119 +1822,6 @@ further validation on other populations remains essential, these
 suggest that the questions are \emph{finding misconceptions that may
   be universal}.
 
-\section{Related Work}
-\label{s:rel-work}
-
-\begin{table}[t]
-  \centering
-  \begin{tabularx}{\textwidth}{>{\hsize=.6\hsize\RaggedRight}X >{\hsize=.8\hsize\RaggedRight}X >{\hsize=.5\hsize\RaggedRight}X >{\hsize=1.4\hsize\RaggedRight}X}
-    \textbf{Publication}                       &
-    \textbf{Population}                       &
-    \textbf{Languages}                       &
-    \textbf{Misconceptions}
-    \\\hline
-    \cite{fleuryParameterPassingRules1991} &
-    Unclear, likely CS2 students &
-    Pascal &
-    \surmisedMiscon{CallerEnv}; \miscon{IsolatedFun}; \miscon{DefOrSet}
-    (See their RULEs 2, 3a, and 3b in TABLE 2;
-    RULE 1 doesn't apply to us.)
-    \\\hline
-    \cite{goldmanIdentifyingImportantDifficult2008,goldmanSettingScopeConcept2010} &
-    CS1 students &
-    Java, Python, Scheme &
-    Scope and memory model (See their Figures 4 and 5)
-    \\\hline
-    \cite{fislerAssessingTeachingScope2017} &
-    Third- and fourth-year undergrads &
-    Java and Scheme &
-    \miscon{FlatEnv}; \miscon{CallByRef}; \miscon{CallsCopyStruct}; \miscon{DefByRef}
-    (See their Section 4)
-    \\\hline
-    \cite{saarinenHarnessingWisdomClasses2019} &
-    CS2 students &
-    Java &
-    \miscon{StructByRef} (Their G2); \miscon{DefByRef} or \miscon{DefCopyStructs} (Their G3); \miscon{CallsCopyStruct} (Their G4).
-    \\\hline
-    \cite{strombackProgressionStudentsAbility2023} &
-    CS masters &
-    Python &
-    \miscon{FlatEnv}; \miscon{CallByRef}; \miscon{DefsCopyStruct}
-    (See their section 4.2)
-    \\\hline
-    \cite{strombackProgressionStudentsAbility2023} &
-    CS undergrads &
-    C++ &
-    \miscon{FlatEnv}; \miscon{CallByRef}; \miscon{DefsCopyStruct}
-    (See their section 4.2)
-    \\\hline
-  \end{tabularx}
-  \caption{Similar misconceptions found in prior research.}
-  \label{t:rel-work}
-\end{table}
-
-\paragraph{Misconceptions}
-
-Misconceptions related to scope, mutation, and higher-order functions have been
-widely identified in varying populations
-(from CS1 students to graduate students to users of online forums)
-over many years (since at last 1991)
-in varying programming languages (from Java to Racket) and in
-different countries (such as the USA and Sweden).
-\Cref{t:rel-work} lists works that seem most relevant to us.
-
-There are some small differences.
-\cite{fleuryParameterPassingRules1991} identifies a dynamic scope misconception
-that is different from \miscon{FlatEnv}:
-\begin{description}
-  \item[\surmisedMiscon{CallerEnv}] Function values don't remember their environments.
-  When a function is called, the function body is evaluated in an
-  environment that extends from the \textit{caller's} environment.
-\end{description}
-I don't include \surmisedMiscon{CallerEnv} in our analysis because in our
-data, all wrong answers that can be explained by \surmisedMiscon{CallerEnv}
-are also explainable by \miscon{FlatEnv}.
-
-Appendix A of \cite{sorvaVisualProgramSimulation2012} provides an
-extensive survey of misconceptions reported
-in research up to 2012.
-There are overlaps between our survey and
-theirs. For instance, our \surmisedMiscon{CallerEnv} is their No.~47.
-However, because their descriptions are brief, it is difficult to tell
-whether a misconception in their survey matches our misconceptions.
-Because
-they provide neither misinterpreters nor representative program-output
-pairs, it is difficult to determine the overlaps precisely (showing
-the value of providing these two machine-runnable descriptions).
-At any rate,
-we certainly find
-no equivalent of \miscon{FlatEnv}, \miscon{DeepClosure}, and
-\miscon{DefByRef} in their survey.
-
-\paragraph{Goal Sentences}
-
-Our idea of ``goal sentences'' is not substantially different from the
-\textit{rules of program behavior} from \cite{duranRulesProgramBehavior2021}.
-I only used these sentences (or rules) to guide the
-design of the Tutor and as text in the Tutor itself.
-\cite{duranRulesProgramBehavior2021} argue for other uses of such
-sentences.
-
-\paragraph{Misinterpreters}
-
-Our idea of misinterpreters is related to mystery languages
-\cite{diwanPLdetectiveSystemTeaching2004,
-pombrioTeachingProgrammingLanguages2017}. Both approaches use
-evaluators that represent alternative semantics to the same syntax.
-However, the two are complementary.
-In mystery languages, instructors design the space of semantics with
-pedagogic intent, and
-students must create programs to explore that space. Misinterpreters,
-in contrast, are driven by student input, while the programs are provided
-by instructors. The two approaches also have different goals:
-mystery languages focus on encouraging students to experiment with
-languages; misinterpreters aim at capturing students' misconceptions.
-
 \section{Threats to Validity}
 \label{s:threats}
 
@@ -1863,6 +1898,24 @@ The other major concern is the tie to Lispy syntax. Learners in other
 settings may do worse or even better with it. Building a Tutor that
 supports multiple, and more traditional, syntaxes should help address
 this issue. I defer this to future work (\cref{s:future-work}).
+
+\section{Related Work}%
+\label{s:related-work}
+
+\subsection{Misinterpreters}
+
+Our idea of misinterpreters is related to mystery languages
+\cite{diwanPLdetectiveSystemTeaching2004,
+pombrioTeachingProgrammingLanguages2017}. Both approaches use
+evaluators that represent alternative semantics to the same syntax.
+However, the two are complementary.
+In mystery languages, instructors design the space of semantics with
+pedagogic intent, and
+students must create programs to explore that space. Misinterpreters,
+in contrast, are driven by student input, while the programs are provided
+by instructors. The two approaches also have different goals:
+mystery languages focus on encouraging students to experiment with
+languages; misinterpreters aim at capturing students' misconceptions.
 
 \section{Future Work \& Timeline}%
 \label{s:future-work}
