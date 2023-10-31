@@ -17,6 +17,8 @@
 \newcommand{\miscon}[1]{\textbf{#1}}
 \newcommand{\surmisedMiscon}[1]{\miscon{#1}$^\ddag$}
 \newcommand{\pValue}[0]{\textit{p}\nobreakdash-value}
+\newcommand{\rqI}{What are the misconceptions that are about program behavior, apply to most modern programming languages, and present (even) in students with prior programming backgrounds?}
+\newcommand{\rqII}{What would be a tutoring system that aims at correcting the misconceptions, draws on cognitive and educational psychology concepts, utilizes a notional machine, and seems to be effective?}
 
 %% Some recommended packages.
 \usepackage{booktabs}   %% For formal tables:
@@ -201,27 +203,20 @@ features \emph{and their interactions} in SMoL.
 This lead to my \textbf{research questions}:
 
 \begin{description}
-  \item[RQ1] What are the misconceptions that are about program
-  behavior, apply to most modern programming languages, and present
-  (even) in students with prior programming backgrounds?
-  \item[RQ2] What would be a tutoring system (the SMoL Tutor) that
-  draws on cognitive and educational psychology concepts, utilizes a
-  notional machine (the Stacker), and aims at correcting the
-  misconceptions?
-  \item[RQ3] How effective is SMoL Tutor at correcting the
-  misconceptions?
+  \item[RQ1] \rqI
+  \item[RQ2] \rqII
 \end{description}
 
-To answer my research questions, I have (a) run a multi-year, multi-phase study to
-identify these misunderstandings while trying to work around the blind
-spots of experts (and also drawing on prior work),
-and (b) constructed the SMoL Tutor, an interactive tutor to address
-these misunderstandings. The SMoL Tutor is not a \emph{programming} tutor;
-rather, it assumes the user has some basic facility with programming
-(i.e., that they are already familiar with concepts like vectors,
-mutation, and higher-order functions). It is built around SMoL's
-features and their interactions, and draws on cognitive and
-educational psychology concepts to expressly identify
+To answer my research questions, I have (a) run a multi-year,
+multi-phase study to identify these misunderstandings while trying to
+work around the blind spots of experts (and also drawing on prior
+work), and (b) constructed the SMoL Tutor, an interactive tutor to
+address these misunderstandings. The SMoL Tutor is not a
+\emph{programming} tutor; rather, it assumes the user has some basic
+facility with programming (i.e., that they are already familiar with
+concepts like vectors, mutation, and higher-order functions). It is
+built around SMoL's features and their interactions, and draws on
+cognitive and educational psychology concepts to expressly identify
 and correct misconceptions.
 
 Concretely, I have made the following contributions:
@@ -245,6 +240,9 @@ Concretely, I have made the following contributions:
 
   \item I present a tutoring system, the SMoL Tutor, that measurably
         corrects these misconceptions.
+
+  \item I present a notional machine, the Stacker, that is used by the
+  SMoL Tutor to explain programs and might be useful in itsown.
 
 \end{enumerate}
 
@@ -299,7 +297,8 @@ and providing principles \emph{after} the comparisons (rather than
 before or not at all), are associated with better learning
 outcomes.
 
-\section{Background: Misconceptions}
+\section{Background: Misconceptions}%
+\label{s:background-misconceptions}
 
 
 \begin{table}[t]
@@ -395,57 +394,95 @@ design of the Tutor and as text in the Tutor itself.
 \cite{duranRulesProgramBehavior2021} argue for other uses of such
 sentences.
 
-\section{Research Methodology}%
-\label{s:research-methodology}
+\section{Plan for \textbf{RQ1}}%
+\label{s:methodology-rq1}
 
-\subsection{\textbf{RQ1:} What are the misconceptions that are about program behavior, apply to most modern programming languages, and present (even) in students with prior programming backgrounds?}
+\begin{description}
+  \item[RQ1] \rqI
+\end{description}
 
-This research question imposes three predicates on misconceptions:
-\begin{enumerate}
-  \item are about program behavior,
-  \item apply to most modern programming languages, and
-  \item present (even) in students with prior programming background
-\end{enumerate}
-The first predicate is the probably the most subtle, so I will talk
-about it last. I approach the second predicate by modeling the
+To ensure that I am studying program behavior rather than some
+implementation details, I plan to focus on the results of running
+programs. I approach the second predicate by modeling the
 ``consensus'' of modern programming language with SMoL. Because SMoL
 represents the semantic core, misconceptions about SMoL presumably
 also apply to most modern PLs. I approach the third and last predicate
-by collecting data in population that very likely have prior experience.
-For example, my priliminary results are build upon data collected in
-a upper-year programming language course.
+by collecting data in population that very likely have prior
+experience. For example, my priliminary results are build upon data
+collected in a upper-year programming language course.
 
-Let me come back to the first predicate. I would like to measure misconceptions
-with tasks like the following:
+In order to find a reasonably comprehensive collection of
+misconceptions, I seek for inputs from students. Most prior works
+(\Cref{s:background-misconceptions}) have experts coming up with a
+list of potential misconceptions and then filter the potential
+misconceptions with student inputs. This approach can't possibly find
+misconceptions not considered by experts and hence is necessarily
+affected by experts' blind spots. I plan to overcome experts'
+blind spots by avoid presuming misconceptions. Concretely, my first
+step was a two-year process to find (a) student-written programs that
+tend to trip up students and (b) incorrect responses to those programs
+(\Cref{s:gen-prob-quizius}), using a tool for the purpose
+(\Cref{s:quizius}).
 
-[FILL]
+Another source of misconceptions are student responses in the tutoring
+system. The tutoring system, which I will explain in details when I
+talk about RQ2 (\Cref{s:methodology-rq2}), includes many
+multiple-choice questions (MCQs) that asks students to predict the
+result(s) of running a program. MCQ is a commonly used task format for
+detecting misconceptions [CITE]. MCQs in their own only detect
+\emph{patterns of errors}. To detect \emph{misconceptions} -- student
+conceptions that produces pattern of errors, I need student-written
+explanations for their wrong answers. To this end, I plan to ask a
+follow up questions after the MCQs: when students make a wrong choice,
+the follow-up asks \emph{why} they made the choice.
 
-I think tasks like the following
-is best suited for measuring program-behavior misconceptions, in comparison
-to tasks commonly found in literature.
+I expect to find multiple misconceptions. Each misconception is
+represented by a collection of program-result-explanation triples.
+There should be a small number of programs. For each of these
+programs, a wrong result is commonly predicted by students from
+various population. Furthermore, these students give similar explanations
+for all the wrong answers. I also would like to provide a definitional
+interpreter for the misconception.
 
+For example, I might find a misconception called \textbf{DefByRef}:
+when students are asked to predict the result of
+\begin{lstlisting}
+  (defvar x 12)
+  (defvar y x)
+  (set! y 0)
+  x
+  y
+\end{lstlisting}
+many of them responded \lstinline|12 0|; and when asked to predict
+\begin{lstlisting}
+  (defvar x 12)
+  (defvar y x)
+  (set! x 0)
+  x
+  y
+\end{lstlisting}
+many of them responded \lstinline|0 12|; and these students all
+explained something like ``\lstinline|y| is \lstinline|x|''. To
+represent this misconception, I provide a interpreter that almost
+works like the referential interperter of SMoL, but \lstinline|defvar|
+aliases variables.
 
-% To find misconceptions about
-% program behavior, I need to
-% \begin{enumerate}
-%   \item define what counts as a misconception about program behavior, and
-%   \item describe how to find such a misconception
-% \end{enumerate}
-% Only conception that causes a student to predict a wrong result of a program
-% counts as a misconception about program behavior. Here are a few example
-% of misconceptions that I do \textit{not} consider about program behavior:
-% \begin{enumerate}
-%   \item \texttt{[1, 2, 3]} allocates 3 bytes. [CITE]
-%   \item Variables reside on heap [CITE]
-% \end{enumerate}
-% I do not consider them because they go too deep into implementation
-% details [FILL]. By limiting the scope to program behavior, I suspect
-% the misconceptions I found would be more relevant to most reading,
-% writing, and debugging tasks.
+\section{Plan for \textbf{RQ2}}%
+\label{s:methodology-rq2}
 
-% Misconceptions about program behavior should not be specific to
-% certain variable names, constants, or indentation. [FILL]
+\begin{description}
+  \item[RQ2] \rqII
+\end{description}
 
+Prior works suggest that presenting refutation text and encouraging
+students to compare cases are helpful for learning, and that notional
+machines are useful for explaning program behavior.
+
+I have built a tutor that incorporate these ideas
+(\Cref{s:system-tutor}).
+
+This tutor uses a lot of MCQs illustrated in
+\Cref{f:smol-tutor-example}.
 
 \section{The SMoL Language}\label{s:smol}
 
@@ -1935,7 +1972,6 @@ By the end of Fall 2023, I would like to improve the SMoL Tutor:
   every misconception has at least two questions that aims at
   correcting the misconception.
   \item Partially randomize the order of questions.
-  \item Try to reduce the chance of missing values.
 \end{enumerate}
 
 Several faculties from other institutions have expressed interest in
