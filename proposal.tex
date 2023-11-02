@@ -92,11 +92,9 @@
 \begin{abstract}
   Misconceptions about core linguistic concepts like mutable
   variables, mutable compound data, and their interaction with scope
-  and higher-order functions seem to be widespread.
-  But
-  how do we detect
-  them, given that experts have blind spots and may not realize the
-  myriad ways in which students can misunderstand programs?
+  and higher-order functions seem to be widespread. But how do we
+  detect them, given that experts have blind spots and may not realize
+  the myriad ways in which students can misunderstand programs?
   Furthermore, once identified, what can we do to correct them?
 
   In this proposal, I present a curated list of misconceptions, and an
@@ -110,7 +108,7 @@
   Our data consistently show that (a) the misconceptions I tackle are
   widespread, and (b) the tutor appears to improve understanding.
 
-  [FILL future work]
+    [FILL future work]
 \end{abstract}
 
 %% \maketitle
@@ -239,7 +237,7 @@ Concretely, I have made the following contributions:
         corrects these misconceptions.
 
   \item I present a notional machine, the Stacker, that is used by the
-  SMoL Tutor to explain programs and might be useful in itsown.
+        SMoL Tutor to explain programs and might be useful in itsown.
 
 \end{enumerate}
 
@@ -294,9 +292,9 @@ and providing principles \emph{after} the comparisons (rather than
 before or not at all), are associated with better learning
 outcomes.
 
-[FILL Notional Machine]
+  [FILL Notional Machine]
 
-[FILL Language Levels] Prior research argues for the benefits of \emph{language levels}
+  [FILL Language Levels] Prior research argues for the benefits of \emph{language levels}
 [CITE]: a langauge has better be taught as a sequence of languages,
 where each later language includes more langauge constructs than the
 previous one.
@@ -308,43 +306,43 @@ previous one.
 \begin{table}[t]
   \centering
   \begin{tabularx}{\textwidth}{>{\hsize=.6\hsize\RaggedRight}X >{\hsize=.8\hsize\RaggedRight}X >{\hsize=.5\hsize\RaggedRight}X >{\hsize=1.4\hsize\RaggedRight}X}
-    \textbf{Publication}                       &
-    \textbf{Population}                       &
-    \textbf{Languages}                       &
+    \textbf{Publication}                                                           &
+    \textbf{Population}                                                            &
+    \textbf{Languages}                                                             &
     \textbf{Misconceptions}
     \\\hline
-    \cite{fleuryParameterPassingRules1991} &
-    Unclear, likely CS2 students &
-    Pascal &
+    \cite{fleuryParameterPassingRules1991}                                         &
+    Unclear, likely CS2 students                                                   &
+    Pascal                                                                         &
     \surmisedMiscon{CallerEnv}; \miscon{IsolatedFun}; \miscon{DefOrSet}
     (See their RULEs 2, 3a, and 3b in TABLE 2;
     RULE 1 doesn't apply to us.)
     \\\hline
     \cite{goldmanIdentifyingImportantDifficult2008,goldmanSettingScopeConcept2010} &
-    CS1 students &
-    Java, Python, Scheme &
+    CS1 students                                                                   &
+    Java, Python, Scheme                                                           &
     Scope and memory model (See their Figures 4 and 5)
     \\\hline
-    \cite{fislerAssessingTeachingScope2017} &
-    Third- and fourth-year undergrads &
-    Java and Scheme &
+    \cite{fislerAssessingTeachingScope2017}                                        &
+    Third- and fourth-year undergrads                                              &
+    Java and Scheme                                                                &
     \miscon{FlatEnv}; \miscon{CallByRef}; \miscon{CallsCopyStruct}; \miscon{DefByRef}
     (See their Section 4)
     \\\hline
-    \cite{saarinenHarnessingWisdomClasses2019} &
-    CS2 students &
-    Java &
+    \cite{saarinenHarnessingWisdomClasses2019}                                     &
+    CS2 students                                                                   &
+    Java                                                                           &
     \miscon{StructByRef} (Their G2); \miscon{DefByRef} or \miscon{DefCopyStructs} (Their G3); \miscon{CallsCopyStruct} (Their G4).
     \\\hline
-    \cite{strombackProgressionStudentsAbility2023} &
-    CS masters &
-    Python &
+    \cite{strombackProgressionStudentsAbility2023}                                 &
+    CS masters                                                                     &
+    Python                                                                         &
     \miscon{FlatEnv}; \miscon{CallByRef}; \miscon{DefsCopyStruct}
     (See their section 4.2)
     \\\hline
-    \cite{strombackProgressionStudentsAbility2023} &
-    CS undergrads &
-    C++ &
+    \cite{strombackProgressionStudentsAbility2023}                                 &
+    CS undergrads                                                                  &
+    C++                                                                            &
     \miscon{FlatEnv}; \miscon{CallByRef}; \miscon{DefsCopyStruct}
     (See their section 4.2)
     \\\hline
@@ -366,8 +364,8 @@ There are some small differences.
 that is different from \miscon{FlatEnv}:
 \begin{description}
   \item[\surmisedMiscon{CallerEnv}] Function values don't remember their environments.
-  When a function is called, the function body is evaluated in an
-  environment that extends from the \textit{caller's} environment.
+    When a function is called, the function body is evaluated in an
+    environment that extends from the \textit{caller's} environment.
 \end{description}
 I don't include \surmisedMiscon{CallerEnv} in our analysis because in our
 data, all wrong answers that can be explained by \surmisedMiscon{CallerEnv}
@@ -508,19 +506,19 @@ one or more language constructs (\Cref{t:tutorials}).
   \centering\begin{tabularx}{\linewidth}{p{0.4\linewidth} X}
     \textbf{Tutorial}                             & \textbf{Language Constructs}
     \\\hline
-    \newterm{scope}: Lexical scope &
+    \newterm{scope}: Lexical scope                &
     Primitives, variables, \lstinline|defvar|, and \lstinline|deffun|.
     \\\hline
-    \newterm{mut-vars}: Mutable variables &
+    \newterm{mut-vars}: Mutable variables         &
     Adding \lstinline|set!|.
     \\\hline
     \newterm{vectors}: Vectors and vector updates &
     Adding vector operators.
     \\\hline
-    \newterm{lambda}: Lambda expressions &
+    \newterm{lambda}: Lambda expressions          &
     Adding \lstinline|lambda|.
     \\\hline
-    \newterm{local}: Local binding forms &
+    \newterm{local}: Local binding forms          &
     Adding \texttt{let}.
     % \\\hline
   \end{tabularx}
@@ -565,9 +563,9 @@ has the following options:
   \item the correct answer,
   \item wrong answers that correspond to known misconceptions,
   \item options generated by moving and/or copying numbers in the
-  current options
+        current options
   \item the ``Other'' option (which, once choosen, allows students to
-  enter arbitrary answer)
+        enter arbitrary answer)
 \end{itemize}
 
 \paragraph{Panelty to Wrong Choices} To discourage students from
@@ -589,24 +587,24 @@ random choices. In short, I want to make students feel as follows:
 To encourage this feeling, I have been doing the following: when I
 deployed the tutor in my institution, I graded by
 completion\footnote{I have no control over how other institutions use
-the tutor.}; when a student fails a task, the tutor gives an
+  the tutor.}; when a student fails a task, the tutor gives an
 \emph{extra} task:
 \begin{enumerate}
 
   \item The program is semantically the same as the first, but with
-    superficial changes (e.g., variable names, constants, and
-    operators are changed) so that the student cannot immediately
-    guess the answer.
+        superficial changes (e.g., variable names, constants, and
+        operators are changed) so that the student cannot immediately
+        guess the answer.
 
   \item Instead of multiple-choice, students must \emph{type} the
-    answer into a text box. (The tutor normalizes text to accommodate
-    variations.) This is intentional. First, I want to force
-    reflection on the explanation just given, whereas with an MCQ,
-    students could just guess. Second, I feel that students would
-    find typing more onerous than clicking. In case students had just
-    guessed on a question, my hope is that the penalty of having to
-    type means, on \emph{subsequent} tasks, they would be more likely
-    to pause and reflect before choosing.
+        answer into a text box. (The tutor normalizes text to accommodate
+        variations.) This is intentional. First, I want to force
+        reflection on the explanation just given, whereas with an MCQ,
+        students could just guess. Second, I feel that students would
+        find typing more onerous than clicking. In case students had just
+        guessed on a question, my hope is that the penalty of having to
+        type means, on \emph{subsequent} tasks, they would be more likely
+        to pause and reflect before choosing.
 
 \end{enumerate}
 
@@ -689,9 +687,9 @@ data.
 I would like to evaluate the effectiveness from two perspectives:
 \begin{itemize}
   \item How effective is the tutor at stopping students from holding
-  misconceptions?
+        misconceptions?
   \item How close are students' final conception to the true
-  conception?
+        conception?
 \end{itemize}
 
 I can infer whether students hold a misconception by analysing their
@@ -700,9 +698,9 @@ an interpreting task:
 \begin{enumerate}
   \item They give the correct answer.
   \item They give a wrong answer that correspond to some
-  misconceptions.
+        misconceptions.
   \item They give a wrong answer that do not correspond to any (known)
-  misconceptions.
+        misconceptions.
 \end{enumerate}
 If a student gives a wrong answer corresponds to exactly one
 misconception \emph{and} an explanation that matches the
@@ -712,13 +710,13 @@ doing the task.
 Given this observation, I plan to set up the tutor such that
 \begin{itemize}
   \item Every wrong answer corresponds to up to one misconception. In
-  this case, I say the wrong answer \emph{represents} the
-  misconception.
+        this case, I say the wrong answer \emph{represents} the
+        misconception.
   \item Every misconception is represented by some questions.
   \item In each tutorial, a misconception is either not represented by
-  any interpreting tasks or represented by exactly two tasks.
+        any interpreting tasks or represented by exactly two tasks.
   \item Within each tutorial, the order of interpreting tasks is
-  randomized.
+        randomized.
 \end{itemize}
 
 For each tutorail and each misconception appear in the tutorial, I
@@ -799,10 +797,10 @@ therefore work with two other populations
     \texttt{vec-ref}              & Look up a vector element                               \\
     \texttt{vec-set!}             & Replace a vector element                               \\
     \texttt{vec-len}              & Get the length of a vector                             \\
-    \texttt{mpair}                & Create a 2-element (mutable) vector                              \\
+    \texttt{mpair}                & Create a 2-element (mutable) vector                    \\
     \texttt{left right}           & Look up the first/second element of a 2-element vector \\
     \texttt{set-left! set-right!} & Replace the first/second element of a 2-element vector \\
-    \texttt{eq?}                    & Equality                                               \\
+    \texttt{eq?}                  & Equality                                               \\
   \end{tabularx}
   \caption{Primitive operators of SMoL.}
   \label{t:smol-primitives}
@@ -896,12 +894,12 @@ All these, however, add up to a somewhat challenging demand. I want
 to produce a list of questions (each one an MCQ) such that
 \begin{enumerate}
 
-\item we can get past the expert blind spot,
+  \item we can get past the expert blind spot,
 
-\item we have a sense of what misconceptions students have, and
+  \item we have a sense of what misconceptions students have, and
 
-\item we can generally associate wrong answers with specific
-  misconceptions, approaching a concept inventory.
+  \item we can generally associate wrong answers with specific
+        misconceptions, approaching a concept inventory.
 
 \end{enumerate}
 
@@ -973,12 +971,12 @@ While Quizius is very useful in principle, it also produced data that
 needed significant curation for the following reasons:
 \begin{itemize}
 
-\item A problem may have produced diverse outputs simply because it
-  was written in a very confusing way. Such programs do not reveal
-  any useful \emph{behavior} misconceptions, and must therefore be
-  filtered out. For instance:
+  \item A problem may have produced diverse outputs simply because it
+        was written in a very confusing way. Such programs do not reveal
+        any useful \emph{behavior} misconceptions, and must therefore be
+        filtered out. For instance:
 
-  \begin{lstlisting}
+        \begin{lstlisting}
   (defvar x 1)
   (defvar y 2)
   (defvar z 3)
@@ -986,20 +984,20 @@ needed significant curation for the following reasons:
   (sum x y z)
   \end{lstlisting}
 
-  A reader might think that \verb|sum| takes variable arguments (so
-  the program produces \verb|6|), but in fact \verb|...| is a single
-  variable, so this produces an arity error.
+        A reader might think that \verb|sum| takes variable arguments (so
+        the program produces \verb|6|), but in fact \verb|...| is a single
+        variable, so this produces an arity error.
 
-\item Some programs relied on (or stumbled upon) underspecified aspects
-  of unimportant (in particular, non-standard) parts of SMoL, such as floating-point versus
-  rational arithmetic.
+  \item Some programs relied on (or stumbled upon) underspecified aspects
+        of unimportant (in particular, non-standard) parts of SMoL, such as floating-point versus
+        rational arithmetic.
 
-\item A problem may have produced diverse outputs simply because it is
-  hard to parse or to (mentally) trace its execution. One example was a
-  17-line program with 6 similar-looking and -named functions. As
-  another example:
+  \item A problem may have produced diverse outputs simply because it is
+        hard to parse or to (mentally) trace its execution. One example was a
+        17-line program with 6 similar-looking and -named functions. As
+        another example:
 
-\begin{lstlisting}
+        \begin{lstlisting}
   (defvar a (or (/ 1 (- 0.25 0.25)) (/ 1 0.0)))
   (defvar b (and (/ 1 (- 0.25 0.25)) (/ 1 0.0)))
   (defvar c (and (/ 1 0.0) (/ 1 (- 0.25 -0.25))))
@@ -1007,13 +1005,13 @@ needed significant curation for the following reasons:
   (and (or a c) (or b d))
 \end{lstlisting}
 
-  This program is not only confusing, it \emph{also} tests interpretations of (a) exact
-  versus inexact numbers and (b) truthy/falsiness, leading to
-  significant (but not very useful) answer diversity.
+        This program is not only confusing, it \emph{also} tests interpretations of (a) exact
+        versus inexact numbers and (b) truthy/falsiness, leading to
+        significant (but not very useful) answer diversity.
 
-\item As noted above, a program's wrong (or even correct) answers may
-  correspond to multiple (mis)conceptions. In these cases, the program
-  must be refined to be more discriminative.
+  \item As noted above, a program's wrong (or even correct) answers may
+        correspond to multiple (mis)conceptions. In these cases, the program
+        must be refined to be more discriminative.
 
 \end{itemize}
 and so on.
@@ -1086,30 +1084,30 @@ answer (which also matches the implementation's output).
   \centering
   \begin{tabularx}{\linewidth}{l X}
     \textbf{Questions}                       &
-    \textbf{Table of Answers}          \\\hline
+    \textbf{Table of Answers}                    \\\hline
     \lstinputlisting{programs/def_twice.txt} & {
         \begin{tabularx}{\linewidth}{r X}
-          $^\dag$59\%  & \verb|2 0|             \\
-          *32\% & \verb|Error|           \\
-          4\%   & \verb|Other: 2 2|      \\
-          3\%   & ``Nothing is printed'' \\
-          2\%   & \verb|0 0|             \\
+          $^\dag$59\% & \verb|2 0|             \\
+          *32\%       & \verb|Error|           \\
+          4\%         & \verb|Other: 2 2|      \\
+          3\%         & ``Nothing is printed'' \\
+          2\%         & \verb|0 0|             \\
         \end{tabularx}
     }                                            \\\hline
     \lstinputlisting{programs/dyn_scope.txt} & {
         \begin{tabularx}{\linewidth}{r X}
-          *65\% & \verb|Error| \\
-          $^\dag$29\%  & \verb|42 #t| \\
-          6\%   & Other        \\
+          *65\%       & \verb|Error| \\
+          $^\dag$29\% & \verb|42 #t| \\
+          6\%         & Other        \\
         \end{tabularx}
     }                                            \\\hline
     \lstinputlisting{programs/reassign.txt}  & {
         \begin{tabularx}{\linewidth}{r X}
-          *53\% & \verb|#(6 5) 5|                 \\
-          *20\% & \verb|Error|                    \\
-          $^\dag$11\%  & \verb|#(6 6) 5|                 \\
-          $^\dag$11\%  & \verb|#(6 6) 6|                 \\
-          5\%   & ``Nothing is printed'' or Other \\
+          *53\%       & \verb|#(6 5) 5|                 \\
+          *20\%       & \verb|Error|                    \\
+          $^\dag$11\% & \verb|#(6 6) 5|                 \\
+          $^\dag$11\% & \verb|#(6 6) 6|                 \\
+          5\%         & ``Nothing is printed'' or Other \\
         \end{tabularx}
     }                                            \\\hline
   \end{tabularx}
@@ -1145,47 +1143,47 @@ scope-related misconceptions:
   \centering
   \begin{tabularx}{\linewidth}{l X}
     \textbf{Question}                           &
-    \textbf{Table of Answers}             \\\hline
+    \textbf{Table of Answers}                       \\\hline
     \lstinputlisting{programs/circularity.txt}  & {
         \begin{tabularx}{\linewidth}{r X}
-          $^\dag$50\%  & \verb|#(#(2 #(2 3)) #(2 3))| \\
-          *29\% & \verb|x=#(x x)| or
+          $^\dag$50\% & \verb|#(#(2 #(2 3)) #(2 3))| \\
+          *29\%       & \verb|x=#(x x)| or
           something similar. Both \verb|(left x)| and \verb|(right x)|
-          are \verb|x| itself.                 \\
-          $^\dag$16\%  & \verb|Error|                 \\
-          5\%   & Other                        \\
+          are \verb|x| itself.                       \\
+          $^\dag$16\% & \verb|Error|                 \\
+          5\%         & Other                        \\
         \end{tabularx}
     }                                               \\\hline
     \lstinputlisting{programs/mvec_in_mvec.txt} & {
         \begin{tabularx}{\linewidth}{r X}
-          *62\% & \verb|#(#(100 2 3 4) #(100 2 3 4))| \\
-          $^\dag$26\%  & \verb|#(#(1 2 3 4) #(100 2 3 4))|   \\
-          6\%   & \texttt{Error}                      \\
-          4\%   & \verb|#(#(1 2 3 4) #(1 2 3 4))|     \\
-          2\%   & Other                               \\
+          *62\%       & \verb|#(#(100 2 3 4) #(100 2 3 4))| \\
+          $^\dag$26\% & \verb|#(#(1 2 3 4) #(100 2 3 4))|   \\
+          6\%         & \texttt{Error}                      \\
+          4\%         & \verb|#(#(1 2 3 4) #(1 2 3 4))|     \\
+          2\%         & Other                               \\
         \end{tabularx}
     }                                               \\\hline
     \lstinputlisting{programs/vset_in_let.txt}  & {
         \begin{tabularx}{\linewidth}{r X}
-          *59\% & \verb|#(10)|  \\
-          $^\dag$36\%  & \verb|#(123)| \\
-          5\%   & Other         \\
+          *59\%       & \verb|#(10)|  \\
+          $^\dag$36\% & \verb|#(123)| \\
+          5\%         & Other         \\
         \end{tabularx}
     }                                               \\\hline
     \lstinputlisting{programs/var_as_arg.txt}   & {
         \begin{tabularx}{\linewidth}{r X}
-          *65\% & \texttt{12} \\
-          $^\dag$31\%  & \texttt{0}  \\
-          4\%   & Other       \\
+          *65\%       & \texttt{12} \\
+          $^\dag$31\% & \texttt{0}  \\
+          4\%         & Other       \\
         \end{tabularx}
     }                                               \\\hline
     \lstinputlisting{programs/setset.txt}       & {
         \begin{tabularx}{\linewidth}{r X}
-          *59\% & Other: \texttt{5 7}   \\
+          *59\%       & Other: \texttt{5 7}   \\
           $^\dag$27\% & \texttt{6 7}          \\
-          11\%  & \texttt{5 5}          \\
-          2\%  & Other: \texttt{Error} \\
-          1\%  & Other: \texttt{5 6}   \\
+          11\%        & \texttt{5 5}          \\
+          2\%         & Other: \texttt{Error} \\
+          1\%         & Other: \texttt{5 6}   \\
         \end{tabularx}
     }                                               \\\hline
   \end{tabularx}
@@ -1200,12 +1198,12 @@ scope-related misconceptions:
 addition of state. These data suggest the students have aliasing-related misconceptions:
 \begin{itemize}
   \item Up to 50\% of students think vectors are copied rather than
-  aliased.
+        aliased.
   \item 16\% of students think trying to construct and print a
-  self-referring vector would error. (This program is ambiguous:
-  \emph{constructing} works in most SMoL languages, but \emph{printing}
-  may well cause a problem. These identified ambiguities are
-  addressed in \Cref{s:tutor-refine-program-set}.)
+        self-referring vector would error. (This program is ambiguous:
+        \emph{constructing} works in most SMoL languages, but \emph{printing}
+        may well cause a problem. These identified ambiguities are
+        addressed in \Cref{s:tutor-refine-program-set}.)
   \item 31\% of students think a variable is aliased by a parameter if
         the two variables have the same name. Perhaps interestingly,
         fewer students (27\%) think the variable aliasing would
@@ -1229,34 +1227,34 @@ addition of state. These data suggest the students have aliasing-related misconc
   \centering
   \begin{tabularx}{\linewidth}{l X}
     \textbf{Question}                                 &
-    \textbf{Table of Answers}                   \\\hline
+    \textbf{Table of Answers}                             \\\hline
     \lstinputlisting{programs/fun_returns_lambda.txt} & {
         \begin{tabularx}{\linewidth}{r X}
-          *82\% & \verb|3|     \\
-          $^\dag$17\%  & \verb|Error| \\
-          1\%   & Other        \\
+          *82\%       & \verb|3|     \\
+          $^\dag$17\% & \verb|Error| \\
+          1\%         & Other        \\
         \end{tabularx}
     }                                                     \\\hline
     \lstinputlisting{programs/fun_and_state_1.txt}    & {
         \begin{tabularx}{\linewidth}{r X}
-          *74\% & \verb|4|            \\
-          $^\dag$21\%  & \verb|3|            \\
-          6\%   & Other: \verb|Error| \\
+          *74\%       & \verb|4|            \\
+          $^\dag$21\% & \verb|3|            \\
+          6\%         & Other: \verb|Error| \\
         \end{tabularx}
     }                                                     \\\hline
     \lstinputlisting{programs/fun_and_state_2.txt}    & {
         \begin{tabularx}{\linewidth}{r X}
-          *88\% & \verb|4|            \\
-          $^\dag$10\%  & \verb|3|            \\
-          3\%   & Other: \verb|Error| \\
+          *88\%       & \verb|4|            \\
+          $^\dag$10\% & \verb|3|            \\
+          3\%         & Other: \verb|Error| \\
         \end{tabularx}
     }                                                     \\\hline
     \lstinputlisting{programs/counter.txt}            & {
         \begin{tabularx}{\linewidth}{r X}
-          *62\% & \verb|1 1 2 3 2| \\
-          $^\dag$34\%  & \verb|1 1 1 1 1| \\
-          4\%   & Other            \\
-          1\%   & \verb|1 1 2 3 4| \\
+          *62\%       & \verb|1 1 2 3 2| \\
+          $^\dag$34\% & \verb|1 1 1 1 1| \\
+          4\%         & Other            \\
+          1\%         & \verb|1 1 2 3 4| \\
         \end{tabularx}
     }                                                     \\\hline
   \end{tabularx}
@@ -1322,10 +1320,10 @@ spent about 9.8 (median) minutes.
 
 Each tutorial consists of a sequence of
 questions. Most questions in the Tutor are \newterm{interpreting
-questions}.\footnote{The Tutor also asked students to perform some
-other activities, like showing programs and asking for their heap
-content, which we do not cover in this paper.}
- These questions (illustrated in
+  questions}.\footnote{The Tutor also asked students to perform some
+  other activities, like showing programs and asking for their heap
+  content, which we do not cover in this paper.}
+These questions (illustrated in
 \Cref{f:smol-tutor-example}) are versions of the SMoL
 Quizzes (obtained by the process described in \Cref{s:tutor-refine-program-set}).
 In each of these questions, students are shown a program
@@ -1339,21 +1337,21 @@ and then (b) asked to answer a
 second question:
 \begin{enumerate}
 
-\item The second question is semantically the same as the first, but
-  with superficial changes (e.g., variable names, constants, and operators are
-  changed) so that the student cannot immediately
-  guess the answer.
+  \item The second question is semantically the same as the first, but
+        with superficial changes (e.g., variable names, constants, and operators are
+        changed) so that the student cannot immediately
+        guess the answer.
 
-\item Instead of multiple-choice, students must \emph{type} the answer
-  into a text box. (The Tutor normalizes text to accommodate variations.)
-  This is
-  intentional. First, we wanted to force reflection on the
-  explanation just given, whereas with an
-  MCQ, students could just guess. Second, we felt that students would
-  find typing more onerous than clicking. In case students
-  had just guessed on a question, our hope is that the penalty of having to
-  type means, on \emph{subsequent} tasks, they
-  would be more likely to pause and reflect before choosing.
+  \item Instead of multiple-choice, students must \emph{type} the answer
+        into a text box. (The Tutor normalizes text to accommodate variations.)
+        This is
+        intentional. First, we wanted to force reflection on the
+        explanation just given, whereas with an
+        MCQ, students could just guess. Second, we felt that students would
+        find typing more onerous than clicking. In case students
+        had just guessed on a question, our hope is that the penalty of having to
+        type means, on \emph{subsequent} tasks, they
+        would be more likely to pause and reflect before choosing.
 
 \end{enumerate}
 
@@ -1377,7 +1375,7 @@ Readers can find the full Tutor in \supplRef{SMoL Tutor/instrument}.
 
 \begin{table}[t]
   \centering\begin{tabularx}{\linewidth}{p{0.2\linewidth} X}
-    \textbf{Tutorial}                             & \textbf{Goal Sentences}
+    \textbf{Tutorial}                                              & \textbf{Goal Sentences}
     \\\hline
     \newterm{scope}: Variable definitions and function definitions &
     \begin{enumerate}[topsep=0pt, partopsep=0pt, itemsep=0pt, parsep=0pt]
@@ -1389,17 +1387,17 @@ Readers can find the full Tutor in \supplRef{SMoL Tutor/instrument}.
             than lazy, reactive, or relational.
     \end{enumerate}
     \\\hline
-    \newterm{mut-vars}: Variable updates &
+    \newterm{mut-vars}: Variable updates                           &
     \begin{enumerate}[topsep=0pt, partopsep=0pt, itemsep=0pt, parsep=0pt]
       \item Variable assignment respects the hierarchical structure of blocks.
       \item Variables do not alias.
     \end{enumerate}
     \\\hline
-    \newterm{begin}: Sequencing expressions &
+    \newterm{begin}: Sequencing expressions                        &
     A sequencing expression evaluates its sub-expressions from left to right and
     returns the value of the last sub-expression.
     \\\hline
-    \newterm{vectors}: Vectors and vector updates &
+    \newterm{vectors}: Vectors and vector updates                  &
     \begin{enumerate}[topsep=0pt, partopsep=0pt, itemsep=0pt, parsep=0pt]
       \item Define heap and memory addresses.
       \item Vectors can be referred to by vectors, including themselves.
@@ -1408,7 +1406,7 @@ Readers can find the full Tutor in \supplRef{SMoL Tutor/instrument}.
       \item Introducing bindings doesn't alter the (value part of) heap.
     \end{enumerate}
     \\\hline
-    \newterm{lambda}: Lambda expressions &
+    \newterm{lambda}: Lambda expressions                           &
     \begin{enumerate}[topsep=0pt, partopsep=0pt, itemsep=0pt, parsep=0pt]
       \item Functions are (first-class) values.
       \item Functions remember the environment where they were created.
@@ -1416,7 +1414,7 @@ Readers can find the full Tutor in \supplRef{SMoL Tutor/instrument}.
       \item A function definition can be viewed as a variable definition plus a lambda expression.
     \end{enumerate}
     \\\hline
-    \newterm{local}: Local binding forms &
+    \newterm{local}: Local binding forms                           &
     Introduce \texttt{let}, \texttt{letrec}, and \texttt{let*}.
     % \\\hline
   \end{tabularx}
@@ -1462,7 +1460,7 @@ Quizzes, but made the following alterations:
         students to work through. For instance, SMoL Quizzes did not
         alias vectors using \lstinline|defvar|, so we added this program:
 
-\begin{lstlisting}
+        \begin{lstlisting}
 (defvar x (mvec 100))
 (defvar y x)
 (vec-set! x 0 200)
@@ -1485,7 +1483,7 @@ y
         unimportant aspects of SMoL. For example, some depended on
         whether operations on pairs could be applied to arbitrary vectors:
 
-\begin{lstlisting}
+        \begin{lstlisting}
   (pair? (mpair 1 2))
   (pair? (mvec 1 2))
   (pair? '#(1 2))
@@ -1496,14 +1494,14 @@ y
         whether or not a function's formal parameter could have the same
         name as the function itself:
 
-\begin{lstlisting}
+        \begin{lstlisting}
   (deffun (f f) f)
   (f 5)
 \end{lstlisting}
 
   \item I resolved ambiguities in some programs, either adding
-    answer choices or even adding other questions to tease
-    out different interpretations.
+        answer choices or even adding other questions to tease
+        out different interpretations.
 
   \item To reduce the number of concepts, we removed programs that relied
         upon \emph{im}mutable vectors and lists, because they did not
@@ -1517,15 +1515,15 @@ y
           add that as a major tutorial component in future versions.}
 
   \item I removed programs of a ``Lispy'' nature, such as one where
-    the answer depended on whether the reader correctly understood
-    this inequality:
+        the answer depended on whether the reader correctly understood
+        this inequality:
 
-\begin{lstlisting}
+        \begin{lstlisting}
       (filter (lambda (n) (> 3 n)) '(1 2 3 4 5))
 \end{lstlisting}
 
-    This checks whether $\verb|n| < \verb|3|$, but some presumably
-    vocalized it as ``greater than \verb|3|, \verb|n|?''.
+        This checks whether $\verb|n| < \verb|3|$, but some presumably
+        vocalized it as ``greater than \verb|3|, \verb|n|?''.
 
 \end{enumerate}
 Most of these steps either modify or elide programs. Two cases,
@@ -1644,157 +1642,157 @@ misconception.\footnote{An astute reader may well imagine another
   data. I do welcome other misinterpretations, for which we
   can add more misinterpreters!}
 
-  \begin{table}[!h]
-    \centering\begin{tabularx}{\linewidth}{X l X}
-      \textbf{Misconception}                                                     &
-      \textbf{Question}                                                          &
-      \textbf{Table of Answers}
-      \\\hline
-      \miscon{CallByRef} Function calls alias variables.                         &
-       % mut-vars.not_aliased_by_funarg_2 (35)
-       \lstinputlisting{programs/call-by-ref.txt}                                                                    & {
+\begin{table}[!h]
+  \centering\begin{tabularx}{\linewidth}{X l X}
+    \textbf{Misconception}                                                     &
+    \textbf{Question}                                                          &
+    \textbf{Table of Answers}
+    \\\hline
+    \miscon{CallByRef} Function calls alias variables.                         &
+    % mut-vars.not_aliased_by_funarg_2 (35)
+    \lstinputlisting{programs/call-by-ref.txt}                                 & {
         \begin{tabularx}{\linewidth}{r X}
-          78\%  & \verb|12|      \\
-          11\% & \verb|error|      \\
-          **10\%   & \verb|0|  \\
-          1\%   & \verb|23|  \\
+          78\%   & \verb|12|    \\
+          11\%   & \verb|error| \\
+          **10\% & \verb|0|     \\
+          1\%    & \verb|23|    \\
         \end{tabularx}
-    }
-      \\\hline
-      \miscon{CallsCopyStructs} Function calls copy data structures.      &
-      % vectors2.alias_with_funcall (48)
-      \lstinputlisting{programs/calls-copy-structs.txt}
-      & {
+      }
+    \\\hline
+    \miscon{CallsCopyStructs} Function calls copy data structures.             &
+    % vectors2.alias_with_funcall (48)
+    \lstinputlisting{programs/calls-copy-structs.txt}
+                                                                               & {
         \begin{tabularx}{\linewidth}{r X}
-          90\%  & \verb|#(173 0)|      \\
-          **10\%   & \verb|#(1 0)|  \\
+          90\%   & \verb|#(173 0)| \\
+          **10\% & \verb|#(1 0)|   \\
         \end{tabularx}
-    } \\\hline
-      \miscon{DeepClosure} Closures copy the \textit{values} of free variables.  &
-      % lambda3.lambda_remembers_env (70)
-      \lstinputlisting{programs/deep-closure.txt}                                & {
-          \begin{tabularx}{\linewidth}{r X}
-            86\%  & \verb|4|      \\
-            **10\% & \verb|3|      \\
-            3\%   & \verb|error|  \\
-            1\%   & \verb|lambda| \\
-          \end{tabularx}
-      }                                                                                   \\\hline
-      \miscon{DefByRef} Variable definitions alias variables.                    &
-      % mut-vars.not_aliased_by_defvar_1 (29)
-      \lstinputlisting{programs/def-by-ref.txt}                                  & {
-          \begin{tabularx}{\linewidth}{r X}
-            85\%   & \verb|0 12|                \\
-            **12\% & \verb|0 0|                 \\
-            2\%    & \verb|error|               \\
-            1\%    & depends on implementation. \\
-          \end{tabularx}
-        }
-      \\\hline
-      \miscon{DefOrSet}  Both definitions and variable assignments are
-      interpreted as follows: if a variable is not defined in the
-      current environment, it is defined. Otherwise, it is mutated to
-      the new value.
-      &
-      % program: mut-vars.update_undefined (28)
-      \lstinputlisting{programs/def-or-set.txt}                                  & {
-          \begin{tabularx}{\linewidth}{r X}
-            85\%   & \verb|error| \\
-            **15\% & \verb|2|     \\
-          \end{tabularx}
-        }
-      \\\hline
-      \miscon{DefsCopyStructs} Variable definitions copy structures recursively. &
-      % vectors2.alias_with_defvar (47)
-      \lstinputlisting{programs/defs-copy-structs.txt}                                & {
-          \begin{tabularx}{\linewidth}{r X}
-            **67\% & \verb|#(100)| \\
-            30\%   & \verb|#(200)| \\
-            1\%    & \verb|#(300)| \\
-            1\%    & \verb|error|  \\
-          \end{tabularx}
-      }                                                                                   \\\hline
-    \end{tabularx}
-    \caption{Ground misconceptions identified by the SMoL~Tutor. Answers marked
-      with ``**'' represent the misconception. (Part I)}
-    \label{t:tutor-grounded-misconceptions-1}
-  \end{table}
+    }                                                                              \\\hline
+    \miscon{DeepClosure} Closures copy the \textit{values} of free variables.  &
+    % lambda3.lambda_remembers_env (70)
+    \lstinputlisting{programs/deep-closure.txt}                                & {
+        \begin{tabularx}{\linewidth}{r X}
+          86\%   & \verb|4|      \\
+          **10\% & \verb|3|      \\
+          3\%    & \verb|error|  \\
+          1\%    & \verb|lambda| \\
+        \end{tabularx}
+    }                                                                              \\\hline
+    \miscon{DefByRef} Variable definitions alias variables.                    &
+    % mut-vars.not_aliased_by_defvar_1 (29)
+    \lstinputlisting{programs/def-by-ref.txt}                                  & {
+        \begin{tabularx}{\linewidth}{r X}
+          85\%   & \verb|0 12|                \\
+          **12\% & \verb|0 0|                 \\
+          2\%    & \verb|error|               \\
+          1\%    & depends on implementation. \\
+        \end{tabularx}
+      }
+    \\\hline
+    \miscon{DefOrSet}  Both definitions and variable assignments are
+    interpreted as follows: if a variable is not defined in the
+    current environment, it is defined. Otherwise, it is mutated to
+    the new value.
+                                                                               &
+    % program: mut-vars.update_undefined (28)
+    \lstinputlisting{programs/def-or-set.txt}                                  & {
+        \begin{tabularx}{\linewidth}{r X}
+          85\%   & \verb|error| \\
+          **15\% & \verb|2|     \\
+        \end{tabularx}
+      }
+    \\\hline
+    \miscon{DefsCopyStructs} Variable definitions copy structures recursively. &
+    % vectors2.alias_with_defvar (47)
+    \lstinputlisting{programs/defs-copy-structs.txt}                           & {
+        \begin{tabularx}{\linewidth}{r X}
+          **67\% & \verb|#(100)| \\
+          30\%   & \verb|#(200)| \\
+          1\%    & \verb|#(300)| \\
+          1\%    & \verb|error|  \\
+        \end{tabularx}
+    }                                                                              \\\hline
+  \end{tabularx}
+  \caption{Ground misconceptions identified by the SMoL~Tutor. Answers marked
+    with ``**'' represent the misconception. (Part I)}
+  \label{t:tutor-grounded-misconceptions-1}
+\end{table}
 
-  \begin{table}[!h]
-    \centering
-    \begin{tabularx}{\linewidth}{X l X}
-      \textbf{Misconception}                                                     &
-      \textbf{Question}                                                          &
-      \textbf{Table of Answers}
-      \\\hline
-      \miscon{FlatEnv} There is only one environment, the global
-      environment. (This misconception is a kind of dynamic scope.)              &
-      % scope.error_when_refer_to_undefined (9)
-      \lstinputlisting{programs/flat-env.txt}                                    & {
-          \begin{tabularx}{\linewidth}{r X}
-            96\%  & \verb|error| \\
-            **4\% & \verb|402|   \\
-          \end{tabularx}
-        }
-      \\\hline
-      \miscon{FunNotVal} Functions are \textit{not} considered
-      first-class values. They can't be bound to other variables, passed as arguments, or referred to by data structures.
-                                                                                 &
-      % lambda1.fun_as_parameter (62)
-      \lstinputlisting{programs/fun-not-val.txt}                                 & {
-          \begin{tabularx}{\linewidth}{r X}
-            83\%   & \verb|4|     \\
-            **11\% & \verb|error| \\
-            4\%    & \verb|2|     \\
-            1\%    & \verb|8|     \\
-          \end{tabularx}
-      }                                                                                   \\\hline
-      \miscon{IsolatedFun} Functions can't refer to free variables
-      except for the built-in ones.
-                                                                                 &
-      % scope.refer_global_is_possible (5)
-      \lstinputlisting{programs/isolated-fun.txt}                                & {
-          \begin{tabularx}{\linewidth}{r X}
-            77\%   & \verb|3|     \\
-            **23\% & \verb|error| \\
-          \end{tabularx}
-        }
-      \\\hline
-      \miscon{NoCircularity} Data structures can't (possibly indirectly)
-      refer to themselves.                                                       &
-      % vector2.warmup_circularity (53)
-      \lstinputlisting{programs/no-circularity.txt}                              & {
-          \begin{tabularx}{\linewidth}{r X}
-            76\%   & \verb|3|                   \\
-            **14\% & \verb|error|               \\
-            9\%    & Run out of memory or time. \\
-            1\%    & \verb|+inf|                \\
-          \end{tabularx}
-      }                                                                                   \\\hline
-      \miscon{StructByRef} Data structures might refer to variables by their references.                                                       &
-      % vector2.alias_var_in_mvec (49)
-      \lstinputlisting{programs/struct-by-ref.txt}                              & {
-          \begin{tabularx}{\linewidth}{r X}
-            67\%   & \verb|#(1 2 3)|                   \\
-            **24\% & \verb|#(1 2 4)|               \\
-            9\%    & error \\
-          \end{tabularx}
-      }                                                                                   \\\hline
-      \miscon{StructsCopyStructs} Storing data structures into data structures makes copies.                                                       &
-      % lambda1.smol_quiz_circularity (58)
-      \lstinputlisting{programs/structs-copy-struct.txt}                              & {
-          \begin{tabularx}{\linewidth}{r X}
-            65\%   & \verb|#0=#(#0# #0#)| (Racket circular object notation) \\
-            24\%   & \verb|#(#(2 3) #(2 3))|               \\
-            **6\%   & \verb|#(#(2 #(2 3)) #(2 3))|                   \\
-            6\%    & error \\
-          \end{tabularx}
-      }                                                                                   \\\hline
-    \end{tabularx}
-    \caption{Ground misconceptions identified by the SMoL~Tutor. Answers marked
-      with ``**'' represent the misconception. (Part II)}
-    \label{t:tutor-grounded-misconceptions-2}
-  \end{table}
+\begin{table}[!h]
+  \centering
+  \begin{tabularx}{\linewidth}{X l X}
+    \textbf{Misconception}                                                                 &
+    \textbf{Question}                                                                      &
+    \textbf{Table of Answers}
+    \\\hline
+    \miscon{FlatEnv} There is only one environment, the global
+    environment. (This misconception is a kind of dynamic scope.)                          &
+    % scope.error_when_refer_to_undefined (9)
+    \lstinputlisting{programs/flat-env.txt}                                                & {
+        \begin{tabularx}{\linewidth}{r X}
+          96\%  & \verb|error| \\
+          **4\% & \verb|402|   \\
+        \end{tabularx}
+      }
+    \\\hline
+    \miscon{FunNotVal} Functions are \textit{not} considered
+    first-class values. They can't be bound to other variables, passed as arguments, or referred to by data structures.
+                                                                                           &
+    % lambda1.fun_as_parameter (62)
+    \lstinputlisting{programs/fun-not-val.txt}                                             & {
+        \begin{tabularx}{\linewidth}{r X}
+          83\%   & \verb|4|     \\
+          **11\% & \verb|error| \\
+          4\%    & \verb|2|     \\
+          1\%    & \verb|8|     \\
+        \end{tabularx}
+    }                                                                                          \\\hline
+    \miscon{IsolatedFun} Functions can't refer to free variables
+    except for the built-in ones.
+                                                                                           &
+    % scope.refer_global_is_possible (5)
+    \lstinputlisting{programs/isolated-fun.txt}                                            & {
+        \begin{tabularx}{\linewidth}{r X}
+          77\%   & \verb|3|     \\
+          **23\% & \verb|error| \\
+        \end{tabularx}
+      }
+    \\\hline
+    \miscon{NoCircularity} Data structures can't (possibly indirectly)
+    refer to themselves.                                                                   &
+    % vector2.warmup_circularity (53)
+    \lstinputlisting{programs/no-circularity.txt}                                          & {
+        \begin{tabularx}{\linewidth}{r X}
+          76\%   & \verb|3|                   \\
+          **14\% & \verb|error|               \\
+          9\%    & Run out of memory or time. \\
+          1\%    & \verb|+inf|                \\
+        \end{tabularx}
+    }                                                                                          \\\hline
+    \miscon{StructByRef} Data structures might refer to variables by their references.     &
+    % vector2.alias_var_in_mvec (49)
+    \lstinputlisting{programs/struct-by-ref.txt}                                           & {
+        \begin{tabularx}{\linewidth}{r X}
+          67\%   & \verb|#(1 2 3)| \\
+          **24\% & \verb|#(1 2 4)| \\
+          9\%    & error           \\
+        \end{tabularx}
+    }                                                                                          \\\hline
+    \miscon{StructsCopyStructs} Storing data structures into data structures makes copies. &
+    % lambda1.smol_quiz_circularity (58)
+    \lstinputlisting{programs/structs-copy-struct.txt}                                     & {
+        \begin{tabularx}{\linewidth}{r X}
+          65\%  & \verb|#0=#(#0# #0#)| (Racket circular object notation) \\
+          24\%  & \verb|#(#(2 3) #(2 3))|                                \\
+          **6\% & \verb|#(#(2 #(2 3)) #(2 3))|                           \\
+          6\%   & error                                                  \\
+        \end{tabularx}
+    }                                                                                          \\\hline
+  \end{tabularx}
+  \caption{Ground misconceptions identified by the SMoL~Tutor. Answers marked
+    with ``**'' represent the misconception. (Part II)}
+  \label{t:tutor-grounded-misconceptions-2}
+\end{table}
 
 \begin{table}[!h]
   \centering
@@ -1805,7 +1803,7 @@ misconception.\footnote{An astute reader may well imagine another
     \surmisedMiscon{NestedDef} Sequences of definitions are
     interpreted as if they are written in nested blocks. A definition
     is not in the scope of later definitions.
-    &
+                                                                                       &
     % program: scope.what_is_x_4 (13)
     \lstinputlisting{programs/nested-def.txt}                                          & {
         \begin{tabularx}{\linewidth}{r X}
@@ -1975,7 +1973,7 @@ also a \emph{tutor}! So far, we have investigated the value of the
 MCQs. Now we examine its tutoring aspect. Concretely, we ask:
 \begin{description}
 
-\item[RQ] How effective is the Tutor at correcting each misconception?
+  \item[RQ] How effective is the Tutor at correcting each misconception?
 
 \end{description}
 To study this, we perform the following analysis per
@@ -2005,15 +2003,15 @@ improvements are significant (at a $p < 0.05$ threshold); details are
 in \supplRef{Paper.html}. Of the 11:
 \begin{itemize}
 
-\item Of the nine seemingly improved (i.e., decreased)
-  misconceptions:
-  \begin{itemize}
-  \item Two are \emph{not} significant: \miscon{CallByRef}
-      (\pValue\ = .074); \miscon{NoCircularity} (\pValue\ = .075).
-    \item The other seven \emph{are} significant.
-    \end{itemize}
+  \item Of the nine seemingly improved (i.e., decreased)
+        misconceptions:
+        \begin{itemize}
+          \item Two are \emph{not} significant: \miscon{CallByRef}
+                (\pValue\ = .074); \miscon{NoCircularity} (\pValue\ = .075).
+          \item The other seven \emph{are} significant.
+        \end{itemize}
   \item However, the two with an increasing trend (\miscon{DefOrSet}
-    and \miscon{FunNotVal}) are \emph{also} significant.
+        and \miscon{FunNotVal}) are \emph{also} significant.
 \end{itemize}
 
 These data broadly suggest that the Tutor is a net positive.
@@ -2060,31 +2058,31 @@ Fortunately, we were able to deploy the Tutor on two other
 populations:
 \begin{itemize}
 
-\item University 2 is a primarily public university in the US. It is
-  one of the largest Hispanic-serving institutions in the country. As
-  such, its demographic is extremely different from those whose data
-  were used above. The Tutor was used in one course in Spring 2023,
-  taken by 12 students.
-  The course is a third-year, programming
-  language course. The students are required to have taken two
-  introductory programming courses (C++ focused).
+  \item University 2 is a primarily public university in the US. It is
+        one of the largest Hispanic-serving institutions in the country. As
+        such, its demographic is extremely different from those whose data
+        were used above. The Tutor was used in one course in Spring 2023,
+        taken by 12 students.
+        The course is a third-year, programming
+        language course. The students are required to have taken two
+        introductory programming courses (C++ focused).
 
-\item A separate instance of the Tutor was published on the
-  website of a programming languages textbook [ANON]. Over the course
-  of 8 months, 597 people started with the first module and 103
-  users made it to the last one. To protect privacy, we intentionally
-  do not record demographic information, but we conjecture that the
-  population is largely self-learners  (who are known to use the
-  accompanying book),
-  including some professional
-  programmers. It is extremely
-  unlikely to be the students from either university, because they
-  would not get credit for their work on the public instance; they
-  needed to use the university-specific instance. Furthermore, since
-  they were not penalized for wrong answers, it would make little
-  sense to do a ``test run'' on the public instance. Finally, we note
-  that there is no overlap between the dates of submission on the
-  public instance and the semester at University 1.
+  \item A separate instance of the Tutor was published on the
+        website of a programming languages textbook [ANON]. Over the course
+        of 8 months, 597 people started with the first module and 103
+        users made it to the last one. To protect privacy, we intentionally
+        do not record demographic information, but we conjecture that the
+        population is largely self-learners  (who are known to use the
+        accompanying book),
+        including some professional
+        programmers. It is extremely
+        unlikely to be the students from either university, because they
+        would not get credit for their work on the public instance; they
+        needed to use the university-specific instance. Furthermore, since
+        they were not penalized for wrong answers, it would make little
+        sense to do a ``test run'' on the public instance. Finally, we note
+        that there is no overlap between the dates of submission on the
+        public instance and the semester at University 1.
 
 \end{itemize}
 These two populations are therefore at least somewhat different from
@@ -2195,7 +2193,7 @@ sentences.
 
 Our idea of misinterpreters is related to mystery languages
 \cite{diwanPLdetectiveSystemTeaching2004,
-pombrioTeachingProgrammingLanguages2017}. Both approaches use
+  pombrioTeachingProgrammingLanguages2017}. Both approaches use
 evaluators that represent alternative semantics to the same syntax.
 However, the two are complementary.
 In mystery languages, instructors design the space of semantics with
@@ -2218,11 +2216,11 @@ between uni-syntax tutor and multi-syntax tutor.
 By the end of Fall 2023, I would like to improve the SMoL Tutor:
 \begin{enumerate}
   \item Ask students to explained when they gave a wrong answer in a
-  interepreting question. With student explanations, I check whether
-  choosing the wrong answer indicates holding the corresponding misconception(s).
+        interepreting question. With student explanations, I check whether
+        choosing the wrong answer indicates holding the corresponding misconception(s).
   \item Adjust the collection of interpreting questions such that
-  every misconception has at least two questions that aims at
-  correcting the misconception.
+        every misconception has at least two questions that aims at
+        correcting the misconception.
   \item Partially randomize the order of questions.
 \end{enumerate}
 
