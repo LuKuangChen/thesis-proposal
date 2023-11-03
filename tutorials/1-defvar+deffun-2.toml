@@ -1,19 +1,7 @@
 [[tasks]]
-interpPool = "NestedDef+DefOrSet+Lazy"
+misconceptions = ["NestedDef", "DefOrSet", "Lazy"]
 
-[[tasks]]
-goal = """
-It is an error to define a variable twice within a single block.
-
-Programs are evaluated in a specific order:
-
-1. Every `defvar` evaluates the expression immediately and binds the variable to the value, even if the variable is not used later in the program.
-2. Every function call evaluates the actual parameters immediately and binds the values to formal parameters, even when the formal parameter is not used in the function.
-3. A sequence of `defvar` and `deffun` binds the variables to the values in top-to-bottom, left-to-right order.
-4. It is an error to evaluate a variable reference before binding it to a value.
-"""
-
-[[pools."NestedDef+DefOrSet+Lazy"]]
+[[tasks.content]]
 interp = """
 (defvar x 1)
 (deffun (f)
@@ -28,7 +16,7 @@ refutation.NestedDef = """
 in the body of `f` rather than the `x` defined before `g`.
 """
 
-[[pools."NestedDef+DefOrSet+Lazy"]]
+[[tasks.content]]
 interp = """
 (defvar x 1)
 (deffun (f) x)
@@ -46,7 +34,7 @@ This will error rather than mutating `x` because a variable
 can not be defined twice in one block.
 """
 
-[[pools."NestedDef+DefOrSet+Lazy"]]
+[[tasks.content]]
 interp = """
 (defvar x 1)
 (defvar x (+ x 1))
@@ -58,7 +46,7 @@ This will error rather than mutating `x` because a variable
 can not be defined twice in one block.
 """
 
-[[pools."NestedDef+DefOrSet+Lazy"]]
+[[tasks.content]]
 interp = """
 (defvar x (/ 12 0))
 3
@@ -67,7 +55,7 @@ refutation.Lazy = """
 The program errors when it tries to bind `x` to a value. `(/ 12 0)` evaluates to an error rather than a value.
 """
 
-[[pools."NestedDef+DefOrSet+Lazy"]]
+[[tasks.content]]
 interp = """
 (deffun (f x)
   3)
@@ -77,7 +65,7 @@ refutation.Lazy = """
 The program errors when it tries to bind `x` to a value, `(/ 12 0)` evaluates to an error rather than a value.
 """
 
-[[pools."NestedDef+DefOrSet+Lazy"]]
+[[tasks.content]]
 interp = """
 (defvar x (+ y 1))
 (defvar y 2)
@@ -90,7 +78,7 @@ The program errors when it tries to bind `x` to a value, `(+ y 1)` evaluates to 
 because `y` is not bound to a value at that moment.
 """
 
-[[pools."NestedDef+DefOrSet+Lazy"]]
+[[tasks.content]]
 interp = """
 (deffun (f) x)
 (defvar y (f))
@@ -101,4 +89,18 @@ y
 refutation.Lazy = """
 The program errors when it tries to bind `y` to a value, `(f)` evaluates to an error rather than a value
 because `x` is not bound to a value at that moment.
+"""
+
+[[tasks]]
+goal = """
+It is an error to define a variable twice within a single block.
+
+<hr/>
+
+Programs are evaluated in a specific order:
+
+1. Every `defvar` evaluates the expression immediately and binds the variable to the value, even if the variable is not used later in the program.
+2. Every function call evaluates the actual parameters immediately and binds the values to formal parameters, even when the formal parameter is not used in the function.
+3. A sequence of `defvar` and `deffun` binds the variables to the values in top-to-bottom, left-to-right order.
+4. It is an error to evaluate a variable reference before binding it to a value.
 """

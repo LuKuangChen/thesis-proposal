@@ -1,0 +1,208 @@
+[[tasks]]
+name = "introduce_syntax"
+instruction = """
+In this tutorial, we will learn about variable definitions and function definitions.
+The following program illustrates how to write definitions.
+
+```
+(defvar x 1)
+(defvar y 2)
+(deffun (f a b)
+  (defvar z 3)
+  (+ a b z))
+
+x
+y
+(f x y)
+```
+"""
+
+[[tasks]]
+name = "introduce_task"
+instruction = """
+You will be asked to predict the results of programs. We give you feedback based on your
+response. Please proceed to work on your first task.
+"""
+
+[[tasks]]
+interp = """
+(defvar x 1)
+(defvar y 2)
+(deffun (f a b)
+  (defvar z 3)
+  (+ a b z))
+
+x
+y
+(f x y)
+"""
+explanation = """
+In this program, the first definition *binds* `x` to `1`,
+the second definition binds `y` to `2`, and
+the third and last definitions binds `f` to a function.
+
+The result of running this program is three values:
+the value of `x`, the value of `y`, and the value of `(f x y)`.
+The values of `x` and `y` are `1` and `2` respectively.
+The value of `(f x y)` is the value of `(+ 1 2 3)`, which is `6`.
+For brevity, let's write the result of running this program on a single line, as
+
+`1 2 6`
+
+rather than
+
+```
+1
+2
+6
+```
+"""
+
+[[tasks]]
+name = "introduce_error"
+instruction = """
+In addition to values (numbers, strings, booleans, etc.),
+the result of running a program might include errors.
+
+For example, the result of the following program is `error`
+because it is an error to divide a number by 0.
+
+```
+(defvar x 23)
+(/ x 0)
+```
+
+The result of the following program is `#t #f error`
+because you can't add two boolean values.
+
+```
+#t
+#f
+(+ #t #f)
+```
+
+The result of the following program is `error`
+because `y` is not defined.
+
+```
+(defvar x 42)
+y
+```
+"""
+
+[[tasks]]
+misconceptions = ["IsolatedFun, FlatEnv"]
+
+[[tasks.content]]
+interp = """
+(defvar x 1)
+(deffun (f y)
+  (+ x y))
+
+(f 2)
+"""
+refutation.IsolatedFun = """
+The `x` in `(+ x y)` is able to refers to the top-level `x` because
+`f` is defined in the top-level block.
+"""
+
+
+[[tasks.content]]
+interp = """
+(defvar x 1)
+(deffun (f) x)
+(deffun (g)
+  (defvar x 2)
+  (f))
+
+(g)
+"""
+refutation.IsolatedFun = """
+The `x` in `(+ x y)` is able to refers to the top-level `x` because
+`f` is defined in the top-level block.
+"""
+refutation.FlatEnv = """
+The `x` defined in `g` is bound to `2` in a new environment rather than
+the top-level environment. The `x` in `f` refers to the `x` defined in the
+top-level environment. So the value of `(f)` is `1` rather than `2`.
+"""
+
+[[tasks.content]]
+interp = """
+(deffun (f x)
+  (defvar y 1)
+  (+ x y))
+
+(+ (f 2) y)
+"""
+refutation.FlatEnv = """
+The `y` defined in `f` is bound to `1` in a new environment rather than
+the top-level environment. The `y` in `(+ (f 2) y)` refers to `y` defined in the
+top-level environment. But `y` is not defined in the top-level.
+"""
+
+[[tasks.content]]
+interp = """
+(defvar x 1)
+(deffun (f y)
+  (defvar x 2)
+  (+ x y))
+
+(+ (f 0) x)
+"""
+refutation.FlatEnv = """
+The `x` defined in `f` is bound to `2` in a new environment rather than
+the top-level environment. The `x` in `(+ (f 0) x)` refers to `x` defined in the
+top-level environment. So the value of `(+ (f 0) x)` is `3` (i.e., `(+ (+ 2 0) 1)`)
+rather than `4` (i.e., `(+ (+ 2 0) 2)`).
+"""
+
+[[task.content]]
+interp = """
+(defvar x 1)
+(deffun (f y)
+  (deffun (g)
+    (defvar z 2)
+    (+ x y z))
+  (g))
+(+ (f 3) 4)
+"""
+refutation.IsolatedFun = """
+The `x` in `(+ x y z)` is able to refers to the top-level `x` because
+`g` is defined in the `f` and `f` is defined in the top-level block.
+
+Similarly, the `y` in `(+ x y z)` is able to refers to the parameter `y`
+because `g` is defined in the `f`.
+"""
+
+[[tasks]]
+prompt = """
+Now you have seen many programs that illustrate how variables work. Please
+reflect on this programs (and feel free to scroll back to review) and
+*think about* the following question.
+
+* In general, when we look up a variable, how do we find the corresponding value?
+
+If you are not sure about the answers, please *write down* what you are
+confused or uncertain about.
+"""
+
+[[tasks]]
+name = "summarize"
+goal = """
+How do we look up the value of a variable? We look in a series of environments.
+We start with the environment in which the variable reference occurs.
+If the variable is declared in the current environment, we use that declaration.
+Otherwise, we look up the environment in which the current environment occurs,
+and so on recursively. Specifically,
+
+* If the current environment is a function body,
+  the next environment will be the environment in which the function definition is evaluated;
+* If the current environment is the top-level environment,
+  the next environment will be the *primordial environment*;
+* If the current environment is already the primordial environment,
+  the variable is unbound.
+
+The primordial environment defines values and functions (e.g., `+` and `/`)
+that are provided by the language itself.
+"""
