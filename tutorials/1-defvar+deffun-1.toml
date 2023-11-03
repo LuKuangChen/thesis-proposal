@@ -91,7 +91,7 @@ y
 """
 
 [[tasks]]
-misconceptions = ["IsolatedFun, FlatEnv"]
+misconceptions = ["IsolatedFun", "FlatEnv"]
 
 [[tasks.content]]
 interp = """
@@ -106,6 +106,23 @@ The `x` in `(+ x y)` is able to refers to the top-level `x` because
 `f` is defined in the top-level block.
 """
 
+[[tasks.content]]
+interp = """
+(defvar x 1)
+(deffun (f y)
+  (deffun (g)
+    (defvar z 2)
+    (+ x y z))
+  (g))
+(+ (f 3) 4)
+"""
+refutation.IsolatedFun = """
+The `x` in `(+ x y z)` is able to refers to the top-level `x` because
+`g` is defined in the `f` and `f` is defined in the top-level block.
+
+Similarly, the `y` in `(+ x y z)` is able to refers to the parameter `y`
+because `g` is defined in the `f`.
+"""
 
 [[tasks.content]]
 interp = """
@@ -155,24 +172,6 @@ The `x` defined in `f` is bound to `2` in a new environment rather than
 the top-level environment. The `x` in `(+ (f 0) x)` refers to `x` defined in the
 top-level environment. So the value of `(+ (f 0) x)` is `3` (i.e., `(+ (+ 2 0) 1)`)
 rather than `4` (i.e., `(+ (+ 2 0) 2)`).
-"""
-
-[[task.content]]
-interp = """
-(defvar x 1)
-(deffun (f y)
-  (deffun (g)
-    (defvar z 2)
-    (+ x y z))
-  (g))
-(+ (f 3) 4)
-"""
-refutation.IsolatedFun = """
-The `x` in `(+ x y z)` is able to refers to the top-level `x` because
-`g` is defined in the `f` and `f` is defined in the top-level block.
-
-Similarly, the `y` in `(+ x y z)` is able to refers to the parameter `y`
-because `g` is defined in the `f`.
 """
 
 [[tasks]]
