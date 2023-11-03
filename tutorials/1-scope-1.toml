@@ -1,7 +1,7 @@
 [[tasks]]
 name = "introduce_syntax"
 instruction = """
-In this tutorial, we will learn about *variable definitions* and *function definitions*.
+In this tutorial, we will learn about variable definitions and function definitions.
 The following program illustrates how to write definitions.
 
 ```
@@ -21,7 +21,7 @@ y
 name = "introduce_task"
 instruction = """
 You will be asked to predict the results of programs. We give you feedback based on your
-response. Proceed to work on your first task.
+response. Please proceed to work on your first task.
 """
 
 [[tasks]]
@@ -57,9 +57,16 @@ rather than
 """
 
 [[tasks]]
+name = "introduce_stacker"
+instruction = """
+If you have not already click the link
+"""
+
+[[tasks]]
 name = "introduce_error"
 instruction = """
-In addition to values, the result of running a program might include errors.
+In addition to values (numbers, strings, booleans, etc.),
+the result of running a program might include errors.
 
 For example, the result of the following program is `error`
 because it is an error to divide a number by 0.
@@ -88,44 +95,25 @@ y
 """
 
 [[tasks]]
-name = "define_block"
-goal = """
-We have two kinds of places where a definition might happen: the top-level
-*block* and function bodies (which are also blocks). A block is a sequence
-of definitions followed by a sequence of expressions.
-
-Blocks form a tree-like structure in a program.
-For example, we have four blocks in the following program:
-
-```
-(defvar n 42)
-
-(deffun (f x)
-  (defvar y 1)
-  (+ x y))
-
-(deffun (g)
-  (deffun (h m)
-    (* 2 m))
-  (f (h 3)))
-
-(g)
-```
-
-The blocks are:
-
-- the top-level block, where `n`, `f`, and `g` are defined
-- `f`'s body, which is a sub-block of the top-level block
-- `g`'s body, which is also a sub-block of the top-level block, and
-- `h`'s body, which is a sub-block of `g`'s body
-"""
+interpPool = "IsolatedFun+FlatEnv"
 
 [[tasks]]
+name = "summarize"
 goal = """
-It is an error to define a variable twice within a single block.
+We find the declaration by looking in a series of blocks.
+We start with the block in which the variable reference occurs.
+If the variable is declared in the current block, we use that declaration.
+Otherwise, we look up the block in which the current block occurs, and so on recursively.
+(Specifically, if the current block is a function body, the next block will be the block in which the function definition is;
+if the current block is the top-level block, the next block will be the *primordial block*.)
+If the current block is already the primordial block and we still haven't found a corresponding declaration,
+the variable is unbound.
+
+The primordial block is a non-visible block enclosing the top-level block.
+This block defines values and functions (e.g., `+` and `/`) that are provided by the language itself.
 """
 
-[[tasks]]
+[[pools."IsolatedFun+FlatEnv"]]
 interp = """
 (defvar x 1)
 (deffun (f y)
@@ -138,7 +126,7 @@ refutation.IsolatedFun = """
 where `f` is defined, that is, the top-level block. `x` is defined there.
 """
 
-[[tasks]]
+[[pools."IsolatedFun+FlatEnv"]]
 interp = """
 (defvar x 1)
 (deffun (f) x)
@@ -158,7 +146,7 @@ the top-level environment. The `x` in `f` refers to the `x` defined in the
 top-level environment. So the value of `(f)` is `1` rather than `2`.
 """
 
-[[tasks]]
+[[pools."IsolatedFun+FlatEnv"]]
 interp = """
 (deffun (f x)
   (defvar y 1)

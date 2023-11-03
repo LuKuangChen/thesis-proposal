@@ -3,7 +3,14 @@ interpPool = "NestedDef+DefOrSet+Lazy"
 
 [[tasks]]
 goal = """
+It is an error to define a variable twice within a single block.
 
+Programs are evaluated in a specific order:
+
+1. Every `defvar` evaluates the expression immediately and binds the variable to the value, even if the variable is not used later in the program.
+2. Every function call evaluates the actual parameters immediately and binds the values to formal parameters, even when the formal parameter is not used in the function.
+3. A sequence of `defvar` and `deffun` binds the variables to the values in top-to-bottom, left-to-right order.
+4. It is an error to evaluate a variable reference before binding it to a value.
 """
 
 [[pools."NestedDef+DefOrSet+Lazy"]]
@@ -95,5 +102,3 @@ refutation.Lazy = """
 The program errors when it tries to bind `y` to a value, `(f)` evaluates to an error rather than a value
 because `x` is not bound to a value at that moment.
 """
-
-[[pools."NestedDef+DefOrSet+Lazy"]]
