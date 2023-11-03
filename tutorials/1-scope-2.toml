@@ -1,0 +1,99 @@
+[[tasks]]
+interpPool = "NestedDef+DefOrSet+Lazy"
+
+[[tasks]]
+goal = """
+
+"""
+
+[[pools."NestedDef+DefOrSet+Lazy"]]
+interp = """
+(defvar x 1)
+(deffun (f)
+  (deffun (g) x)
+  (defvar x 2)
+  (g))
+
+(f)
+"""
+refutation.NestedDef = """
+`g` is defined in the body of `f`. So  The `x` in `g` refers to the `x` defined
+in the body of `f` rather than the `x` defined before `g`.
+"""
+
+[[pools."NestedDef+DefOrSet+Lazy"]]
+interp = """
+(defvar x 1)
+(deffun (f) x)
+(defvar x 2)
+
+(f)
+"""
+refutation.NestedDef = """
+`f` is defined in top-level. So  The `x` in `f` refers to the `x` defined
+in the top-level. But the top-level defines `x` twice.
+"""
+refutation.DefOrSet = """
+The program tries to define `x` again in the same environment.
+This will error rather than mutating `x` because a variable
+can not be defined twice in one block.
+"""
+
+[[pools."NestedDef+DefOrSet+Lazy"]]
+interp = """
+(defvar x 1)
+(defvar x (+ x 1))
+x
+"""
+refutation.DefOrSet = """
+The program tries to define `x` again in the same environment.
+This will error rather than mutating `x` because a variable
+can not be defined twice in one block.
+"""
+
+[[pools."NestedDef+DefOrSet+Lazy"]]
+interp = """
+(defvar x (/ 12 0))
+3
+"""
+refutation.Lazy = """
+The program errors when it tries to bind `x` to a value. `(/ 12 0)` evaluates to an error rather than a value.
+"""
+
+[[pools."NestedDef+DefOrSet+Lazy"]]
+interp = """
+(deffun (f x)
+  3)
+(f (/ 12 0))
+"""
+refutation.Lazy = """
+The program errors when it tries to bind `x` to a value, `(/ 12 0)` evaluates to an error rather than a value.
+"""
+
+[[pools."NestedDef+DefOrSet+Lazy"]]
+interp = """
+(defvar x (+ y 1))
+(defvar y 2)
+
+x
+y
+"""
+refutation.Lazy = """
+The program errors when it tries to bind `x` to a value, `(+ y 1)` evaluates to an error rather than a value
+because `y` is not bound to a value at that moment.
+"""
+
+[[pools."NestedDef+DefOrSet+Lazy"]]
+interp = """
+(deffun (f) x)
+(defvar y (f))
+(defvar x 12)
+
+y
+"""
+refutation.Lazy = """
+The program errors when it tries to bind `y` to a value, `(f)` evaluates to an error rather than a value
+because `x` is not bound to a value at that moment.
+"""
+
+[[pools."NestedDef+DefOrSet+Lazy"]]

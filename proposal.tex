@@ -1,9 +1,11 @@
 \documentclass{article}
 
+% TODO
+% - clean up the background sections
+
 \usepackage[switch]{lineno}
 \usepackage{xcolor}
 \renewcommand\thelinenumber{\textcolor{red}{\arabic{linenumber}}}
-
 \usepackage[utf8]{inputenc} % Use UTF-8 encoding
 \usepackage[T1]{fontenc} % Use the T1 font encoding
 \usepackage{geometry} % Adjust page margins
@@ -13,13 +15,6 @@
 \usepackage[style=authoryear]{biblatex}  % For managing references
 \addbibresource{bibfile.bib}
 \usepackage{hyperref}
-\newcommand{\miscon}[1]{\textbf{#1}}
-\newcommand{\surmisedMiscon}[1]{\miscon{#1}$^\ddag$}
-\newcommand{\pValue}[0]{\textit{p}\nobreakdash-value}
-\newcommand{\rqI}{What are the program-behavior misconceptions that apply to most modern programming languages and present (even) in students with prior programming backgrounds?}
-\newcommand{\rqII}{What would be a tutoring system that aims at correcting the misconceptions, draws on cognitive, educational, or psychological concepts, and seems to be effective?}
-
-%% Some recommended packages.
 \usepackage{booktabs}   %% For formal tables:
                         %% http://ctan.org/pkg/booktabs
 \usepackage{subcaption} %% For complex figures with subfigures/subcaptions
@@ -45,10 +40,17 @@
   breaklines=true,
   language=smol
 }
-%% Custom commands:
-%% new terms are introduced with a boldface
-%% (the common style is italic, but KC thinks bf is easier to locate)
+
+\newcommand{\miscon}[1]{\textbf{#1}}
+\newcommand{\surmisedMiscon}[1]{\miscon{#1}$^\ddag$}
 \newcommand{\newterm}[1]{\textbf{#1}}
+
+%% abbrev. for p-value
+\newcommand{\pValue}[0]{\textit{p}\nobreakdash-value}
+
+%% abbrev. for RQs
+\newcommand{\rqI}{What are the program-behavior misconceptions that apply to SMoL and present (even) in students with prior programming backgrounds?}
+\newcommand{\rqII}{What would be a tutoring system that aims at correcting the misconceptions, draws on cognitive, educational, or psychological concepts, and seems to be effective?}
 
 %% abbrev. for JavaScript etc.
 \newcommand{\js}{JavaScript}
@@ -77,7 +79,6 @@
 %% abbrev. for referring to supplementary materials
 \newcommand{\supplRef}[1]{\texttt{#1} in the supplementary materials}
 
-
 \title{Dissertation Proposal}
 \author{Kuang-Chen Lu}
 \date{\today}
@@ -86,9 +87,6 @@
 \maketitle
 \linenumbers
 
-%% Abstract
-%% Note: \begin{abstract}...\end{abstract} environment must come
-%% before \maketitle command
 \begin{abstract}
   Misconceptions about core linguistic concepts like mutable
   variables, mutable compound data, and their interaction with scope
@@ -97,24 +95,15 @@
   the myriad ways in which students can misunderstand programs?
   Furthermore, once identified, what can we do to correct them?
 
-  In this proposal, I present a curated list of misconceptions, and an
-  instrument to detect them. These are distilled from student work
-  over several years and match and extend prior research.  I also
-  present an automated, self-guided tutoring system. The tutor builds
-  on strategies in the education literature and is explicitly designed
-  around identifying and correcting misconceptions.
-
-  I have tested the tutor in multiple settings.
-  Our data consistently show that (a) the misconceptions I tackle are
-  widespread, and (b) the tutor appears to improve understanding.
-
-    [FILL future work]
+  I propose a plan for finding misconceptions possibly not anticipated
+  by experts, and the design of an automated, self-guided tutoring
+  system. The tutor builds on strategies in the cognitive and
+  educational literature and is explicitly designed around identifying
+  and correcting misconceptions. Preliminary results suggest (a) the
+  misconceptions I found are widespread, and (b) the tutor appears to
+  improve understanding.
 \end{abstract}
 
-%% \maketitle
-%% Note: \maketitle command must come after title commands, author
-%% commands, abstract environment, Computing Classification System
-%% environment and commands, and keywords command.
 \maketitle
 
 
@@ -164,7 +153,7 @@ for button in button_list:
 That is, a user would expect to see \verb|0| through \verb|9|. In
 fact, however, it prints \verb|9| ten times.
 
-As the related work section (\Cref{s:rel-work}) describes,
+As a background section (\Cref{s:background-misconceptions}) describes,
 multiple researchers, in different
 countries and different kinds of post-secondary educational contexts,
 have studied how students fare with scope and state. They consistently
@@ -202,102 +191,148 @@ This lead to my \textbf{research questions}:
   \item[RQ2] \rqII
 \end{description}
 
-To answer my research questions, I have (a) run a multi-year,
-multi-phase study to identify these misunderstandings while trying to
-work around the blind spots of experts (and also drawing on prior
-work), and (b) constructed the SMoL Tutor, an interactive tutor to
-address these misunderstandings. The SMoL Tutor is not a
-\emph{programming} tutor; rather, it assumes the user has some basic
-facility with programming (i.e., that they are already familiar with
-concepts like vectors, mutation, and higher-order functions). It is
-built around SMoL's features and their interactions, and draws on
-cognitive and educational psychology concepts to expressly identify
-and correct misconceptions.
+In the rest of this document, I first define SMoL (\Cref{s:smol}),
+then presents literature review of misconceptions
+(\Cref{s:background-misconceptions}) and tutoring systems
+(\Cref{s:background-tutoring-systems}), then outline my research plans
+for the RQs (\Cref{s:plan-rq1,s:plan-rq2}). The remaining sections
+detail my current progress.
 
-Concretely, I have made the following contributions:
-\begin{enumerate}
 
-  \item I provide a collection of brief programs for detecting
-        misconceptions about the features of SMoL and their
-        interaction. These programs are short and most are readily
-        translatable to a wide variety of programming languages that
-        share the SMoL characteristics.
+% To answer my research questions, I have (a) run a multi-year,
+% multi-phase study to identify these misunderstandings while trying to
+% work around the blind spots of experts (and also drawing on prior
+% work), and (b) constructed the SMoL Tutor, an interactive tutor to
+% address these misunderstandings. The SMoL Tutor is not a
+% \emph{programming} tutor; rather, it assumes the user has some basic
+% facility with programming (i.e., that they are already familiar with
+% concepts like vectors, mutation, and higher-order functions). It is
+% built around SMoL's features and their interactions, and draws on
+% cognitive and educational psychology concepts to expressly identify
+% and correct misconceptions.
 
-  \item I show that multiple populations have problems with these
-        programs.
+% Concretely, I have made the following contributions:
+% \begin{enumerate}
 
-  \item I present a list of curated misconceptions generated
-        after multiple rounds of analysis.
+%   \item I provide a collection of brief programs for detecting
+%         misconceptions about the features of SMoL and their
+%         interaction. These programs are short and most are readily
+%         translatable to a wide variety of programming languages that
+%         share the SMoL characteristics.
 
-  \item I implement these misconceptions as interpreters, which
-        find weaknesses in our manual analysis and hold potential for
-        generative use in the future.
+%   \item I show that multiple populations have problems with these
+%         programs.
 
-  \item I present a tutoring system, the SMoL Tutor, that measurably
-        corrects these misconceptions.
+%   \item I present a list of curated misconceptions generated
+%         after multiple rounds of analysis.
 
-  \item I present a notional machine, the Stacker, that is used by the
-        SMoL Tutor to explain programs and might be useful in itsown.
+%   \item I implement these misconceptions as interpreters, which
+%         find weaknesses in our manual analysis and hold potential for
+%         generative use in the future.
 
-\end{enumerate}
+%   \item I present a tutoring system, the SMoL Tutor, that measurably
+%         corrects these misconceptions.
 
-This document first presents the current results and ends with future
-work \& timeline (\cref{s:future-work}).
+%   \item I present a notional machine, the Stacker, that is used by the
+%         SMoL Tutor to explain programs and might be useful in itsown.
 
-\paragraph{A Note on Terminology} I use the term
-``behavior'' to refer to the meaning of programs in terms of the
-answers they produce. A more standard term for this would, of course, be
-``semantics''. However, the term ``semantics tutor'' might
-mislead some readers into thinking it
-teaches people to read or write a formal semantics, e.g., an
-introduction to ``Greek'' notation. Because that is not the kind of
-tutor I are describing, to avoid confusion, I use the term
-``behavior'' instead.
+% \end{enumerate}
 
-\section{Background: Tutoring Systems and Pedagogic Techniques}
-\label{s:background}
+% This document first presents the current results and ends with future
+% work \& timeline (\cref{s:future-work}).
 
-There is an extensive body of literature on tutoring systems (\cite{vanlehnBehaviorTutoringSystems2006a} is
-a quality survey), and indeed whole conferences are dedicated to
-them. I draw on this literature. In particular, it is common in the
-literature to talk about a ``two-loop'' architecture \cite{vanlehnBehaviorTutoringSystems2006a} where the outer
-loop iterates through ``tasks'' (i.e., educational activities) and the inner loop iterates through UI events within a task. I follow the same
-structure in our tutor (\Cref{s:tutor-uiux}).
+% \paragraph{A Note on Terminology} I use the term
+% ``behavior'' to refer to the meaning of programs in terms of the
+% answers they produce. A more standard term for this would, of course, be
+% ``semantics''. However, the term ``semantics tutor'' might
+% mislead some readers into thinking it
+% teaches people to read or write a formal semantics, e.g., an
+% introduction to ``Greek'' notation. Because that is not the kind of
+% tutor I are describing, to avoid confusion, I use the term
+% ``behavior'' instead.
 
-Many tutoring systems focus on teaching programming
-(such as the well-known and heavily studied LISP Tutor \cite{andersonLISPTutor1985}), and in
-the process undoubtedly address some program behavior
-misconceptions. Our SMoL Tutor differs in a notable way: it does not
-try to teach programming per se. Instead, it assumes a basic
-programming background and focuses entirely on program behavior misconceptions
-and correcting them. I are not aware of a tutoring system (in computer science) that has
-this specific design.
+\section{The SMoL Language}\label{s:smol}
 
-The SMoL Tutor is firmly grounded in one technique from
-cognitive and educational psychology. The fundamental problem is: how
-do you fix a misconception? One approach is to only ``present the
-right answer'', for fear that discussing the wrong conception might
-actually reinforce it. Instead, there is a body of literature starting
-from \cite{posnerTheoryConceptualChange1982} that presents a theory of conceptual
-change, at whose heart is the \emph{refutation text}. A refutation
-text tackles the misconception directly, discussing and providing a
-refutation for the incorrect idea. Several studies \cite{schroederRefutationTextFacilitates2022} have shown
-their effectiveness in multiple other domains.
+\begin{figure}[t]
+  \centering
+  \begin{lstlisting}
+    t ::= d
+        | e
+    d ::= (defvar x e)
+        | (deffun (f x ...) body)
+    e ::= c
+        | x
+        | (lambda (x ...) body)
+        | (let ([x e] ...) body)
+        | (begin e ... e)
+        | (set! x e)
+        | (if e e e)
+        | (cond [e body] ... [else body])
+        | (cond [e body] ...)
+        | (e e ...)
+    body    ::= t ... e
+    program ::= t ...
+  \end{lstlisting}
+  \caption{The syntax of SMoL.}
+  \label{f:smol-syntax}
+\end{figure}
 
-The SMoL Tutor's content structure is also influenced by work on \emph{case comparisons}
-(which draws analogies between examples).
-\cite{alfieriLearningCaseComparisons2013a} suggests that asking
-(rather than not asking) students to find similarities between cases,
-and providing principles \emph{after} the comparisons (rather than
-before or not at all), are associated with better learning
-outcomes.
+\begin{table}[t]
+  \centering\begin{tabularx}{\linewidth}{r X}
+    \textbf{Operators}            & \textbf{Meaning}                                       \\\hline
+    \texttt{+ - * /}              & Arithmetic Operators                                   \\
+    \texttt{< > <= >=}            & Number comparison                                      \\
+    \texttt{mvec}                 & Create a (mutable) vector (a.k.a. array)               \\
+    \texttt{vec-ref}              & Look up a vector element                               \\
+    \texttt{vec-set!}             & Replace a vector element                               \\
+    \texttt{vec-len}              & Get the length of a vector                             \\
+    \texttt{mpair}                & Create a 2-element (mutable) vector                    \\
+    \texttt{left right}           & Look up the first/second element of a 2-element vector \\
+    \texttt{set-left! set-right!} & Replace the first/second element of a 2-element vector \\
+    \texttt{eq?}                  & Equality                                               \\
+  \end{tabularx}
+  \caption{Primitive operators of SMoL.}
+  \label{t:smol-primitives}
+\end{table}
 
-  [FILL Notional Machine]
+SMoL is designed to capture common features of many modern
+languages.
+The syntax of SMoL is presented in~\Cref{f:smol-syntax}, where
+\lstinline|t| stands for terms, \lstinline|d| stands for definitions, \lstinline|e|
+stands for expressions, \lstinline|c| stands for constants (i.e., number,
+boolean, and string), and \lstinline|x| and \lstinline|f| are identifiers
+(variables). The last kind of expression (i.e., \lstinline|(e e ...)|) is
+function application.
 
-  [FILL Language Levels] Prior research argues for the benefits of \emph{language levels}
-[CITE]: a langauge has better be taught as a sequence of languages,
-where each later language includes more langauge constructs than the
-previous one.
+SMoL's Lispy syntax is
+an artifact of the course (\Cref{s:univ-1-course}) using Racket
+\cite{friedmanEssentialsProgrammingLanguages2001, krishnamurthiProgrammingLanguagesApplication2007};
+however, it also proved to be pedagogically valuable.
+I have found the parentheses useful when discussing
+scope in conjunction with local-binding features like \lstinline|let|.
+This avoids the various confusing ``variable lifting'' semantics found
+in languages like Python (\cite{politzPythonFullMonty2013}; see also
+posts like \cite{froadieWhatScopeVariable2022}), where the actual defined range of a
+variable is not apparent from the source code.
+
+Nevertheless, most SMoL programs are easy to translate to other
+languages. I present machine-translated Python and JavaScript
+versions of our programs in \supplRef{Translated\_Programs.html}. Furthermore, we intend to
+make a multi-lingual tutor in the future (\Cref{s:future-work}).
+
+The semantics of SMoL is as described in \Cref{s:intro}.
+SMoL includes limited primitive operators (\Cref{t:smol-primitives}) to work with numbers, strings, and
+vectors. It provides only one equality operator, which tests for exact
+equality between atomic values and for pointer equality between other
+values.
+
+Students are given a working implementation of SMoL, built
+as a \verb|#lang| language inside Racket \cite{felleisenProgrammableProgrammingLanguage2018}. This language
+provides only the defined syntax and semantics of SMoL, with no
+(other) Racket features present.
+(As in Racket, arguments evaluate left-to-right, to give stateful programs an
+unambiguous semantics.) The implementation is available online:
+\href{https://github.com/shriram/smol}{https://github.com/shriram/smol}.
 
 \section{Background: Misconceptions}%
 \label{s:background-misconceptions}
@@ -387,6 +422,28 @@ we certainly find
 no equivalent of \miscon{FlatEnv}, \miscon{DeepClosure}, and
 \miscon{DefByRef} in their survey.
 
+\section{Background: Tutoring Systems}%
+\label{s:background-tutoring-systems}
+
+There is an extensive body of literature on tutoring systems
+(\cite{vanlehnBehaviorTutoringSystems2006a} is a quality survey), and
+indeed whole conferences are dedicated to them. I draw on this
+literature. In particular, it is common in the literature to talk
+about a ``two-loop'' architecture
+\cite{vanlehnBehaviorTutoringSystems2006a} where the outer loop
+iterates through ``tasks'' (i.e., educational activities) and the
+inner loop iterates through UI events within a task. I follow the same
+structure in my tutor (\Cref{s:tutor-uiux}).
+
+Many tutoring systems focus on teaching programming (such as the
+well-known and heavily studied LISP Tutor
+\cite{andersonLISPTutor1985}), and in the process undoubtedly address
+some program behavior misconceptions. My tutor differs in a notable
+way: it does not try to teach programming per se. Instead, it assumes
+a basic programming background and focuses entirely on program
+behavior misconceptions and correcting them. I are not aware of a
+tutoring system (in computer science) that has this specific design.
+
 \section{Plan for \textbf{RQ1}}%
 \label{s:plan-rq1}
 
@@ -394,57 +451,74 @@ no equivalent of \miscon{FlatEnv}, \miscon{DeepClosure}, and
   \item[RQ1] \rqI
 \end{description}
 
-To answer this RQ, I need to first define what I mean by ``apply to
-most modern programming languages''. As I described in the
-Introduction (\Cref{s:intro}), most modern languages share a semantic
-core. I have modelled this core as SMoL (\Cref{s:smol}). Because SMoL
-represents the semantic core, misconceptions about SMoL presumably
-also apply to most modern PLs.
-
 To find misconceptions that ``present (even) in students with prior
 programming backgrounds'', I have been collecting data from multiple
 populations that very likely have prior experience
-(\Cref{s:generality-tutor}). For example, my priliminary results are
-build upon data collected in a upper-year programming language course
-at Brown. [FILL list the data sources]
+(\Cref{s:generality-tutor}). I have the following data sources so far:
+\begin{description}
+  \item[University 1] students in a ``Principles of Programming
+    Languages'' class at Brown University. The class has about 70--75
+    students per year. It is not required, so students take it by
+    choice. Virtually all are computer science majors. Most are in
+    their third or fourth year of tertiary education; about 10\% are
+    graduate students. All have had at least one semester of
+    imperative programming, and most have significantly more
+    experience with it. Most have had close to a semester of
+    functional programming. The student work described here was
+    required, but students were graded on effort, not correctness.
+  \item[University 2] a primarily public university in the US. It is
+    one of the largest Hispanic-serving institutions in the country. As
+    such, its demographic is extremely different from those whose data
+    were used above. The Tutor was used in one course in Spring 2023,
+    taken by 12 students. The course is a third-year, programming
+    language course. The students are required to have taken two
+    introductory programming courses (C++ focused).
+  \item[Textbook] an instrument was published on the website of a
+    programming languages textbook. Over the course of 8 months,
+    several hundreds of people submitted to the instrument. To protect
+    privacy, I intentionally do not record demographic information,
+    but I conjecture that the population is largely self-learners (who
+    are known to use the accompanying book), including some
+    professional programmers.
+\end{description}
 
 To find a reasonably comprehensive collection of misconceptions, I
 seek for inputs from students. Most prior works
 (\Cref{s:background-misconceptions}) have experts coming up with a
 list of potential misconceptions and then filter the potential
-misconceptions with student inputs. This approach can't possibly find
-misconceptions not considered by experts and hence is necessarily
-affected by experts' blind spots. To overcome experts' blind spots, I
-analyze a dataset produced by a two-year process to find (a)
-student-written programs that tend to trip up students and (b)
-incorrect responses to those programs (\Cref{s:gen-prob-quizius}),
-using a tool for the purpose (\Cref{s:quizius}). I have been cleaning
-up those programs (\Cref{s:smol-quizzes,s:tutor-refine-program-set})
-and confirming that these programs are still tricky in the same way
+misconceptions with student inputs. This approach can't find
+misconceptions not envisioned by experts and hence is hindered by
+experts' blind spots. To overcome such bias, I analyze a University~1
+dataset produced by a two-year process to find (a) student-written
+programs that tend to trip up students and (b) incorrect responses to
+those programs (\Cref{s:gen-prob-quizius}), using a tool for the
+purpose (\Cref{s:quizius}). I have been cleaning up those programs
+(\Cref{s:smol-quizzes,s:tutor-refine-program-set}) and confirming that
+these programs are still tricky in the same way
 (\Cref{s:misconceptions-quiz,s:misconceptions-tutor}).
-\Cref{s:misconceptions-tutor} list misconceptions found with this
-process.
+\Cref{s:misconceptions-tutor} presents the final list of
+misconceptions found with this process.
 
-I have been creating a tutoring system to answer my RQ2. The tutoring
-system collects more student data, which becomes another source of
-misconceptions. The tutoring system, which I explain in details when I
-talk about RQ2 (\Cref{s:plan-rq2}), includes many tasks that asks
-students to predict the result(s) of running a program. I have found
-several unanticipated patterns of errors
-(\Cref{s:misconceptions-tutor}), which suggest the existence of
-unknown misconceptions. The current system do not collect students'
-rationale for their answers. So I do not know what are the underlying
-misconceptions (although some of the wrong answers are somewhat
-self-explanatory). I plan to change the system such that it asks
-students' for their explanations when they give a wrong answer. I plan
-to eyeball the explanations to find new misconceptions.
+I have another source of misconceptions. I have been creating a tutor
+to answer my RQ2. The tutor, which I explain in details when I talk
+about RQ2 (\Cref{s:plan-rq2}), includes many tasks that asks students
+to predict the result(s) of running a program. I have found several
+unanticipated patterns of errors (\Cref{s:misconceptions-tutor}),
+which suggest the existence of unknown misconceptions. The tutor is
+not collecting students' rationale for their answers. So I do not know
+what are the underlying misconceptions (although some of the wrong
+answers are somewhat self-explanatory). I plan to change the tutor
+such that it asks students' for their explanations when they give a
+wrong answer. I plan to eyeball the explanations to find new
+misconceptions and to further confirm that anticipated wrong answers
+do represent the expected misconceptions.
 
 To be reasonably specific about misconceptions, I have created a
 definitional interpreter for each misconception that I have found. I
-plan to do the same things for newly found/confirmed misconceptions.
+plan to do the same things for any new misconceptions.
 
 Eventually, I expect to build a table of misconceptions. Each
-misconception comes with two or more programs. For each of these
+misconception comes with multiple programs. For each of these
 programs, the wrong result that correspond to the misconception should
 be commonly predicted by students from various population.
 Furthermore, these students should give similar explanations for all
@@ -476,31 +550,32 @@ explained something like ``\lstinline|y| is \lstinline|x|''.
 \end{description}
 
 To answer this RQ, I have done some literature review on what
-pedagogic techniques are helpful (\Cref{s:background}). My current
-takeaway is that refutation text, case comparison, and notional
-machines are helpful. And I have created a tutoring system (hereafter,
-the tutor) (\Cref{s:system-tutor}) that incorporates refutation text
-and case comparison (\Cref{s:tutor-uiux}). I am adding notional
-machine to the tutor and plan to explore more literature and to
-improve the tutor if I find new helpful techniques.
+pedagogic techniques are helpful (\Cref{s:pedagogic-techniques}). My
+current takeaway is that refutation text, case comparison, notional
+machines, and language levels are helpful.
+
+I have created a tutor (\Cref{s:system-tutor}) that incorporates all
+these ideas (\Cref{s:tutor-uiux}) and have collected data from all
+populations. I plan to explore more literature and to improve the
+tutor if I find new helpful techniques.
 
 I would like to first explain key aspects of the tutor
-(\Cref{s:tutorials,s:interpreting-task}) and then how the tutor
-incorporates ideas of refutation text (\Cref{s:refutationt-text}),
-case comparsion (\Cref{s:case-comparison}), and notional machines
+(\Cref{s:tutorials,s:interpreting-tasks}) and then my plan to
+incorporate ideas of refutation text (\Cref{s:refutationt-text}), case
+comparsion (\Cref{s:case-comparison}), and notional machines
 (\Cref{s:notional-machine}). Finally, I present my plan to evaluate
 the effectiveness of the tutor and how evaluation impacts the tutor
 design (\Cref{s:evaluation}).
 
-\subsection{Tutorials}%
+\subsection{Tutorials and Language Levels}%
 \label{s:tutorials}
 
 There are many misconceptions to correct. To make the tutoring process
 managable, I have design the tutor as a sequence of tutorials.
-
-Inspired by prior research on language levels (\Cref{s:background}),
-my sequence of tutorials is ordered, and each later tutorials cover
-one or more language constructs (\Cref{t:tutorials}).
+Inspired by prior research on language levels
+(\Cref{s:pedagogic-techniques}), my sequence of tutorials is ordered,
+and each later tutorials cover one or more language constructs
+(\Cref{t:tutorials}).
 
 \begin{table}[t]
   \centering\begin{tabularx}{\linewidth}{p{0.4\linewidth} X}
@@ -526,8 +601,8 @@ one or more language constructs (\Cref{t:tutorials}).
   \label{t:tutorials}
 \end{table}
 
-\subsection{Interpreting Task}%
-\label{s:interpreting-task}
+\subsection{Interpreting Tasks}%
+\label{s:interpreting-tasks}
 
 The tutor is mostly consist of \emph{interpreting tasks}:
 multiple-choice questions (MCQs) that asks students to interprete
@@ -613,7 +688,7 @@ completion\footnote{I have no control over how other institutions use
 
 The tutor has been presenting a refutation text when a student chooses
 a wrong answer that correspond to known misconception(s). Let's
-reconsider the program in \Cref{s:interpreting-task}. If a student
+reconsider the program in \Cref{s:interpreting-tasks}. If a student
 answers \lstinline|0 0|, which suggests they hold the
 \miscon{DefByRef} misconception, the tutor responds
 \begin{quote}
@@ -725,125 +800,34 @@ the misconceptions with performance on the \emph{second} question. If
 the difference is clear (i.e., ``statistically significant''), I
 deduce that the tutor is effective at correcting the misconception.
 
-\section{Proposal Roadmap}
-\label{s:roadmap}
-\label{s:univ-1-course}
+\section{What Pedagogic Techniques are Effective?}%
+\label{s:pedagogic-techniques}
 
-This proposal describes a four-year effort to obtain a quality instrument
-to measure misconceptions and to build a tutor to address them.
+The SMoL Tutor is firmly grounded in one technique from
+cognitive and educational psychology. The fundamental problem is: how
+do you fix a misconception? One approach is to only ``present the
+right answer'', for fear that discussing the wrong conception might
+actually reinforce it. Instead, there is a body of literature starting
+from \cite{posnerTheoryConceptualChange1982} that presents a theory of conceptual
+change, at whose heart is the \emph{refutation text}. A refutation
+text tackles the misconception directly, discussing and providing a
+refutation for the incorrect idea. Several studies \cite{schroederRefutationTextFacilitates2022} have shown
+their effectiveness in multiple other domains.
 
-The first step was a two-year process to generate (a) programs that
-tend to trip up students and (b) incorrect responses to those programs
-(\Cref{s:gen-prob-quizius}), using a tool for the purpose
-(\Cref{s:quizius}). These were then curated (\Cref{s:smol-quizzes}) to
-produce an instrument that was tested for one more year
-(\Cref{s:misconceptions-quiz}). This underwent one more round of
-curation to produce the final instrument~(\Cref{s:tutor-refine-program-set}).
+The SMoL Tutor's content structure is also influenced by work on \emph{case comparisons}
+(which draws analogies between examples).
+\cite{alfieriLearningCaseComparisons2013a} suggests that asking
+(rather than not asking) students to find similarities between cases,
+and providing principles \emph{after} the comparisons (rather than
+before or not at all), are associated with better learning
+outcomes.
 
-I then present the tutor (\Cref{s:system-tutor}). In particular, we
-present the list of misconceptions---grounded in student data---that
-are the focus of this project (\Cref{s:misconceptions-tutor}). I also
-evaluate the tutor's effectiveness at correcting them
-(\Cref{s:effect-tutor}).
+  [FILL Notional Machine]
 
-All this work is done with students in a ``Principles of Programming
-Languages'' class at a selective, private US university. The class has
-about 70--75 students per year. It is not required, so students take
-it by choice. Virtually all are computer science majors. Most are in
-their third or fourth year of tertiary education; about 10\% are
-graduate students. All have had at least one semester of imperative
-programming, and most have significantly more experience with it. Most
-have had close to a semester of functional programming. The student
-work described here was required, but students were graded on effort,
-not correctness.
-
-Naturally, we should wonder to what extent the demographic affects the
-results: we may simply be studying weaknesses at this institution! We
-therefore work with two other populations
-(\Cref{s:generality-tutor}). In both, we find similar results.
-
-\section{The SMoL Language}\label{s:smol}
-
-\begin{figure}[t]
-  \centering
-  \begin{lstlisting}
-    t ::= d
-        | e
-    d ::= (defvar x e)
-        | (deffun (f x ...) body)
-    e ::= c
-        | x
-        | (lambda (x ...) body)
-        | (let ([x e] ...) body)
-        | (begin e ... e)
-        | (set! x e)
-        | (if e e e)
-        | (cond [e body] ... [else body])
-        | (cond [e body] ...)
-        | (e e ...)
-    body    ::= t ... e
-    program ::= t ...
-  \end{lstlisting}
-  \caption{The syntax of SMoL.}
-  \label{f:smol-syntax}
-\end{figure}
-
-\begin{table}[t]
-  \centering\begin{tabularx}{\linewidth}{r X}
-    \textbf{Operators}            & \textbf{Meaning}                                       \\\hline
-    \texttt{+ - * /}              & Arithmetic Operators                                   \\
-    \texttt{< > <= >=}            & Number comparison                                      \\
-    \texttt{mvec}                 & Create a (mutable) vector (a.k.a. array)               \\
-    \texttt{vec-ref}              & Look up a vector element                               \\
-    \texttt{vec-set!}             & Replace a vector element                               \\
-    \texttt{vec-len}              & Get the length of a vector                             \\
-    \texttt{mpair}                & Create a 2-element (mutable) vector                    \\
-    \texttt{left right}           & Look up the first/second element of a 2-element vector \\
-    \texttt{set-left! set-right!} & Replace the first/second element of a 2-element vector \\
-    \texttt{eq?}                  & Equality                                               \\
-  \end{tabularx}
-  \caption{Primitive operators of SMoL.}
-  \label{t:smol-primitives}
-\end{table}
-
-SMoL is designed to capture common features of many modern
-languages.
-The syntax of SMoL is presented in~\Cref{f:smol-syntax}, where
-\lstinline|t| stands for terms, \lstinline|d| stands for definitions, \lstinline|e|
-stands for expressions, \lstinline|c| stands for constants (i.e., number,
-boolean, and string), and \lstinline|x| and \lstinline|f| are identifiers
-(variables). The last kind of expression (i.e., \lstinline|(e e ...)|) is
-function application.
-
-SMoL's Lispy syntax is
-an artifact of the course (\Cref{s:univ-1-course}) using Racket
-\cite{friedmanEssentialsProgrammingLanguages2001, krishnamurthiProgrammingLanguagesApplication2007};
-however, it also proved to be pedagogically valuable.
-I have found the parentheses useful when discussing
-scope in conjunction with local-binding features like \lstinline|let|.
-This avoids the various confusing ``variable lifting'' semantics found
-in languages like Python (\cite{politzPythonFullMonty2013}; see also
-posts like \cite{froadieWhatScopeVariable2022}), where the actual defined range of a
-variable is not apparent from the source code.
-
-Nevertheless, most SMoL programs are easy to translate to other
-languages. I present machine-translated Python and JavaScript
-versions of our programs in \supplRef{Translated\_Programs.html}. Furthermore, we intend to
-make a multi-lingual tutor in the future (\Cref{s:future-work}).
-
-The semantics of SMoL is as described in \Cref{s:intro}.
-SMoL includes limited primitive operators (\Cref{t:smol-primitives}) to work with numbers, strings, and
-vectors. It provides only one equality operator, which tests for exact
-equality between atomic values and for pointer equality between other
-values.
-
-Students are given a working implementation of SMoL, built
-as a \verb|#lang| language inside Racket \cite{felleisenProgrammableProgrammingLanguage2018}. This language
-provides only the defined syntax and semantics of SMoL, with no
-(other) Racket features present.
-(As in Racket, arguments evaluate left-to-right, to give stateful programs an
-unambiguous semantics.) The implementation is available online:
-\href{https://github.com/shriram/smol}{https://github.com/shriram/smol}.
+  [FILL Language Levels] Prior research argues for the benefits of \emph{language levels}
+[CITE]: a langauge has better be taught as a sequence of languages,
+where each later language includes more langauge constructs than the
+previous one.
 
 \section{Generating and Collating Problems}
 \label{s:gen-prob-quizius}

@@ -70,13 +70,13 @@ program ::= t ...
 
 ### Dynamics
 
-| Name         | Meaning                                                  |
-| ------------ | -------------------------------------------------------- |
-| `new-array`  | creates a new array from a sequence of values            |
-| `array-len`  | gets the length of an array                              |
-| `array-ref`  | refers to the element of an array at an index            |
-| `array-set!` | replaces an array's element at an index with a new value |
-| `eq?`        | checks pointer equality                                  |
+| Name       | Meaning                                                  |
+| ---------- | -------------------------------------------------------- |
+| `new-arr`  | creates a new array from a sequence of values            |
+| `arr-len`  | gets the length of an array                              |
+| `arr-ref`  | refers to the element of an array at an index            |
+| `arr-set!` | replaces an array's element at an index with a new value |
+| `eq?`      | checks pointer equality                                  |
 
 ### Underspecified aspects
 

@@ -1,0 +1,174 @@
+[[tasks]]
+name = "introduce_syntax"
+instruction = """
+In this tutorial, we will learn about *variable definitions* and *function definitions*.
+The following program illustrates how to write definitions.
+
+```
+(defvar x 1)
+(defvar y 2)
+(deffun (f a b)
+  (defvar z 3)
+  (+ a b z))
+
+x
+y
+(f x y)
+```
+"""
+
+[[tasks]]
+name = "introduce_task"
+instruction = """
+You will be asked to predict the results of programs. We give you feedback based on your
+response. Proceed to work on your first task.
+"""
+
+[[tasks]]
+interp = """
+(defvar x 1)
+(defvar y 2)
+(deffun (f a b)
+  (defvar z 3)
+  (+ a b z))
+
+x
+y
+(f x y)
+"""
+explanation = """
+In this program, the first variable definition *binds* `x` to `1` and
+the second variable definition binds `y` to `2`.
+The result of running this program is three values:
+the value of `x`, the value of `y`, and the value of `(f x y)`.
+The values of `x` and `y` are `1` and `2` respectively.
+The value of `(f x y)` is the value of `(+ 1 2 3)`, which is `6`.
+For brevity, let's write the result of running this program on a single line, as
+
+`1 2 6`
+
+rather than
+
+```
+1
+2
+6
+```
+"""
+
+[[tasks]]
+name = "introduce_error"
+instruction = """
+In addition to values, the result of running a program might include errors.
+
+For example, the result of the following program is `error`
+because it is an error to divide a number by 0.
+
+```
+(defvar x 23)
+(/ x 0)
+```
+
+The result of the following program is `#t #f error`
+because you can't add two boolean values.
+
+```
+#t
+#f
+(+ #t #f)
+```
+
+The result of the following program is `error`
+because `y` is not defined.
+
+```
+(defvar x 42)
+y
+```
+"""
+
+[[tasks]]
+name = "define_block"
+goal = """
+We have two kinds of places where a definition might happen: the top-level
+*block* and function bodies (which are also blocks). A block is a sequence
+of definitions followed by a sequence of expressions.
+
+Blocks form a tree-like structure in a program.
+For example, we have four blocks in the following program:
+
+```
+(defvar n 42)
+
+(deffun (f x)
+  (defvar y 1)
+  (+ x y))
+
+(deffun (g)
+  (deffun (h m)
+    (* 2 m))
+  (f (h 3)))
+
+(g)
+```
+
+The blocks are:
+
+- the top-level block, where `n`, `f`, and `g` are defined
+- `f`'s body, which is a sub-block of the top-level block
+- `g`'s body, which is also a sub-block of the top-level block, and
+- `h`'s body, which is a sub-block of `g`'s body
+"""
+
+[[tasks]]
+goal = """
+It is an error to define a variable twice within a single block.
+"""
+
+[[tasks]]
+interp = """
+(defvar x 1)
+(deffun (f y)
+  (+ x y))
+
+(f 2)
+"""
+refutation.IsolatedFun = """
+`x` is not defined inside the body of `f`. So we look up `x` in the block
+where `f` is defined, that is, the top-level block. `x` is defined there.
+"""
+
+[[tasks]]
+interp = """
+(defvar x 1)
+(deffun (f) x)
+(deffun (g)
+  (defvar x 2)
+  (f))
+
+(g)
+"""
+refutation.IsolatedFun = """
+`x` is not defined inside the body of `f`. So we look up `x` in the block
+where `f` is defined, that is, the top-level block. `x` is defined there.
+"""
+refutation.FlatEnv = """
+The `x` defined in `g` is bound to `2` in a new environment rather than
+the top-level environment. The `x` in `f` refers to the `x` defined in the
+top-level environment. So the value of `(f)` is `1` rather than `2`.
+"""
+
+[[tasks]]
+interp = """
+(deffun (f x)
+  (defvar y 1)
+  (+ x y))
+
+(+ (f 2) y)
+"""
+refutation.FlatEnv = """
+The `y` defined in `f` is bound to `1` in a new environment rather than
+the top-level environment. The `y` in `(+ (f 2) y)` refers to `y` defined in the
+top-level environment. But `y` is not defined in the top-level.
+"""
+
