@@ -176,13 +176,13 @@ rather than `4` (i.e., `(+ (+ 2 0) 2)`).
 
 [[tasks]]
 prompt = """
-Now you have seen many programs that illustrate how variables work. Please
-reflect on this programs (and feel free to scroll back to review) and
-*think about* the following question.
+Now you have seen many programs that illustrate how definitions and variables work.
+Please reflect on these programs (and feel free to scroll back to review) and
+*think about* the following question:
 
 * In general, when we look up a variable, how do we find the corresponding value?
 
-If you are not sure about the answers, please *write down* what you are
+If you are not sure about the answer, please *write down* what you are
 confused or uncertain about.
 """
 

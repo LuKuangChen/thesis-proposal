@@ -732,7 +732,7 @@ would want the tutor to ask
 \subsection{Multi-syntax}%
 \label{s:multi-syntax}
 
-[FILL]
+[FILL] Use a random default syntax per task? Log syntax switch.
 
 \subsection{Notional Machine}%
 \label{s:notional-machine}
@@ -763,8 +763,6 @@ I would like to evaluate the effectiveness from two perspectives:
 \begin{itemize}
   \item How effective is the tutor at stopping students from holding
         misconceptions?
-  \item How close are students' final conception to the true
-        conception?
 \end{itemize}
 
 I can infer whether students hold a misconception by analysing their
@@ -789,16 +787,49 @@ Given this observation, I plan to set up the tutor such that
         misconception.
   \item Every misconception is represented by some questions.
   \item In each tutorial, a misconception is either not represented by
-        any interpreting tasks or represented by exactly two tasks.
+        any interpreting tasks or represented by at least two tasks.
   \item Within each tutorial, the order of interpreting tasks is
         randomized.
 \end{itemize}
+For each tutorial and each misconception, I plan to do a model
+comparison (with the standard AIC and BIC criteria) on the following
+models/theories:
+\begin{description}
+  \item[TaskSpecific] Some students are more likely to choose the
+  representing wrong answers in certain tasks.
+  \item[PositionSpecific] Students are more likely to choose the
+  representing wrong answer in a task if the task appears earlier (or
+  later) in the tutorial.
+\end{description}
 
-For each tutorail and each misconception appear in the tutorial, I
-compare student performance on the \emph{first} question that involve
-the misconceptions with performance on the \emph{second} question. If
-the difference is clear (i.e., ``statistically significant''), I
-deduce that the tutor is effective at correcting the misconception.
+If the \textbf{TaskSpecific} model best explains the data, I deduce
+that some programs are more confusing and that we need further
+investigation into the relationship between the tasks and misconceptions.
+
+If the \textbf{PositionSpecific} model best explains \emph{and} students
+perform better in later tasks, I deduce that the tutor seeems to be
+correcting misconceptions. If studnets perform worse in later taks, the
+tutor is potentially doing harm.
+
+To know students well, I would like to have as many tasks per
+misconception as possible. But in practice, the number of tasks is
+subject to the following limitations:
+\begin{enumerate}
+  \item I don't want the length of any tutorial to exceed 30 minutes.
+  Because the tutor is now asking for student explanation on choice,
+  students are likely to spend more time on each task then before.
+  \item Programs shouldn't be too long. Some misconceptions are really
+  similar and as a consequence have only a small number of short
+  programs to tell them apart.
+\end{enumerate}
+
+The current tutor is not in the final shape yet. In particular, many
+of the wrong answers correspond to more than one misconceptions; some
+misconceptions are represented by only one question; the order of
+interpreting tasks are not randomized. I plan to tackles the first two
+differences by adding and removing programs. Adding randomization
+requires me to carefully check the dependencies between current
+explanations and goal sentences and resolve those dependencies if any.
 
 \section{What Pedagogic Techniques are Effective?}%
 \label{s:pedagogic-techniques}
