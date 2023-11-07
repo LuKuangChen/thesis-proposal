@@ -299,48 +299,51 @@ detail my current progress.
   \label{t:smol-primitives}
 \end{table}
 
-SMoL is designed to capture common features of many modern
-languages.
+SMoL is designed to capture common features of many modern languages.
 The syntax of SMoL is presented in~\Cref{f:smol-syntax}, where
-\lstinline|t| stands for terms, \lstinline|d| stands for definitions, \lstinline|e|
-stands for expressions, \lstinline|c| stands for constants (i.e., number,
-boolean, and string), and \lstinline|x| and \lstinline|f| are identifiers
-(variables). The last kind of expression (i.e., \lstinline|(e e ...)|) is
-function application.
+\lstinline|t| stands for terms, \lstinline|d| stands for definitions,
+\lstinline|e| stands for expressions, \lstinline|c| stands for
+constants (i.e., number, boolean, and string), and \lstinline|x| and
+\lstinline|f| are identifiers (variables). The last kind of expression
+(i.e., \lstinline|(e e ...)|) is function application.
 
-SMoL's Lispy syntax is
-an artifact of the course (\Cref{s:populations}) using Racket
-\citep{friedmanEssentialsProgrammingLanguages2001, krishnamurthiProgrammingLanguagesApplication2007};
-however, it also proved to be pedagogically valuable.
-I have found the parentheses useful when discussing
-scope in conjunction with local-binding features like \lstinline|let|.
-This avoids the various confusing ``variable lifting'' semantics found
-in languages like Python (\cite{politzPythonFullMonty2013}; see also
-posts like \cite{froadieWhatScopeVariable2022}), where the actual defined range of a
-variable is not apparent from the source code.
+SMoL defines a semantic but not the syntax. However, to repsent SMoL
+to students, I have to choose a syntax. I chose a Lispy syntax, which
+is an artifact of the major population where I conducted studies: a
+course (\Cref{s:populations}) using Racket
+\citep{friedmanEssentialsProgrammingLanguages2001,
+krishnamurthiProgrammingLanguagesApplication2007}. However, the Lispy
+syntax also proved to be pedagogically valuable. I have found the
+parentheses useful when discussing scope in conjunction with
+local-binding features like \lstinline|let|. This avoids the various
+confusing ``variable lifting'' semantics found in languages like
+Python (\cite{politzPythonFullMonty2013}; see also posts like
+\cite{froadieWhatScopeVariable2022}), where the actual defined range
+of a variable is not apparent from the source code.
 
 Nevertheless, most SMoL programs are easy to translate to other
-languages. I present machine-translated Python and JavaScript
-versions of our programs in \supplRef{Translated\_Programs.html}. Furthermore, we intend to
-make a multi-lingual tutor in the future (\Cref{s:future-work}).
+languages. I present machine-translated Python and JavaScript versions
+of my programs in \supplRef{Translated\_Programs.html}. Furthermore, I
+intend to make a multi-lingual tutor in the future
+(\Cref{s:future-work}).
 
-The semantics of SMoL is as described in \Cref{s:intro}.
-SMoL includes limited primitive operators (\Cref{t:smol-primitives}) to work with numbers, strings, and
-vectors. It provides only one equality operator, which tests for exact
-equality between atomic values and for pointer equality between other
-values.
+The semantics of SMoL is as described in \Cref{s:intro}. SMoL includes
+limited primitive operators (\Cref{t:smol-primitives}) to work with
+numbers, strings, and vectors. It provides only one equality operator,
+which tests for exact equality between atomic values and for pointer
+equality between other values.
 
-Students are given a working implementation of SMoL, built
-as a \lstinline|#lang| language inside Racket \citep{felleisenProgrammableProgrammingLanguage2018}. This language
+Students are given a working implementation of SMoL, built as a
+\lstinline|#lang| language inside Racket
+\citep{felleisenProgrammableProgrammingLanguage2018}. This language
 provides only the defined syntax and semantics of SMoL, with no
-(other) Racket features present.
-(As in Racket, arguments evaluate left-to-right, to give stateful programs an
-unambiguous semantics.) The implementation is available online:
+(other) Racket features present. (As in Racket, arguments evaluate
+left-to-right, to give stateful programs an unambiguous semantics.)
+The implementation is available online:
 \href{https://github.com/shriram/smol}{https://github.com/shriram/smol}.
 
 \section{Background: Misconceptions}%
 \label{s:background-misconceptions}
-
 
 \begin{table}[t]
   \centering
