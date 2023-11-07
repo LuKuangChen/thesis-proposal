@@ -555,7 +555,8 @@ their prediction. I plan to eyeball the explanations to find new
 misconceptions. This piece of data also helps me to confirm that
 anticipated wrong answers do represent the expected misconceptions.
 
-\subsection{Reduce Syntactic Bias}
+\subsection{Reduce Syntactic Bias}%
+\label{s:reduce-syntactic-bias}
 
 The processes described in
 \Cref{s:find-misconceptions-with-quizius,s:find-misconceptions-with-tutor}
@@ -1321,10 +1322,10 @@ addition of state. These data suggest the students have aliasing-related misconc
     marked with $^\dag$.}
   \label{t:quizzes-data-hof}
 \end{table}
-\Cref{t:quizzes-data-hof} lists interesting programs
-after the addition of closures and higher-order functions.
-It extends what we saw with loops in
-\Cref{s:intro}: that students have misconceptions about their interaction with mutable variables:
+\Cref{t:quizzes-data-hof} lists interesting programs after the
+addition of closures and higher-order functions. It extends what we
+saw with loops in \Cref{s:intro}: that students have misconceptions
+about their interaction with mutable variables:
 \begin{itemize}
   \item 17\% of students think \texttt{lambda} functions can't refer
         to free variables.
@@ -1334,44 +1335,128 @@ It extends what we saw with loops in
         \lstinline|let|-over-\lstinline|lambda| pattern is weak.
 \end{itemize}
 
+\subsection{Collating Problems for the Tutor}%
+\label{s:tutor-refine-program-set}
+
+The SMoL Tutor's interpreting questions are the final instrument of
+this paper. I bootstrap it from the SMoL Quizzes, but made the
+following alterations:
+\begin{enumerate}
+
+  % fill gaps in goal sentences
+  \item I felt the existing programs were insufficient to cover the
+        ideas we wanted students to work through. For instance, SMoL
+        Quizzes did not alias vectors using \lstinline|defvar|, so we
+        added this program:
+
+\begin{lstlisting}
+  (defvar x (mvec 100))
+  (defvar y x)
+  (vec-set! x 0 200)
+  y
+\end{lstlisting}
+
+  \item I renamed vector operators to avoid confusion between
+        \lstinline|vset!|, which replaces a vector element, and \lstinline|set!|,
+        which mutates variables. I rename all vector operators from, for example,
+        \lstinline|vset!| to \lstinline|vec-set!|.
+
+  \item I deferred the local binding forms to the end, since we felt
+        they were less essential. I therefore rewrote programs that use
+        it to not depend on it.
+
+        % \item I removed some questions that we deemed ``Lispy'' (e.g.,
+        %   involving the difference between parenthetical and infix syntax).
+
+  \item I removed some programs that relied on underspecified aspects or
+        unimportant aspects of SMoL. For example, some depended on
+        whether operations on pairs could be applied to arbitrary vectors:
+
+\begin{lstlisting}
+  (pair? (mpair 1 2))
+  (pair? (mvec 1 2))
+  (pair? '#(1 2))
+  (pair? '(1 2))
+\end{lstlisting}
+
+        As another example, one hinged on
+        whether or not a function's formal parameter could have the same
+        name as the function itself:
+
+\begin{lstlisting}
+  (deffun (f f) f)
+  (f 5)
+\end{lstlisting}
+
+  \item I resolved ambiguities in some programs, either adding
+        answer choices or even adding other questions to tease
+        out different interpretations.
+
+  \item To reduce the number of concepts, I removed programs that
+        relied upon \emph{im}mutable vectors and lists, because they
+        did not seem to create problems. (For brevity, I leave these
+        out of the presentation of SMoL in \Cref{s:smol}, though they
+        are in the implementation.)
+
+  \item I removed questions related to function equality, which was
+        not a focus of the Tutor.
+
+  \item I removed programs of a ``Lispy'' nature (See
+        \Cref{s:reduce-syntactic-bias}).
+
+\end{enumerate}
+Most of these steps either modify or elide programs. Two cases,
+filling gaps in light of the goal sentences and resolving ambiguities,
+introduce programs. Starting with the 37 programs in the SMoL Quizzes,
+I added 52 more programs to arrive at a total of 89.
+
+In addition to generating this set of programs, I also modified the
+answer options. In addition to retaining the correct and incorrect
+answers from the SMoL Quizzes (and constructing our best guess of
+analogous incorrect answers for the new problems), I added more wrong
+answers to for the reasons given in \Cref{s:interpreting-tasks}. In
+general, I ended up increasing the number of choices substantially:
+only 8 out of the 89 questions have three or four choices; 70
+questions have 5--8 choices; and 11 questions have 9--14 choices.
+
 \section{What Pedagogic Techniques are Effective?}%
 \label{s:pedagogic-techniques}
 
-The SMoL Tutor is firmly grounded in one technique from
-cognitive and educational psychology. The fundamental problem is: how
-do you fix a misconception? One approach is to only ``present the
-right answer'', for fear that discussing the wrong conception might
-actually reinforce it. Instead, there is a body of literature starting
-from \cite{posnerTheoryConceptualChange1982} that presents a theory of conceptual
-change, at whose heart is the \emph{refutation text}. A refutation
-text tackles the misconception directly, discussing and providing a
-refutation for the incorrect idea. Several studies \citep{schroederRefutationTextFacilitates2022} have shown
-their effectiveness in multiple other domains.
+The SMoL Tutor is firmly grounded in one technique from cognitive and
+educational psychology. The fundamental problem is: how do you fix a
+misconception? One approach is to only ``present the right answer'',
+for fear that discussing the wrong conception might actually reinforce
+it. Instead, there is a body of literature starting from
+\cite{posnerTheoryConceptualChange1982} that presents a theory of
+conceptual change, at whose heart is the \emph{refutation text}. A
+refutation text tackles the misconception directly, discussing and
+providing a refutation for the incorrect idea. Several studies
+\citep{schroederRefutationTextFacilitates2022} have shown their
+effectiveness in multiple other domains.
 
-The SMoL Tutor's content structure is also influenced by work on \emph{case comparisons}
-(which draws analogies between examples).
+The SMoL Tutor's content structure is also influenced by work on
+\emph{case comparisons} (which draws analogies between examples).
 \cite{alfieriLearningCaseComparisons2013a} suggests that asking
 (rather than not asking) students to find similarities between cases,
 and providing principles \emph{after} the comparisons (rather than
-before or not at all), are associated with better learning
-outcomes.
+before or not at all), are associated with better learning outcomes.
 
   [FILL Notional Machine]
 
-  [FILL Language Levels] Prior research argues for the benefits of \emph{language levels}
-[CITE]: a langauge has better be taught as a sequence of languages,
-where each later language includes more langauge constructs than the
-previous one.
+  [FILL Language Levels] Prior research argues for the benefits of
+\emph{language levels} [CITE]: a langauge has better be taught as a
+sequence of languages, where each later language includes more
+langauge constructs than the previous one.
 
 \section{The SMoL Tutor}
 \label{s:system-tutor}
 
 So far, we have focused on identifying problems. As noted earlier
-(\Cref{s:smol-quizzes}), we provided students with refutation texts after the quizzes,
-but it is unclear to what extent students read, understood, or
-internalized these. I also wanted to determine whether other
-populations run into these issues, and it was unclear whether we would
-be able to administer passive quizzes to them.
+(\Cref{s:smol-quizzes}), we provided students with refutation texts
+after the quizzes, but it is unclear to what extent students read,
+understood, or internalized these. I also wanted to determine whether
+other populations run into these issues, and it was unclear whether we
+would be able to administer passive quizzes to them.
 
 Furthermore, while the quizzes may be a useful diagnostic, our goal is
 not only to find faults but to improve the understanding of basic
@@ -1526,125 +1611,6 @@ than just questions: it also has explanatory text. This text is based
 on the preceding problems. Authoring it is therefore somewhat like
 writing a textbook, with complex dependencies that can easily be
 broken.
-
-\subsection{Collating Problems for the Tutor}%
-\label{s:tutor-refine-program-set}
-
-The SMoL Tutor's interpreting questions are the final instrument of
-this paper.
-I bootstrap it from the SMoL
-Quizzes, but made the following alterations:
-\begin{enumerate}
-
-  % fill gaps in goal sentences
-  \item In the process of developing the goal sentences, we felt the
-        existing programs were insufficient to cover the ideas we wanted
-        students to work through. For instance, SMoL Quizzes did not
-        alias vectors using \lstinline|defvar|, so we added this program:
-
-        \begin{lstlisting}
-(defvar x (mvec 100))
-(defvar y x)
-(vec-set! x 0 200)
-y
-\end{lstlisting}
-
-  \item I renamed vector operators to avoid confusion between
-        \lstinline|vset!|, which replaces a vector element, and \lstinline|set!|,
-        which mutates variables. I rename all vector operators from, for example,
-        \lstinline|vset!| to \lstinline|vec-set!|.
-
-  \item I deferred the local binding forms to the end, since we felt
-        they were less essential. I therefore rewrote programs that use
-        it to not depend on it.
-
-        % \item I removed some questions that we deemed ``Lispy'' (e.g.,
-        %   involving the difference between parenthetical and infix syntax).
-
-  \item I removed some programs that relied on underspecified aspects or
-        unimportant aspects of SMoL. For example, some depended on
-        whether operations on pairs could be applied to arbitrary vectors:
-
-        \begin{lstlisting}
-  (pair? (mpair 1 2))
-  (pair? (mvec 1 2))
-  (pair? '#(1 2))
-  (pair? '(1 2))
-\end{lstlisting}
-
-        As another example, one hinged on
-        whether or not a function's formal parameter could have the same
-        name as the function itself:
-
-        \begin{lstlisting}
-  (deffun (f f) f)
-  (f 5)
-\end{lstlisting}
-
-  \item I resolved ambiguities in some programs, either adding
-        answer choices or even adding other questions to tease
-        out different interpretations.
-
-  \item To reduce the number of concepts, we removed programs that relied
-        upon \emph{im}mutable vectors and lists, because they did not
-        seem to create problems. (For brevity, we leave these out of
-        the presentation of SMoL in \Cref{s:smol}, though they are in the implementation.)
-
-  \item I removed questions related to function equality, which was
-        not a focus of the Tutor.\footnote{However, we believe there is
-          a good deal of confusion about notions of equality. We
-          intend to
-          add that as a major tutorial component in future versions.}
-
-  \item I removed programs of a ``Lispy'' nature, such as one where
-        the answer depended on whether the reader correctly understood
-        this inequality:
-
-        \begin{lstlisting}
-      (filter (lambda (n) (> 3 n)) '(1 2 3 4 5))
-\end{lstlisting}
-
-        This checks whether $\verb|n| < \verb|3|$, but some presumably
-        vocalized it as ``greater than \lstinline|3|, \lstinline|n|?''.
-
-\end{enumerate}
-Most of these steps either modify or elide programs. Two cases,
-filling gaps in light of the goal sentences and resolving ambiguities,
-introduce
-programs. Starting with the 37 programs in the SMoL Quizzes, we added
-52 more programs to arrive at a total of 89.
-
-In addition to generating this set of programs, we also
-modified the answer options. In addition to retaining the correct and
-incorrect answers from the SMoL Quizzes (and constructing our best
-guess of analogous incorrect answers for the new problems), we added
-more wrong answers.
-
-The reason is as follows. The SMoL Quizzes often have very few wrong
-choices: of the 37 tasks, 26 have only three choices (including the
-correct answer and the ``Other'' option\footnote{In a few cases, we
-  removed the \emph{correct} answer from the choices. A student would
-  therefore have to click on ``Other'' and type it in. The idea was to
-  make the ``Other'' option more salient and plausible.}),
-seven have 4, and only four have 5 or 6.
-Thus, in most
-cases, students have a 25\% or even 33\% chance of just guessing the
-right answer or successfully using a process of elimination. By
-increasing the number of options, we hoped to
-greatly reduce the odds of getting the right answer by chance or
-by elimination.
-
-It was important to add wrong answers that are not utterly
-implausible, because those would become easy to eliminate. Therefore,
-we added numeric constants mentioned in the problem, permuted some of
-the values in case of multiple outputs, and so on. In general, we
-ended up increasing the number of choices substantially:
-only 8 out of the 89 questions have three or four choices; 70
-questions have 5--8 choices; and 11 questions have 9--14 choices. I hope
-this reduced both guessing and elimination, and forced students to
-actually think through the program. Of course, these new answers do
-not have a clear associated misconception, so their mistakes are given
-the generic explanation.
 
 \section{Misconceptions Detected by the SMoL Tutor}%
 \label{s:misconceptions-tutor}
