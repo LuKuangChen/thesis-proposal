@@ -150,8 +150,8 @@ for i in range(10):
 for button in button_list:
     button()
 \end{lstlisting}
-That is, a user would expect to see \verb|0| through \verb|9|. In
-fact, however, it prints \verb|9| ten times.
+That is, a user would expect to see \lstinline|0| through \lstinline|9|. In
+fact, however, it prints \lstinline|9| ten times.
 
 As a background section (\Cref{s:background-misconceptions}) describes,
 multiple researchers, in different
@@ -162,7 +162,7 @@ and even programs simpler than this.
 
 In fact, these problems are not at all limited to students. This
 specific looping problem even trips up industrial programmers. The
-C\# language \emph{changed} to produce \verb|0| through \verb|9| \cite{lippertClosingLoopVariable2009}. It is now also the focus of a language design
+C\# language \emph{changed} to produce \lstinline|0| through \lstinline|9| \cite{lippertClosingLoopVariable2009}. It is now also the focus of a language design
 change in Go \cite{chaseFixingLoopsGo2023} for a new kind of looping
 construct \cite{coxSpecLessErrorprone2023}.
 It continues to trip up programmers
@@ -305,7 +305,7 @@ boolean, and string), and \lstinline|x| and \lstinline|f| are identifiers
 function application.
 
 SMoL's Lispy syntax is
-an artifact of the course (\Cref{s:univ-1-course}) using Racket
+an artifact of the course (\Cref{s:populations}) using Racket
 \cite{friedmanEssentialsProgrammingLanguages2001, krishnamurthiProgrammingLanguagesApplication2007};
 however, it also proved to be pedagogically valuable.
 I have found the parentheses useful when discussing
@@ -327,7 +327,7 @@ equality between atomic values and for pointer equality between other
 values.
 
 Students are given a working implementation of SMoL, built
-as a \verb|#lang| language inside Racket \cite{felleisenProgrammableProgrammingLanguage2018}. This language
+as a \lstinline|#lang| language inside Racket \cite{felleisenProgrammableProgrammingLanguage2018}. This language
 provides only the defined syntax and semantics of SMoL, with no
 (other) Racket features present.
 (As in Racket, arguments evaluate left-to-right, to give stateful programs an
@@ -451,6 +451,9 @@ tutoring system (in computer science) that has this specific design.
   \item[RQ1] \rqI
 \end{description}
 
+\subsection{Multiple Populations}%
+\label{s:populations}
+
 To find misconceptions that ``present (even) in students with prior
 programming backgrounds'', I have been collecting data from multiple
 populations that very likely have prior experience
@@ -482,6 +485,9 @@ populations that very likely have prior experience
     professional programmers.
 \end{description}
 
+\subsection{Find Misconceptions in Student-written Programs}%
+\label{s:beyond-experts-blindsopts}
+
 To find a reasonably comprehensive collection of misconceptions, I
 seek for inputs from students. Most prior works
 (\Cref{s:background-misconceptions}) have experts coming up with a
@@ -499,6 +505,8 @@ these programs are still tricky in the same way
 \Cref{s:misconceptions-tutor} presents the final list of
 misconceptions found with this process.
 
+\subsection{Find Misconceptions with Expert-written Programs}
+
 I have another source of misconceptions. I have been creating a tutor
 to answer my RQ2. The tutor, which I explain in details when I talk
 about RQ2 (\Cref{s:plan-rq2}), includes many tasks that asks students
@@ -512,6 +520,12 @@ such that it asks students' for their explanations when they give a
 wrong answer. I plan to eyeball the explanations to find new
 misconceptions and to further confirm that anticipated wrong answers
 do represent the expected misconceptions.
+
+\subsection{Multiple-Syntax}
+
+[TODO]
+
+\subsection{Expected Results}
 
 To be reasonably specific about misconceptions, I have created a
 definitional interpreter for each misconception that I have found. I
@@ -863,7 +877,7 @@ previous one.
 \section{Generating and Collating Problems}
 \label{s:gen-prob-quizius}
 
-In \Cref{s:rel-work}, we discuss several papers that have provided
+In \Cref{s:background-misconceptions}, we discuss several papers that have provided
 reports of student misconceptions with different fragments of
 SMoL. However, it is difficult to know how comprehensive these
 are. While some are unclear on the origin of their programs, they
@@ -894,9 +908,9 @@ one correct answer and several wrong ones. However, the wrong ones are
 chosen with great care. Each one has been validated so that if a
 student picks it, we can quite unambiguously determine \emph{what
   misconception the student has}. For instance, if the question is
-``What is \verb|sqrt(4)|?'', then \verb|37| is probably an
+``What is \lstinline|sqrt(4)|?'', then \lstinline|37| is probably an
 uninteresting wrong answer, but if people appear to confuse
-square-roots with squares, then \verb|16| would be present as an
+square-roots with squares, then \lstinline|16| would be present as an
 answer.\footnote{Concept inventories are thus useful in many
   settings. For instance, an educator can use them with clickers to
   get quick feedback from a class. If several students pick a
@@ -934,7 +948,7 @@ create small but ``interesting'' programs using the SMoL
 language. Quizius shows this prompt to students and gathers their
 answers. Each student is then shown a set of programs created by other
 students and asked to predict (without running it) the value produced
-by the program.\footnote{In the course (\Cref{s:univ-1-course}),
+by the program.\footnote{In the course (\Cref{s:populations}),
   students were given credit for using Quizius but not penalized for wrong
   answers, reducing their incentive to ``cheat'' by running
   programs. They were also told that doing so would diminish the value of
@@ -957,7 +971,7 @@ answer, a rationale. Clustering the answers is easy (after
 ignoring some small syntactic differences). Thus, for
 each cluster, we obtain a set of rationales.
 
-After running Quizius in the course (\Cref{s:univ-1-course}),
+After running Quizius in the course (\Cref{s:populations}),
 we took over as experts. Determining which is the right
 answer is easy. Where expert knowledge is useful is in
 \emph{clustering the rationales}. If all the rationales for a wrong
@@ -973,7 +987,7 @@ from misconceptions).
 
 Prior work using Quizius \cite{saarinenHarnessingWisdomClasses2019} finds that students do author programs
 that the experts did not imagine. In our case, we seeded Quizius with
-programs from prior papers (\Cref{s:rel-work}), which gives the first
+programs from prior papers (\Cref{s:background-misconceptions}), which gives the first
 few students programs to respond to. However, we found
 that Quizius significantly expanded the scope of our problems and
 misconceptions. In our final instrument, most programs were directly
@@ -999,8 +1013,8 @@ needed significant curation for the following reasons:
   (sum x y z)
   \end{lstlisting}
 
-        A reader might think that \verb|sum| takes variable arguments (so
-        the program produces \verb|6|), but in fact \verb|...| is a single
+        A reader might think that \lstinline|sum| takes variable arguments (so
+        the program produces \lstinline|6|), but in fact \lstinline|...| is a single
         variable, so this produces an arity error.
 
   \item Some programs relied on (or stumbled upon) underspecified aspects
@@ -1084,8 +1098,8 @@ Here we focus on a few programs where student choices correspond to
 misconceptions identified earlier, thereby also showing
 that the curated programs are
 still effective.
-Syntactically, \verb|#t| and \verb|#f| are true and false,
-while \verb|#(...)| is a vector. I use a * to indicate the correct
+Syntactically, \lstinline|#t| and \lstinline|#f| are true and false,
+while \lstinline|#(...)| is a vector. I use a * to indicate the correct
 answer (which also matches the implementation's output).
 
 \subsubsection{Quiz 1: Basic Operators and First-Order Functions}%
@@ -1102,26 +1116,26 @@ answer (which also matches the implementation's output).
     \textbf{Table of Answers}                    \\\hline
     \lstinputlisting{programs/def_twice.txt} & {
         \begin{tabularx}{\linewidth}{r X}
-          $^\dag$59\% & \verb|2 0|             \\
-          *32\%       & \verb|Error|           \\
-          4\%         & \verb|Other: 2 2|      \\
+          $^\dag$59\% & \lstinline|2 0|             \\
+          *32\%       & \lstinline|Error|           \\
+          4\%         & \lstinline|Other: 2 2|      \\
           3\%         & ``Nothing is printed'' \\
-          2\%         & \verb|0 0|             \\
+          2\%         & \lstinline|0 0|             \\
         \end{tabularx}
     }                                            \\\hline
     \lstinputlisting{programs/dyn_scope.txt} & {
         \begin{tabularx}{\linewidth}{r X}
-          *65\%       & \verb|Error| \\
-          $^\dag$29\% & \verb|42 #t| \\
+          *65\%       & \lstinline|Error| \\
+          $^\dag$29\% & \lstinline|42 #t| \\
           6\%         & Other        \\
         \end{tabularx}
     }                                            \\\hline
     \lstinputlisting{programs/reassign.txt}  & {
         \begin{tabularx}{\linewidth}{r X}
-          *53\%       & \verb|#(6 5) 5|                 \\
-          *20\%       & \verb|Error|                    \\
-          $^\dag$11\% & \verb|#(6 6) 5|                 \\
-          $^\dag$11\% & \verb|#(6 6) 6|                 \\
+          *53\%       & \lstinline|#(6 5) 5|                 \\
+          *20\%       & \lstinline|Error|                    \\
+          $^\dag$11\% & \lstinline|#(6 6) 5|                 \\
+          $^\dag$11\% & \lstinline|#(6 6) 6|                 \\
           5\%         & ``Nothing is printed'' or Other \\
         \end{tabularx}
     }                                            \\\hline
@@ -1161,27 +1175,27 @@ scope-related misconceptions:
     \textbf{Table of Answers}                       \\\hline
     \lstinputlisting{programs/circularity.txt}  & {
         \begin{tabularx}{\linewidth}{r X}
-          $^\dag$50\% & \verb|#(#(2 #(2 3)) #(2 3))| \\
-          *29\%       & \verb|x=#(x x)| or
-          something similar. Both \verb|(left x)| and \verb|(right x)|
-          are \verb|x| itself.                       \\
-          $^\dag$16\% & \verb|Error|                 \\
+          $^\dag$50\% & \lstinline|#(#(2 #(2 3)) #(2 3))| \\
+          *29\%       & \lstinline|x=#(x x)| or
+          something similar. Both \lstinline|(left x)| and \lstinline|(right x)|
+          are \lstinline|x| itself.                       \\
+          $^\dag$16\% & \lstinline|Error|                 \\
           5\%         & Other                        \\
         \end{tabularx}
     }                                               \\\hline
     \lstinputlisting{programs/mvec_in_mvec.txt} & {
         \begin{tabularx}{\linewidth}{r X}
-          *62\%       & \verb|#(#(100 2 3 4) #(100 2 3 4))| \\
-          $^\dag$26\% & \verb|#(#(1 2 3 4) #(100 2 3 4))|   \\
+          *62\%       & \lstinline|#(#(100 2 3 4) #(100 2 3 4))| \\
+          $^\dag$26\% & \lstinline|#(#(1 2 3 4) #(100 2 3 4))|   \\
           6\%         & \texttt{Error}                      \\
-          4\%         & \verb|#(#(1 2 3 4) #(1 2 3 4))|     \\
+          4\%         & \lstinline|#(#(1 2 3 4) #(1 2 3 4))|     \\
           2\%         & Other                               \\
         \end{tabularx}
     }                                               \\\hline
     \lstinputlisting{programs/vset_in_let.txt}  & {
         \begin{tabularx}{\linewidth}{r X}
-          *59\%       & \verb|#(10)|  \\
-          $^\dag$36\% & \verb|#(123)| \\
+          *59\%       & \lstinline|#(10)|  \\
+          $^\dag$36\% & \lstinline|#(123)| \\
           5\%         & Other         \\
         \end{tabularx}
     }                                               \\\hline
@@ -1245,31 +1259,31 @@ addition of state. These data suggest the students have aliasing-related misconc
     \textbf{Table of Answers}                             \\\hline
     \lstinputlisting{programs/fun_returns_lambda.txt} & {
         \begin{tabularx}{\linewidth}{r X}
-          *82\%       & \verb|3|     \\
-          $^\dag$17\% & \verb|Error| \\
+          *82\%       & \lstinline|3|     \\
+          $^\dag$17\% & \lstinline|Error| \\
           1\%         & Other        \\
         \end{tabularx}
     }                                                     \\\hline
     \lstinputlisting{programs/fun_and_state_1.txt}    & {
         \begin{tabularx}{\linewidth}{r X}
-          *74\%       & \verb|4|            \\
-          $^\dag$21\% & \verb|3|            \\
-          6\%         & Other: \verb|Error| \\
+          *74\%       & \lstinline|4|            \\
+          $^\dag$21\% & \lstinline|3|            \\
+          6\%         & Other: \lstinline|Error| \\
         \end{tabularx}
     }                                                     \\\hline
     \lstinputlisting{programs/fun_and_state_2.txt}    & {
         \begin{tabularx}{\linewidth}{r X}
-          *88\%       & \verb|4|            \\
-          $^\dag$10\% & \verb|3|            \\
-          3\%         & Other: \verb|Error| \\
+          *88\%       & \lstinline|4|            \\
+          $^\dag$10\% & \lstinline|3|            \\
+          3\%         & Other: \lstinline|Error| \\
         \end{tabularx}
     }                                                     \\\hline
     \lstinputlisting{programs/counter.txt}            & {
         \begin{tabularx}{\linewidth}{r X}
-          *62\%       & \verb|1 1 2 3 2| \\
-          $^\dag$34\% & \verb|1 1 1 1 1| \\
+          *62\%       & \lstinline|1 1 2 3 2| \\
+          $^\dag$34\% & \lstinline|1 1 1 1 1| \\
           4\%         & Other            \\
-          1\%         & \verb|1 1 2 3 4| \\
+          1\%         & \lstinline|1 1 2 3 4| \\
         \end{tabularx}
     }                                                     \\\hline
   \end{tabularx}
@@ -1538,7 +1552,7 @@ y
 \end{lstlisting}
 
         This checks whether $\verb|n| < \verb|3|$, but some presumably
-        vocalized it as ``greater than \verb|3|, \verb|n|?''.
+        vocalized it as ``greater than \lstinline|3|, \lstinline|n|?''.
 
 \end{enumerate}
 Most of these steps either modify or elide programs. Two cases,
@@ -1657,7 +1671,7 @@ misconception.\footnote{An astute reader may well imagine another
   data. I do welcome other misinterpretations, for which we
   can add more misinterpreters!}
 
-\begin{table}[!h]
+\begin{table}[!ht]
   \centering\begin{tabularx}{\linewidth}{X l X}
     \textbf{Misconception}                                                     &
     \textbf{Question}                                                          &
@@ -1667,10 +1681,10 @@ misconception.\footnote{An astute reader may well imagine another
     % mut-vars.not_aliased_by_funarg_2 (35)
     \lstinputlisting{programs/call-by-ref.txt}                                 & {
         \begin{tabularx}{\linewidth}{r X}
-          78\%   & \verb|12|    \\
-          11\%   & \verb|error| \\
-          **10\% & \verb|0|     \\
-          1\%    & \verb|23|    \\
+          78\%   & \lstinline|12|    \\
+          11\%   & \lstinline|error| \\
+          **10\% & \lstinline|0|     \\
+          1\%    & \lstinline|23|    \\
         \end{tabularx}
       }
     \\\hline
@@ -1679,27 +1693,27 @@ misconception.\footnote{An astute reader may well imagine another
     \lstinputlisting{programs/calls-copy-structs.txt}
                                                                                & {
         \begin{tabularx}{\linewidth}{r X}
-          90\%   & \verb|#(173 0)| \\
-          **10\% & \verb|#(1 0)|   \\
+          90\%   & \lstinline|#(173 0)| \\
+          **10\% & \lstinline|#(1 0)|   \\
         \end{tabularx}
     }                                                                              \\\hline
     \miscon{DeepClosure} Closures copy the \textit{values} of free variables.  &
     % lambda3.lambda_remembers_env (70)
     \lstinputlisting{programs/deep-closure.txt}                                & {
         \begin{tabularx}{\linewidth}{r X}
-          86\%   & \verb|4|      \\
-          **10\% & \verb|3|      \\
-          3\%    & \verb|error|  \\
-          1\%    & \verb|lambda| \\
+          86\%   & \lstinline|4|      \\
+          **10\% & \lstinline|3|      \\
+          3\%    & \lstinline|error|  \\
+          1\%    & \lstinline|lambda| \\
         \end{tabularx}
     }                                                                              \\\hline
     \miscon{DefByRef} Variable definitions alias variables.                    &
     % mut-vars.not_aliased_by_defvar_1 (29)
     \lstinputlisting{programs/def-by-ref.txt}                                  & {
         \begin{tabularx}{\linewidth}{r X}
-          85\%   & \verb|0 12|                \\
-          **12\% & \verb|0 0|                 \\
-          2\%    & \verb|error|               \\
+          85\%   & \lstinline|0 12|                \\
+          **12\% & \lstinline|0 0|                 \\
+          2\%    & \lstinline|error|               \\
           1\%    & depends on implementation. \\
         \end{tabularx}
       }
@@ -1712,8 +1726,8 @@ misconception.\footnote{An astute reader may well imagine another
     % program: mut-vars.update_undefined (28)
     \lstinputlisting{programs/def-or-set.txt}                                  & {
         \begin{tabularx}{\linewidth}{r X}
-          85\%   & \verb|error| \\
-          **15\% & \verb|2|     \\
+          85\%   & \lstinline|error| \\
+          **15\% & \lstinline|2|     \\
         \end{tabularx}
       }
     \\\hline
@@ -1721,10 +1735,10 @@ misconception.\footnote{An astute reader may well imagine another
     % vectors2.alias_with_defvar (47)
     \lstinputlisting{programs/defs-copy-structs.txt}                           & {
         \begin{tabularx}{\linewidth}{r X}
-          **67\% & \verb|#(100)| \\
-          30\%   & \verb|#(200)| \\
-          1\%    & \verb|#(300)| \\
-          1\%    & \verb|error|  \\
+          **67\% & \lstinline|#(100)| \\
+          30\%   & \lstinline|#(200)| \\
+          1\%    & \lstinline|#(300)| \\
+          1\%    & \lstinline|error|  \\
         \end{tabularx}
     }                                                                              \\\hline
   \end{tabularx}
@@ -1733,7 +1747,7 @@ misconception.\footnote{An astute reader may well imagine another
   \label{t:tutor-grounded-misconceptions-1}
 \end{table}
 
-\begin{table}[!h]
+\begin{table}[!ht]
   \centering
   \begin{tabularx}{\linewidth}{X l X}
     \textbf{Misconception}                                                                 &
@@ -1745,8 +1759,8 @@ misconception.\footnote{An astute reader may well imagine another
     % scope.error_when_refer_to_undefined (9)
     \lstinputlisting{programs/flat-env.txt}                                                & {
         \begin{tabularx}{\linewidth}{r X}
-          96\%  & \verb|error| \\
-          **4\% & \verb|402|   \\
+          96\%  & \lstinline|error| \\
+          **4\% & \lstinline|402|   \\
         \end{tabularx}
       }
     \\\hline
@@ -1756,10 +1770,10 @@ misconception.\footnote{An astute reader may well imagine another
     % lambda1.fun_as_parameter (62)
     \lstinputlisting{programs/fun-not-val.txt}                                             & {
         \begin{tabularx}{\linewidth}{r X}
-          83\%   & \verb|4|     \\
-          **11\% & \verb|error| \\
-          4\%    & \verb|2|     \\
-          1\%    & \verb|8|     \\
+          83\%   & \lstinline|4|     \\
+          **11\% & \lstinline|error| \\
+          4\%    & \lstinline|2|     \\
+          1\%    & \lstinline|8|     \\
         \end{tabularx}
     }                                                                                          \\\hline
     \miscon{IsolatedFun} Functions can't refer to free variables
@@ -1768,8 +1782,8 @@ misconception.\footnote{An astute reader may well imagine another
     % scope.refer_global_is_possible (5)
     \lstinputlisting{programs/isolated-fun.txt}                                            & {
         \begin{tabularx}{\linewidth}{r X}
-          77\%   & \verb|3|     \\
-          **23\% & \verb|error| \\
+          77\%   & \lstinline|3|     \\
+          **23\% & \lstinline|error| \\
         \end{tabularx}
       }
     \\\hline
@@ -1778,18 +1792,18 @@ misconception.\footnote{An astute reader may well imagine another
     % vector2.warmup_circularity (53)
     \lstinputlisting{programs/no-circularity.txt}                                          & {
         \begin{tabularx}{\linewidth}{r X}
-          76\%   & \verb|3|                   \\
-          **14\% & \verb|error|               \\
+          76\%   & \lstinline|3|                   \\
+          **14\% & \lstinline|error|               \\
           9\%    & Run out of memory or time. \\
-          1\%    & \verb|+inf|                \\
+          1\%    & \lstinline|+inf|                \\
         \end{tabularx}
     }                                                                                          \\\hline
     \miscon{StructByRef} Data structures might refer to variables by their references.     &
     % vector2.alias_var_in_mvec (49)
     \lstinputlisting{programs/struct-by-ref.txt}                                           & {
         \begin{tabularx}{\linewidth}{r X}
-          67\%   & \verb|#(1 2 3)| \\
-          **24\% & \verb|#(1 2 4)| \\
+          67\%   & \lstinline|#(1 2 3)| \\
+          **24\% & \lstinline|#(1 2 4)| \\
           9\%    & error           \\
         \end{tabularx}
     }                                                                                          \\\hline
@@ -1797,9 +1811,9 @@ misconception.\footnote{An astute reader may well imagine another
     % lambda1.smol_quiz_circularity (58)
     \lstinputlisting{programs/structs-copy-struct.txt}                                     & {
         \begin{tabularx}{\linewidth}{r X}
-          65\%  & \verb|#0=#(#0# #0#)| (Racket circular object notation) \\
-          24\%  & \verb|#(#(2 3) #(2 3))|                                \\
-          **6\% & \verb|#(#(2 #(2 3)) #(2 3))|                           \\
+          65\%  & \lstinline|#0=#(#0# #0#)| (Racket circular object notation) \\
+          24\%  & \lstinline|#(#(2 3) #(2 3))|                                \\
+          **6\% & \lstinline|#(#(2 #(2 3)) #(2 3))|                           \\
           6\%   & error                                                  \\
         \end{tabularx}
     }                                                                                          \\\hline
@@ -1809,7 +1823,7 @@ misconception.\footnote{An astute reader may well imagine another
   \label{t:tutor-grounded-misconceptions-2}
 \end{table}
 
-\begin{table}[!h]
+\begin{table}[!ht]
   \centering
   \begin{tabularx}{\linewidth}{X l X}
     \textbf{Misconception}                                                             &
@@ -1822,16 +1836,16 @@ misconception.\footnote{An astute reader may well imagine another
     % program: scope.what_is_x_4 (13)
     \lstinputlisting{programs/nested-def.txt}                                          & {
         \begin{tabularx}{\linewidth}{r X}
-          92\%  & \verb|2| \\
-          **8\% & \verb|1| \\
+          92\%  & \lstinline|2| \\
+          **8\% & \lstinline|1| \\
         \end{tabularx}
     }                                                                                      \\\hline
     \surmisedMiscon{Lazy} Expressions are only evaluated when their values are needed. &
     % order.bad_order (20)
     \lstinputlisting{programs/lazy.txt}                                                & {
         \begin{tabularx}{\linewidth}{r X}
-          **57\% & \verb|1 3|   \\
-          43\%   & \verb|error| \\
+          **57\% & \lstinline|1 3|   \\
+          43\%   & \lstinline|error| \\
         \end{tabularx}
     }                                                                                      \\\hline
   \end{tabularx}
@@ -1925,10 +1939,10 @@ Consider this program from the SMoL Tutor:
 
 (main)
 \end{lstlisting}
-This program, suitably translated, would produce \verb|2| in a wide
+This program, suitably translated, would produce \lstinline|2| in a wide
 variety of languages (Python, JavaScript, Racket, Java, etc.), because
-\verb|get-x| and the inner \verb|x| are in the same scope block. The
-answer \verb|1| cannot be explained by any of our existing
+\lstinline|get-x| and the inner \lstinline|x| are in the same scope block. The
+answer \lstinline|1| cannot be explained by any of our existing
 misconceptions. Based on this, we surmise a new misconception,
 \surmisedMiscon{NestedDef}. (Though its frequency falls below our
 threshold, our reading of answers suggests this may be more
@@ -1937,8 +1951,8 @@ widespread, and we feel it needs to be investigated more.)
 Once we turned this into a misinterpreter, we found that it
 unexpectedly captured the program-answer pair for the following
 program from \quizFun---which should be an error, due to the
-double-binding of \verb|x| in the same scope block---and the answer
-\verb|2 0|:
+double-binding of \lstinline|x| in the same scope block---and the answer
+\lstinline|2 0|:
 \begin{lstlisting}
   (defvar x 0)
   (defvar y x)
@@ -1948,7 +1962,7 @@ double-binding of \verb|x| in the same scope block---and the answer
 \end{lstlisting}
 Previously, we had interpreted this only as \miscon{DefOrSet}, because
 students had stated that the second \lstinline|(defvar x ....)|
-``mutates'' or ``redefines'' \verb|x|. This is reminiscent of the
+``mutates'' or ``redefines'' \lstinline|x|. This is reminiscent of the
 behavior of languages like Python, which use the same syntax both for
 binding new variables and for mutating existing ones.
 
@@ -1972,7 +1986,7 @@ ones (that need further investigation).
 \section{Is The Tutor Effective?}
 \label{s:effect-tutor}
 
-\begin{figure}[!h]
+\begin{figure}[p]
 
   \includegraphics[width=\linewidth]{images/Misconceptions_Decay.png}
 
@@ -2058,12 +2072,12 @@ much more thorough analyses in future work.
 \label{s:generality-tutor}
 
 There is, of course, a significant danger that the data above have
-been overfitted to only one institution (\Cref{s:univ-1-course},
+been overfitted to only one institution (\Cref{s:populations},
 henceforth University 1),
 thereby actually reflecting the state of its curriculum rather than
 some greater truth about program behavior understanding.  I already
 have some reason to believe this is not the case: the related work
-discussed in \Cref{s:rel-work} is drawn from many institutions in
+discussed in \Cref{s:background-misconceptions} is drawn from many institutions in
 multiple countries with different educational preparations, levels,
 and demographics. Nevertheless, that gives us only
 limited information about the specific questions and misconceptions
@@ -2184,7 +2198,7 @@ How well do our results generalize? Certainly there is reason to
 question whether our results would apply to other
 populations. \Cref{s:generality-tutor} provides preliminary evidence
 that the results are not specific to one institution, and
-\Cref{s:rel-work} suggests these issues are widespread. Nevertheless,
+\Cref{s:background-misconceptions} suggests these issues are widespread. Nevertheless,
 much more broad testing is needed to confirm our specific instruments.
 
 The other major concern is the tie to Lispy syntax. Learners in other
