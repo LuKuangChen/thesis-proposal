@@ -12,8 +12,8 @@
 \usepackage{amsmath, amssymb} % For math symbols and equations
 \usepackage{graphicx} % For including images
 \usepackage{titlesec} % For customizing section titles
-\usepackage[style=authoryear]{biblatex}  % For managing references
-\addbibresource{bibfile.bib}
+% \usepackage[style=authoryear]{biblatex}  % For managing references
+\usepackage{natbib} % to put \cite{...} in brackets
 \usepackage{hyperref}
 \usepackage{booktabs}   %% For formal tables:
                         %% http://ctan.org/pkg/booktabs
@@ -2270,6 +2270,6 @@ I plan to defense in Spring 2025.
 
 \section{References}
 
-\printbibliography
+\bibliography{bibfile}
 
 \end{document}
