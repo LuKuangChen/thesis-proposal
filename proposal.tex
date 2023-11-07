@@ -340,25 +340,25 @@ provides only the defined syntax and semantics of SMoL, with no
 (other) Racket features present. (As in Racket, arguments evaluate
 left-to-right, to give stateful programs an unambiguous semantics.)
 The implementation is available online:
-\href{https://github.com/shriram/smol}{https://github.com/shriram/smol}.
+\begin{center}
+  \href{https://github.com/shriram/smol}{https://github.com/shriram/smol}
+\end{center}
 
 \section{Background: Misconceptions}%
 \label{s:background-misconceptions}
 
 \begin{table}[t]
   \centering
-  \begin{tabularx}{\textwidth}{>{\hsize=.6\hsize\RaggedRight}X >{\hsize=.8\hsize\RaggedRight}X >{\hsize=.5\hsize\RaggedRight}X >{\hsize=1.4\hsize\RaggedRight}X}
+  \begin{tabularx}{\textwidth}{>{\hsize=.6\hsize\RaggedRight}X >{\hsize=.8\hsize\RaggedRight}X >{\hsize=.6\hsize\RaggedRight}X >{\hsize=1.3\hsize\RaggedRight}X}
     \textbf{Publication}                                                           &
     \textbf{Population}                                                            &
     \textbf{Languages}                                                             &
-    \textbf{Misconceptions}
+    \textbf{Topics}
     \\\hline
     \cite{fleuryParameterPassingRules1991}                                         &
-    Unclear, likely CS2 students                                                   &
+    Likely CS2 students                                                   &
     Pascal                                                                         &
-    \surmisedMiscon{CallerEnv}; \miscon{IsolatedFun}; \miscon{DefOrSet}
-    (See their RULEs 2, 3a, and 3b in TABLE 2;
-    RULE 1 doesn't apply to us.)
+    Scope
     \\\hline
     \cite{goldmanIdentifyingImportantDifficult2008,goldmanSettingScopeConcept2010} &
     CS1 students                                                                   &
@@ -368,28 +368,25 @@ The implementation is available online:
     \cite{fislerAssessingTeachingScope2017}                                        &
     Third- and fourth-year undergrads                                              &
     Java and Scheme                                                                &
-    \miscon{FlatEnv}; \miscon{CallByRef}; \miscon{CallsCopyStruct}; \miscon{DefByRef}
-    (See their Section 4)
+    Scope, variable aliasing, and structure aliasing.
     \\\hline
     \cite{saarinenHarnessingWisdomClasses2019}                                     &
     CS2 students                                                                   &
     Java                                                                           &
-    \miscon{StructByRef} (Their G2); \miscon{DefByRef} or \miscon{DefCopyStructs} (Their G3); \miscon{CallsCopyStruct} (Their G4).
+    Variable aliasing and structure aliasing.
     \\\hline
     \cite{strombackProgressionStudentsAbility2023}                                 &
     CS masters                                                                     &
     Python                                                                         &
-    \miscon{FlatEnv}; \miscon{CallByRef}; \miscon{DefsCopyStruct}
-    (See their section 4.2)
+    Scope, variable aliasing, and structure aliasing.
     \\\hline
     \cite{strombackProgressionStudentsAbility2023}                                 &
     CS undergrads                                                                  &
     C++                                                                            &
-    \miscon{FlatEnv}; \miscon{CallByRef}; \miscon{DefsCopyStruct}
-    (See their section 4.2)
+    Scope, variable aliasing, and structure aliasing.
     \\\hline
   \end{tabularx}
-  \caption{Similar misconceptions found in prior research.}
+  \caption{Topics of misconceptions found in prior research.}
   \label{t:rel-work}
 \end{table}
 
@@ -400,34 +397,34 @@ over many years (since at last 1991)
 in varying programming languages (from Java to Racket) and in
 different countries (such as the USA and Sweden).
 \Cref{t:rel-work} lists works that seem most relevant to us.
-
-There are some small differences.
-\cite{fleuryParameterPassingRules1991} identifies a dynamic scope misconception
-that is different from \miscon{FlatEnv}:
-\begin{description}
-  \item[\surmisedMiscon{CallerEnv}] Function values don't remember their environments.
-    When a function is called, the function body is evaluated in an
-    environment that extends from the \textit{caller's} environment.
-\end{description}
-I don't include \surmisedMiscon{CallerEnv} in our analysis because in our
-data, all wrong answers that can be explained by \surmisedMiscon{CallerEnv}
-are also explainable by \miscon{FlatEnv}.
-
 Appendix A of \cite{sorvaVisualProgramSimulation2012} provides an
 extensive survey of misconceptions reported
 in research up to 2012.
-There are overlaps between our survey and
-theirs. For instance, our \surmisedMiscon{CallerEnv} is their No.~47.
-However, because their descriptions are brief, it is difficult to tell
-whether a misconception in their survey matches our misconceptions.
-Because
-they provide neither misinterpreters nor representative program-output
-pairs, it is difficult to determine the overlaps precisely (showing
-the value of providing these two machine-runnable descriptions).
-At any rate,
-we certainly find
-no equivalent of \miscon{FlatEnv}, \miscon{DeepClosure}, and
-\miscon{DefByRef} in their survey.
+
+% There are some small differences.
+% \cite{fleuryParameterPassingRules1991} identifies a dynamic scope misconception
+% that is different from \miscon{FlatEnv}:
+% \begin{description}
+%   \item[\surmisedMiscon{CallerEnv}] Function values don't remember their environments.
+%     When a function is called, the function body is evaluated in an
+%     environment that extends from the \textit{caller's} environment.
+% \end{description}
+% I don't include \surmisedMiscon{CallerEnv} in our analysis because in our
+% data, all wrong answers that can be explained by \surmisedMiscon{CallerEnv}
+% are also explainable by \miscon{FlatEnv}.
+
+% There are overlaps between our survey and
+% theirs. For instance, our \surmisedMiscon{CallerEnv} is their No.~47.
+% However, because their descriptions are brief, it is difficult to tell
+% whether a misconception in their survey matches our misconceptions.
+% Because
+% they provide neither misinterpreters nor representative program-output
+% pairs, it is difficult to determine the overlaps precisely (showing
+% the value of providing these two machine-runnable descriptions).
+% At any rate,
+% we certainly find
+% no equivalent of \miscon{FlatEnv}, \miscon{DeepClosure}, and
+% \miscon{DefByRef} in their survey.
 
 \section{Background: Tutoring Systems}%
 \label{s:background-tutoring-systems}
