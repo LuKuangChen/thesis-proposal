@@ -13,7 +13,8 @@
 \usepackage{graphicx} % For including images
 \usepackage{titlesec} % For customizing section titles
 % \usepackage[style=authoryear]{biblatex}  % For managing references
-\usepackage{natbib} % to put \cite{...} in brackets
+\usepackage[round, square]{natbib}
+\bibliographystyle{plainnat}
 \usepackage{hyperref}
 \usepackage{booktabs}   %% For formal tables:
                         %% http://ctan.org/pkg/booktabs
@@ -127,12 +128,15 @@ common semantic basis:
 This semantic core can be seen in languages from ``object-oriented''
 languages like C\# and Java, to ``scripting'' languages like
 JavaScript, Python, and Ruby, to ``functional'' languages like the ML
-and Lisp families. Of course, there are sometimes restrictions
-(e.g., Java has restrictions on closures) and extensions (such as the
-documented semantic oddities of JavaScript and Python \cite{bernhardtWat2012, guhaEssenceJavascript2010, politzPythonFullMonty2013, politzTestedSemanticsGetters2012}). Still, this semantic core bridges many syntaxes, and
-understanding it helps when transferring knowledge from old languages
-to new ones. In recognition of this deep commonality, in this paper we
-choose to call this the \emph{Standard Model of Languages} (SMoL).
+and Lisp families. Of course, there are sometimes restrictions (e.g.,
+Java has restrictions on closures) and extensions (such as the
+documented semantic oddities of JavaScript and Python
+\citep{bernhardtWat2012, guhaEssenceJavascript2010,
+politzPythonFullMonty2013, politzTestedSemanticsGetters2012}). Still,
+this semantic core bridges many syntaxes, and understanding it helps
+when transferring knowledge from old languages to new ones. In
+recognition of this deep commonality, in this paper we choose to call
+this the \emph{Standard Model of Languages} (SMoL).
 
 Unfortunately, this combination of features appears to also be non-trivial for
 programmers to understand. Consider the following scenario: to create a
@@ -162,13 +166,13 @@ and even programs simpler than this.
 
 In fact, these problems are not at all limited to students. This
 specific looping problem even trips up industrial programmers. The
-C\# language \emph{changed} to produce \lstinline|0| through \lstinline|9| \cite{lippertClosingLoopVariable2009}. It is now also the focus of a language design
-change in Go \cite{chaseFixingLoopsGo2023} for a new kind of looping
-construct \cite{coxSpecLessErrorprone2023}.
+C\# language \emph{changed} to produce \lstinline|0| through \lstinline|9| \citep{lippertClosingLoopVariable2009}. It is now also the focus of a language design
+change in Go \citep{chaseFixingLoopsGo2023} for a new kind of looping
+construct \citep{coxSpecLessErrorprone2023}.
 It continues to trip up programmers
 (e.g., \cite{sharveyCreatingFunctionsLambdas2022})
 despite being
-documented as a ``gotcha'' in Python \cite{reitzHitchhikerGuidePython2016}.
+documented as a ``gotcha'' in Python \citep{reitzHitchhikerGuidePython2016}.
 % SK: But not everyone has read the document. I don't think the document is
 % a Python official document. Also, this sentence sounds like stating that
 % the cited Python programmers are stupid.
@@ -179,7 +183,7 @@ SMoL feature set has presumably evolved because it is convenient
 for writing non-trivial programs (e.g., mutable structures) without
 being too unwieldy (e.g., no dynamic scope). Furthermore, having a
 good mental model of these features
-is essential to understand ownership \cite{clarkeOwnershipTypesFlexible1998},
+is essential to understand ownership \citep{clarkeOwnershipTypesFlexible1998},
 manage parallelism, and more. Thus, we
 still need to train students and other programmers on the semantic
 features \emph{and their interactions} in SMoL.
@@ -306,7 +310,7 @@ function application.
 
 SMoL's Lispy syntax is
 an artifact of the course (\Cref{s:populations}) using Racket
-\cite{friedmanEssentialsProgrammingLanguages2001, krishnamurthiProgrammingLanguagesApplication2007};
+\citep{friedmanEssentialsProgrammingLanguages2001, krishnamurthiProgrammingLanguagesApplication2007};
 however, it also proved to be pedagogically valuable.
 I have found the parentheses useful when discussing
 scope in conjunction with local-binding features like \lstinline|let|.
@@ -327,7 +331,7 @@ equality between atomic values and for pointer equality between other
 values.
 
 Students are given a working implementation of SMoL, built
-as a \lstinline|#lang| language inside Racket \cite{felleisenProgrammableProgrammingLanguage2018}. This language
+as a \lstinline|#lang| language inside Racket \citep{felleisenProgrammableProgrammingLanguage2018}. This language
 provides only the defined syntax and semantics of SMoL, with no
 (other) Racket features present.
 (As in Racket, arguments evaluate left-to-right, to give stateful programs an
@@ -430,14 +434,14 @@ There is an extensive body of literature on tutoring systems
 indeed whole conferences are dedicated to them. I draw on this
 literature. In particular, it is common in the literature to talk
 about a ``two-loop'' architecture
-\cite{vanlehnBehaviorTutoringSystems2006a} where the outer loop
+\citep{vanlehnBehaviorTutoringSystems2006a} where the outer loop
 iterates through ``tasks'' (i.e., educational activities) and the
 inner loop iterates through UI events within a task. I follow the same
 structure in my tutor (\Cref{s:tutor-uiux}).
 
 Many tutoring systems focus on teaching programming (such as the
 well-known and heavily studied LISP Tutor
-\cite{andersonLISPTutor1985}), and in the process undoubtedly address
+\citep{andersonLISPTutor1985}), and in the process undoubtedly address
 some program behavior misconceptions. My tutor differs in a notable
 way: it does not try to teach programming per se. Instead, it assumes
 a basic programming background and focuses entirely on program
@@ -856,7 +860,7 @@ actually reinforce it. Instead, there is a body of literature starting
 from \cite{posnerTheoryConceptualChange1982} that presents a theory of conceptual
 change, at whose heart is the \emph{refutation text}. A refutation
 text tackles the misconception directly, discussing and providing a
-refutation for the incorrect idea. Several studies \cite{schroederRefutationTextFacilitates2022} have shown
+refutation for the incorrect idea. Several studies \citep{schroederRefutationTextFacilitates2022} have shown
 their effectiveness in multiple other domains.
 
 The SMoL Tutor's content structure is also influenced by work on \emph{case comparisons}
@@ -885,7 +889,7 @@ generally seem to be expert-generated.
 
 The problem with expert-generated lists is that they can be quite
 incomplete. Education researchers have documented the
-phenomenon of the \emph{expert blind spot} \cite{nathanExpertBlindSpot2001}: experts
+phenomenon of the \emph{expert blind spot} \citep{nathanExpertBlindSpot2001}: experts
 simply do not conceive of many learner difficulties.
 Thus, we need
 methods to identify problems beyond what experts conceive.
@@ -900,8 +904,8 @@ scope is resolved dynamically. This requires probing what they are
 thinking.
 
 Finally, we are inspired by the significant body of education research
-on \emph{concept inventories} \cite{hestenesForceConceptInventory1992} (with a growing
-number for computer science, as a survey lists \cite{taylorComputerScienceConcept2014}). In
+on \emph{concept inventories} \citep{hestenesForceConceptInventory1992} (with a growing
+number for computer science, as a survey lists \citep{taylorComputerScienceConcept2014}). In
 terms of mechanics, a concept inventory is just an instrument
 consisting of multiple-choice questions (MCQs), where each question has
 one correct answer and several wrong ones. However, the wrong ones are
@@ -936,7 +940,7 @@ to produce a list of questions (each one an MCQ) such that
 \label{s:quizius}
 
 Our main solution to the expert blind spot is to use the Quizius system
-\cite{saarinenHarnessingWisdomClasses2019}. In contrast to the very
+\citep{saarinenHarnessingWisdomClasses2019}. In contrast to the very
 heavyweight process (involving a lot of expert time)
 that is generally
 used to create a concept inventory, Quizius uses a lightweight,
@@ -963,7 +967,7 @@ It can
 either ``exploit'' a given program that already has responses
 or ``explore'' a new
 one. Quizius thus treats this as a multi-armed bandit problem
-\cite{katehakisMultiArmedBanditProblem1987} and uses that to choose a program.
+\citep{katehakisMultiArmedBanditProblem1987} and uses that to choose a program.
 
 The output from Quizius is (a) a collection of programs; (b) for
 each program, a collection of predicted answers; and (c) for each
@@ -985,7 +989,7 @@ answers do have incorrect rationales (again, suggesting the program
 needs refinement to discriminate correct conceptions
 from misconceptions).
 
-Prior work using Quizius \cite{saarinenHarnessingWisdomClasses2019} finds that students do author programs
+Prior work using Quizius \citep{saarinenHarnessingWisdomClasses2019} finds that students do author programs
 that the experts did not imagine. In our case, we seeded Quizius with
 programs from prior papers (\Cref{s:background-misconceptions}), which gives the first
 few students programs to respond to. However, we found
@@ -2164,7 +2168,7 @@ Is our reasoning valid? I have applied standard techniques and
 measurements for evaluating student responses. However, our
 instruments still lack the validity of a proper concept
 inventory. Their creation requires heavyweight processes (such as
-Delphi methods \cite{goldmanSettingScopeConcept2010}) that require many hours of expert attention as
+Delphi methods \citep{goldmanSettingScopeConcept2010}) that require many hours of expert attention as
 well as conversations with learners, and can hence be prohibitive in
 cost. The Quizius method (\Cref{s:quizius}) was created precisely to
 be an inexpensive method that provides a good proxy.
@@ -2221,7 +2225,7 @@ sentences.
 \subsection{Misinterpreters}
 
 Our idea of misinterpreters is related to mystery languages
-\cite{diwanPLdetectiveSystemTeaching2004,
+\citep{diwanPLdetectiveSystemTeaching2004,
   pombrioTeachingProgrammingLanguages2017}. Both approaches use
 evaluators that represent alternative semantics to the same syntax.
 However, the two are complementary.
