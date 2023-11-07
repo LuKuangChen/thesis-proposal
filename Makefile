@@ -17,6 +17,7 @@ $(MAIN).pdf: $(MAIN).tex bibfile.bib
 
 clean:
 	$(LATEXMK) -C  # Clean all LaTeX intermediate files
+	rm -f $(MAIN).bbl
 	rm -f $(MAIN).pdf
 
 .PHONY: all clean
