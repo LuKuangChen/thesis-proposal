@@ -455,7 +455,7 @@ tutoring system (in computer science) that has this specific design.
   \item[RQ1] \rqI
 \end{description}
 
-\subsection{Multiple Populations}%
+\subsection{Populations}%
 \label{s:populations}
 
 To find misconceptions that ``present (even) in students with prior
@@ -489,8 +489,12 @@ populations that very likely have prior experience
     professional programmers.
 \end{description}
 
+I am contacting professors from various other universities. Several of
+them have expressed interests in using my instruments. So the final
+results will likely include more populations.
+
 \subsection{Find Misconceptions in Student-written Programs}%
-\label{s:beyond-experts-blindsopts}
+\label{s:find-misconceptions-with-quizius}
 
 To find a reasonably comprehensive collection of misconceptions, I
 seek for inputs from students. Most prior works
@@ -498,42 +502,58 @@ seek for inputs from students. Most prior works
 list of potential misconceptions and then filter the potential
 misconceptions with student inputs. This approach can't find
 misconceptions not envisioned by experts and hence is hindered by
-experts' blind spots. To overcome such bias, I analyze a University~1
-dataset produced by a two-year process to find (a) student-written
-programs that tend to trip up students and (b) incorrect responses to
-those programs (\Cref{s:gen-prob-quizius}), using a tool for the
-purpose (\Cref{s:quizius}). I have been cleaning up those programs
+experts' blind spots.
+
+To overcome such bias, I analyze a University~1 dataset produced by a
+two-year process to find (a) student-written programs that tend to
+trip up students and (b) incorrect responses to those programs
+(\Cref{s:gen-prob-quizius}), using a tool for the purpose
+(\Cref{s:quizius}). I have been cleaning up those programs
 (\Cref{s:smol-quizzes,s:tutor-refine-program-set}) and confirming that
 these programs are still tricky in the same way
 (\Cref{s:misconceptions-quiz,s:misconceptions-tutor}).
 \Cref{s:misconceptions-tutor} presents the final list of
 misconceptions found with this process.
 
-\subsection{Find Misconceptions with Expert-written Programs}
+\subsection{Find Misconceptions with Expert-written Programs}%
+\label{s:find-misconceptions-with-tutor}
 
 I have another source of misconceptions. I have been creating a tutor
-to answer my RQ2. The tutor, which I explain in details when I talk
-about RQ2 (\Cref{s:plan-rq2}), includes many tasks that asks students
-to predict the result(s) of running a program. I have found several
-unanticipated patterns of errors (\Cref{s:misconceptions-tutor}),
-which suggest the existence of unknown misconceptions. The tutor is
-not collecting students' rationale for their answers. So I do not know
-what are the underlying misconceptions (although some of the wrong
-answers are somewhat self-explanatory). I plan to change the tutor
-such that it asks students' for their explanations when they give a
-wrong answer. I plan to eyeball the explanations to find new
-misconceptions and to further confirm that anticipated wrong answers
-do represent the expected misconceptions.
+to answer my RQ2, which I explain in details in \Cref{s:plan-rq2}. The
+tutor includes many tasks that asks students to predict the result(s)
+of running a program. Although these programs originate from
+student-written programs (\Cref{s:find-misconceptions-with-quizius}), they
+have been modified to fit tutoring purpose. Perhaps because of the
+modification or because of the population variance, I have found
+several unanticipated patterns of errors
+(\Cref{s:misconceptions-tutor}), which suggest unknown misconceptions.
 
-\subsection{Multiple-Syntax}
+I plan to change the tutor such that it asks students' to explain
+their prediction. I plan to eyeball the explanations to find new
+misconceptions. This piece of data also helps me to confirm that
+anticipated wrong answers do represent the expected misconceptions.
 
-[TODO]
+\subsection{Reduce Syntactic Bias}
+
+The processes described in
+\Cref{s:find-misconceptions-with-quizius,s:find-misconceptions-with-tutor}
+have been conducted with SMoL's Lispy syntax (\Cref{s:smol}). This can
+potentially introduce biases to the found misconceptions. For example,
+current results find that some students think the following program
+produces \lstinline|'(4 5)| rather than \lstinline|'(1 2)|.
+\begin{lstlisting}
+  (filter (lambda (n) (> 3 n)) '(1 2 3 4 5))
+\end{lstlisting}
+This checks whether $\verb|3| > \verb|n|$, but those students
+presumably vocalized it as ``greater than \lstinline|3|,
+\lstinline|n|?''. Although I have tried to remove programs like this
+from my instruments, there is still a risk of having biase in student
+errors. I plan to adjust the process descrbed in
+\Cref{s:find-misconceptions-with-tutor} such that it presents programs
+in multiple languages: the SMoL version, a JavaScript translation, and
+a Python version.
 
 \subsection{Expected Results}
-
-To be reasonably specific about misconceptions, I have created a
-definitional interpreter for each misconception that I have found. I
-plan to do the same things for any new misconceptions.
 
 Eventually, I expect to build a table of misconceptions. Each
 misconception comes with multiple programs. For each of these
@@ -559,6 +579,10 @@ X\% of them responded \lstinline|12 0|; and when asked to predict
 \end{lstlisting}
 Y\% of them responded \lstinline|0 12|; and these students all
 explained something like ``\lstinline|y| is \lstinline|x|''.
+
+To be reasonably specific about misconceptions, I have created a
+definitional interpreter for each misconception that I have found. I
+plan to do the same things for any new misconceptions.
 
 \section{Plan for \textbf{RQ2}}%
 \label{s:plan-rq2}
