@@ -94,7 +94,7 @@
   and higher-order functions seem to be widespread. But how do we
   detect them, given that experts have blind spots and may not realize
   the myriad ways in which students can misunderstand programs?
-  Furthermore, once identified, what can we do to correct them?
+  Furthermore, once identified, what can I do to correct them?
 
   I propose a plan for finding misconceptions possibly not anticipated
   by experts, and the design of an automated, self-guided tutoring
@@ -135,12 +135,12 @@ documented semantic oddities of JavaScript and Python
 politzPythonFullMonty2013, politzTestedSemanticsGetters2012}). Still,
 this semantic core bridges many syntaxes, and understanding it helps
 when transferring knowledge from old languages to new ones. In
-recognition of this deep commonality, in this paper we choose to call
+recognition of this deep commonality, in this paper I choose to call
 this the \emph{Standard Model of Languages} (SMoL).
 
 Unfortunately, this combination of features appears to also be non-trivial for
 programmers to understand. Consider the following scenario: to create a
-calculator, we have to construct a callback that can be attached to
+calculator, I have to construct a callback that can be attached to
 each button. The following Python program seems to achieve the
 construction of these callbacks and the act of pushing the buttons in
 order:
@@ -231,7 +231,7 @@ detail my current progress.
 %         after multiple rounds of analysis.
 
 %   \item I implement these misconceptions as interpreters, which
-%         find weaknesses in our manual analysis and hold potential for
+%         find weaknesses in my manual analysis and hold potential for
 %         generative use in the future.
 
 %   \item I present a tutoring system, the SMoL Tutor, that measurably
@@ -409,20 +409,20 @@ in research up to 2012.
 %     When a function is called, the function body is evaluated in an
 %     environment that extends from the \textit{caller's} environment.
 % \end{description}
-% I don't include \surmisedMiscon{CallerEnv} in our analysis because in our
+% I don't include \surmisedMiscon{CallerEnv} in my analysis because in our
 % data, all wrong answers that can be explained by \surmisedMiscon{CallerEnv}
 % are also explainable by \miscon{FlatEnv}.
 
-% There are overlaps between our survey and
-% theirs. For instance, our \surmisedMiscon{CallerEnv} is their No.~47.
+% There are overlaps between my survey and
+% theirs. For instance, my \surmisedMiscon{CallerEnv} is their No.~47.
 % However, because their descriptions are brief, it is difficult to tell
-% whether a misconception in their survey matches our misconceptions.
+% whether a misconception in their survey matches my misconceptions.
 % Because
 % they provide neither misinterpreters nor representative program-output
 % pairs, it is difficult to determine the overlaps precisely (showing
 % the value of providing these two machine-runnable descriptions).
 % At any rate,
-% we certainly find
+% I certainly find
 % no equivalent of \miscon{FlatEnv}, \miscon{DeepClosure}, and
 % \miscon{DefByRef} in their survey.
 
@@ -433,7 +433,7 @@ In terms of mechanics, a concept inventory is just an instrument
 consisting of multiple-choice questions (MCQs), where each question
 has one correct answer and several wrong ones. However, the wrong ones
 are chosen with great care. Each one has been validated so that if a
-student picks it, we can quite unambiguously determine \emph{what
+student picks it, I can quite unambiguously determine \emph{what
 misconception the student has}. For instance, if the question is
 ``What is \lstinline|sqrt(4)|?'', then \lstinline|37| is probably an
 uninteresting wrong answer, but if people appear to confuse
@@ -456,7 +456,7 @@ about a ``two-loop'' architecture
 \citep{vanlehnBehaviorTutoringSystems2006a} where the outer loop
 iterates through ``tasks'' (i.e., educational activities) and the
 inner loop iterates through UI events within a task. I follow the same
-structure in my tutor (\Cref{s:tutor-uiux}).
+structure in my tutor (\Cref{s:tutor}).
 
 Many tutoring systems focus on teaching programming (such as the
 well-known and heavily studied LISP Tutor
@@ -621,11 +621,10 @@ plan to do the same things for any new misconceptions.
 To answer this RQ, I have done some literature review on what
 pedagogic techniques are helpful (\Cref{s:pedagogic-techniques}). My
 current takeaway is that refutation text, case comparison, notional
-machines, and language levels are helpful. I have created a tutor
-(\Cref{s:system-tutor}) that incorporates all these ideas
-(\Cref{s:tutor-uiux}) and have collected data from all populations. I
-plan to explore more literature and to improve the tutor if I find new
-helpful techniques.
+machines, and language levels are helpful. I have created a tutor that
+incorporates all these ideas (\Cref{s:tutor}) and have collected
+data from all populations. I plan to explore more literature and to
+improve the tutor if I find new helpful techniques.
 
 I would like to first explain key aspects of the tutor
 (\Cref{s:tutorials,s:interpreting-tasks}) and then my plan to
@@ -645,7 +644,7 @@ Inspired by prior research on language levels
 and each later tutorials cover one or more language constructs
 (\Cref{t:tutorials}).
 
-Each tutorial might be delivered as multiple sections to avoid forcing
+Each tutorial might be delivered as multiple modules to avoid forcing
 students to continuesly work for more than 30 minutes.
 
 \begin{table}[t]
@@ -720,7 +719,7 @@ the strategy of assigning panelty is non-trivial:
 \begin{itemize}
   \item A common strategy is to grade students by their correctness.
   However, grading by correctness is not suitable for a tutoring
-  system because we do not mind students doing badly on earlier tasks
+  system because I do not mind students doing badly on earlier tasks
   as long as they eventually master the concepts. Actually, if
   students generally succeed in all tasks, the tutoring system is
   failing -- it does not teach anything to the students.
@@ -801,7 +800,7 @@ and their interaction with all previously introduced constructs.
 
 The current scope tutorial uses the following prompt
 \begin{quote}
-  When we see a variable reference, how do we find the corresponding
+  When I see a variable reference, how do I find the corresponding
   declaration, if any?
 \end{quote}
 This prompt has a few problems:
@@ -912,7 +911,7 @@ models/theories:
 \end{description}
 
 If the \textbf{TaskSpecific} model best explains the data, I deduce
-that some programs are more confusing and that we need further
+that some programs are more confusing and that I need further
 investigation into the relationship between the tasks and
 misconceptions. If the \textbf{PositionSpecific} model best explains
 \emph{and} students perform better in later tasks, I deduce that the
@@ -936,12 +935,13 @@ misconceptions are represented by only one question; the order of
 interpreting tasks are not randomized. I plan to tackles the first two
 differences by adding and removing programs. Adding randomization
 requires me to carefully check the dependencies between current
-explanations and goal sentences and resolve those dependencies if any.
+explanations and other texts in the tutor and resolve those
+dependencies if any.
 
 \section{Generating and Collating Problems}%
 \label{s:gen-prob-quizius}
 
-% Additionally, in this paper, we intentionally use the word
+% Additionally, in this paper, I intentionally use the word
 % mis\emph{conceptions} rather than mis\emph{take}. A mistake can happen
 % for any reason (e.g., selecting the wrong answer from a menu). A
 % misconception, however, implies a conceptual problem: the student has
@@ -954,11 +954,11 @@ explanations and goal sentences and resolve those dependencies if any.
 % to produce a list of questions (each one an MCQ) such that
 % \begin{enumerate}
 
-%   \item we can get past the expert blind spot,
+%   \item I can get past the expert blind spot,
 
-%   \item we have a sense of what misconceptions students have, and
+%   \item I have a sense of what misconceptions students have, and
 
-%   \item we can generally associate wrong answers with specific
+%   \item I can generally associate wrong answers with specific
 %         misconceptions, approaching a concept inventory.
 
 % \end{enumerate}
@@ -978,7 +978,7 @@ used to create a concept inventory, Quizius uses a lightweight,
 interactive approach to obtain fairly comparable data, which an expert
 can then shape into a quality instrument.
 
-In Quizius, experts create a prompt; in our case, students were to
+In Quizius, experts create a prompt; in my case, students were to
 create small but ``interesting'' programs using the SMoL
 language. Quizius shows this prompt to students and gathers their
 answers. Each student is then shown a set of programs created by other
@@ -1022,11 +1022,11 @@ from misconceptions).
 
 Prior work using Quizius \citep{saarinenHarnessingWisdomClasses2019}
 finds that students do author programs that the experts did not
-imagine. In our case, I seeded Quizius with programs from prior papers
+imagine. In my case, I seeded Quizius with programs from prior papers
 (\Cref{s:background-misconceptions}), which gives the first few
 students programs to respond to. However, I found that Quizius
-significantly expanded the scope of our problems and misconceptions.
-In our final instrument, most programs were directly or indirectly
+significantly expanded the scope of my problems and misconceptions.
+In my final instrument, most programs were directly or indirectly
 inspired by the output of Quizius.
 
 The Quizius instrucment was set up by other people. I analyzed the
@@ -1257,7 +1257,7 @@ scope-related misconceptions:
   \caption{Some questions and student answers from \quizState. Each
     table row is a program and the (relative) frequencies of
     student answers. Answers that can be considered correct are marked
-    with \texttt{*}. Wrong answers that we discuss are
+    with \texttt{*}. Wrong answers that I discuss are
     marked with $^\dag$.}
   \label{t:quizzes-data-state}
 \end{table}
@@ -1318,7 +1318,7 @@ addition of state. These data suggest the students have aliasing-related misconc
   \caption{Some questions and student answers from \quizHof. Each
     table row is a program and the (relative) frequencies of
     student answers. Answers that can be considered correct are marked
-    with \texttt{*}. Wrong answers that we discuss are
+    with \texttt{*}. Wrong answers that I discuss are
     marked with $^\dag$.}
   \label{t:quizzes-data-hof}
 \end{table}
@@ -1345,7 +1345,7 @@ following alterations:
 
   % fill gaps in goal sentences
   \item I felt the existing programs were insufficient to cover the
-        ideas we wanted students to work through. For instance, SMoL
+        ideas I wanted students to work through. For instance, SMoL
         Quizzes did not alias vectors using \lstinline|defvar|, so we
         added this program:
 
@@ -1361,11 +1361,11 @@ following alterations:
         which mutates variables. I rename all vector operators from, for example,
         \lstinline|vset!| to \lstinline|vec-set!|.
 
-  \item I deferred the local binding forms to the end, since we felt
+  \item I deferred the local binding forms to the end, since I felt
         they were less essential. I therefore rewrote programs that use
         it to not depend on it.
 
-        % \item I removed some questions that we deemed ``Lispy'' (e.g.,
+        % \item I removed some questions that I deemed ``Lispy'' (e.g.,
         %   involving the difference between parenthetical and infix syntax).
 
   \item I removed some programs that relied on underspecified aspects or
@@ -1412,7 +1412,7 @@ I added 52 more programs to arrive at a total of 89.
 
 In addition to generating this set of programs, I also modified the
 answer options. In addition to retaining the correct and incorrect
-answers from the SMoL Quizzes (and constructing our best guess of
+answers from the SMoL Quizzes (and constructing my best guess of
 analogous incorrect answers for the new problems), I added more wrong
 answers to for the reasons given in \Cref{s:interpreting-tasks}. In
 general, I ended up increasing the number of choices substantially:
@@ -1448,79 +1448,83 @@ before or not at all), are associated with better learning outcomes.
 sequence of languages, where each later language includes more
 langauge constructs than the previous one.
 
-\section{The SMoL Tutor}
-\label{s:system-tutor}
+\section{The SMoL Tutor}%
+\label{s:tutor}
 
-So far, we have focused on identifying problems. As noted earlier
-(\Cref{s:smol-quizzes}), we provided students with refutation texts
-after the quizzes, but it is unclear to what extent students read,
-understood, or internalized these. I also wanted to determine whether
-other populations run into these issues, and it was unclear whether we
-would be able to administer passive quizzes to them.
+% So far, I have focused on identifying problems. As noted earlier
+% (\Cref{s:smol-quizzes}), I provided students with refutation texts
+% after the quizzes, but it is unclear to what extent students read,
+% understood, or internalized these. I also wanted to determine whether
+% other populations run into these issues, and it was unclear whether we
+% would be able to administer passive quizzes to them.
 
-Furthermore, while the quizzes may be a useful diagnostic, our goal is
-not only to find faults but to improve the understanding of basic
-programming language behavior. I believe (and presumably so does
-anyone else who writes a formal semantics!)\ that an understanding of
-these basic program behaviors is important, and even more so when it
-comes to understanding concurrency, ownership, and other advanced
-features. Even more simply, misunderstanding these clearly impacts
-development and debugging time.
+% Furthermore, while the quizzes may be a useful diagnostic, my goal is
+% not only to find faults but to improve the understanding of basic
+% programming language behavior. I believe (and presumably so does
+% anyone else who writes a formal semantics!)\ that an understanding of
+% these basic program behaviors is important, and even more so when it
+% comes to understanding concurrency, ownership, and other advanced
+% features. Even more simply, misunderstanding these clearly impacts
+% development and debugging time.
 
-In response, we decided to create a \emph{tutor}: the SMoL Tutor. It is built
-around our quiz instruments and the detected misconceptions. We
-describe the Tutor from a user's perspective in \Cref{s:tutor-uiux}, and
-explain how it was populated from the
-SMoL Quizzes in \Cref{s:tutor-refine-program-set}.
-I then discuss what
-we learned from its data (\Cref{s:misconceptions-tutor}), and finally
-evaluate its effectiveness as a \emph{tutor} (\Cref{s:effect-tutor}).
+% In response, I decided to create a \emph{tutor}: the SMoL Tutor. It is built
+% around my quiz instruments and the detected misconceptions. We
+% describe the Tutor from a user's perspective in \Cref{s:tutor}, and
+% explain how it was populated from the
+% SMoL Quizzes in \Cref{s:tutor-refine-program-set}.
+% I then discuss what
+% I learned from its data (\Cref{s:misconceptions-tutor}), and finally
+% evaluate its effectiveness as a \emph{tutor} (\Cref{s:effect-tutor}).
 
-\subsection{The User Experience}
-\label{s:tutor-uiux}
+% \subsection{The User Experience}
 
-The Tutor covers five major topics, shown on the left in
+This section describe the current status of the tutor.
+
+The Tutor includes five tutorials, shown on the left in
 \Cref{t:tutor-goal-sentences}. The larger topics are further broken
 down into 2--3 modules. The goal was for students to spend at most
-20--30 minutes per module. Our data show that in practice, students
+20--30 minutes per module. my data show that in practice, students
 spent about 9.8 (median) minutes.
 
-Each tutorial consists of a sequence of
-questions. Most questions in the Tutor are \newterm{interpreting
-  questions}.\footnote{The Tutor also asked students to perform some
-  other activities, like showing programs and asking for their heap
-  content, which we do not cover in this paper.}
-These questions (illustrated in
-\Cref{f:smol-tutor-example}) are versions of the SMoL
-Quizzes (obtained by the process described in \Cref{s:tutor-refine-program-set}).
-In each of these questions, students are shown a program
-and asked to predict the program's running result(s) by answering an
-MCQ (with an ``Other'' option). After making a choice, students receive
-feedback. If a student chooses incorrectly, they are (a) given an
-explanation that is \emph{based on the misconception associated with
-  that wrong answer} (or a generic one, if there is not a specific
-misconception),
-and then (b) asked to answer a
-second question:
-\begin{enumerate}
+\Cref{f:smol-tutor-example} illustrates an interpreting task as
+descrbed in \Cref{s:interpreting-tasks}. The Tutor also asked students
+to perform some other activities, like showing programs and asking for
+their heap content, which I do not cover in this paper.
 
-  \item The second question is semantically the same as the first, but
-        with superficial changes (e.g., variable names, constants, and operators are
-        changed) so that the student cannot immediately
-        guess the answer.
+% Each tutorial consists of a sequence of questions. Most questions in
+% the Tutor are \newterm{interpreting questions}.\footnote{The Tutor
+% also asked students to perform some other activities, like showing
+% programs and asking for their heap content, which I do not cover in
+% this paper.} These questions (illustrated in
+% \Cref{f:smol-tutor-example}) are versions of the SMoL Quizzes
+% (obtained by the process described in
+% \Cref{s:tutor-refine-program-set}). In each of these questions,
+% students are shown a program and asked to predict the program's
+% running result(s) by answering an MCQ (with an ``Other'' option).
+% After making a choice, students receive feedback. If a student chooses
+% incorrectly, they are (a) given an explanation that is \emph{based on
+% the misconception associated with that wrong answer} (or a generic
+% one, if there is not a specific misconception), and then (b) asked to
+% answer a second question:
+% \begin{enumerate}
 
-  \item Instead of multiple-choice, students must \emph{type} the answer
-        into a text box. (The Tutor normalizes text to accommodate variations.)
-        This is
-        intentional. First, we wanted to force reflection on the
-        explanation just given, whereas with an
-        MCQ, students could just guess. Second, we felt that students would
-        find typing more onerous than clicking. In case students
-        had just guessed on a question, our hope is that the penalty of having to
-        type means, on \emph{subsequent} tasks, they
-        would be more likely to pause and reflect before choosing.
+%   \item The second question is semantically the same as the first, but
+%         with superficial changes (e.g., variable names, constants, and operators are
+%         changed) so that the student cannot immediately
+%         guess the answer.
 
-\end{enumerate}
+%   \item Instead of multiple-choice, students must \emph{type} the answer
+%         into a text box. (The Tutor normalizes text to accommodate variations.)
+%         This is
+%         intentional. First, I wanted to force reflection on the
+%         explanation just given, whereas with an
+%         MCQ, students could just guess. Second, I felt that students would
+%         find typing more onerous than clicking. In case students
+%         had just guessed on a question, my hope is that the penalty of having to
+%         type means, on \emph{subsequent} tasks, they
+%         would be more likely to pause and reflect before choosing.
+
+% \end{enumerate}
 
 \begin{figure}[t]
   \centering
@@ -1537,8 +1541,8 @@ In addition to asking students questions, the Tutor along the way
 introduces terminology and states the true conceptions. These are the
 teaching goals of the Tutor. I therefore refer to these as
 \newterm{goal sentences}. \Cref{t:tutor-goal-sentences} lists
-the (abbreviated) goal sentences for each tutorial.
-Readers can find the full Tutor in \supplRef{SMoL Tutor/instrument}.
+the (abbreviated) goal sentences for each tutorial. I plan to keep
+goal sentences in the tutor.
 
 \begin{table}[t]
   \centering\begin{tabularx}{\linewidth}{p{0.2\linewidth} X}
@@ -1590,68 +1594,68 @@ Readers can find the full Tutor in \supplRef{SMoL Tutor/instrument}.
 \end{table}
 
 Some later tutorials include questions about earlier tutorials so
-that we can check whether students remember the concepts across
+that I can check whether students remember the concepts across
 modules. In particular, the \textbf{mut-vars} tutorial starts with questions
 about \textbf{scope}, and \textbf{lambda} starts with questions about
-\textbf{mut-vars} and \textbf{vectors}.
+\textbf{mut-vars} and \textbf{vectors}. I plan to keep this design to
+check retention.
 
-Of the modules, \textbf{local} is the least portable across
-languages. While local binding is of course present in other
-languages, this is mostly covered using nested \lstinline|defvar|s in
-earlier modules, starting with \textbf{scope}. The distinction central
-to this module (between three local-binding constructs with slightly
-different scopes) is primarily a focus of Lispy languages. Therefore,
-we exclude this module from our analysis and instruments, and indeed
-plan to deprecate the module in future versions.
+% Of the modules, \textbf{local} is the least portable across
+% languages. While local binding is of course present in other
+% languages, this is mostly covered using nested \lstinline|defvar|s in
+% earlier modules, starting with \textbf{scope}. The distinction central
+% to this module (between three local-binding constructs with slightly
+% different scopes) is primarily a focus of Lispy languages. Therefore,
+% I exclude this module from my analysis and instruments, and indeed
+% plan to deprecate the module in future versions.
 
-\Cref{s:smol-quizzes} discusses the partial randomization employed by
-the SMoL Quizzes. In contrast, the SMoL Tutor does \emph{not}
-randomize question order. This is because the Tutor consists of more
-than just questions: it also has explanatory text. This text is based
-on the preceding problems. Authoring it is therefore somewhat like
-writing a textbook, with complex dependencies that can easily be
-broken.
+% \Cref{s:smol-quizzes} discusses the partial randomization employed by
+% the SMoL Quizzes. In contrast, the SMoL Tutor does \emph{not}
+% randomize question order. This is because the Tutor consists of more
+% than just questions: it also has explanatory text. This text is based
+% on the preceding problems. Authoring it is therefore somewhat like
+% writing a textbook, with complex dependencies that can easily be
+% broken.
 
 \section{Misconceptions Detected by the SMoL Tutor}%
 \label{s:misconceptions-tutor}
 
-I now examine what we learned from the interpreting
+I now examine what I learned from the interpreting
 questions in terms of program behavior
-misconceptions. But first, we explain how we associate incorrect
+misconceptions. But first, I explain how I associate incorrect
 answers with misconceptions.
 
-I do not present the results of \textbf{begin} and
-\textbf{local} (\Cref{t:tutor-goal-sentences}), because they focus on constructs not usually found in
-non-Lispy languages. They were included in the Tutor to help students
-write programs for the course, but are not interesting from a SMoL
-perspective.
+I do not present the results of and \textbf{local}
+(\Cref{t:tutor-goal-sentences}), because they focus on constructs not
+usually found in non-Lispy languages. They were included in the Tutor
+to help students write programs for the course, but are not
+interesting from a SMoL perspective.
 
 \subsection{Misinterpreters}
 \label{s:misinterp-intro}
 
 In principle, an expert can identify what misconceptions a particular
-incorrect answer might correspond to. In practice, we found this
+incorrect answer might correspond to. In practice, I found this
 rather difficult for three reasons. First, with 89 programs, each with
-several answers, it's easy to make mistakes. Second, our own expert blind
-spot may prevent us from seeing an interpretation that would
-lead to an additional association. Finally, and specific to our case,
-since we had either curated or written all the programs and answers,
-we were likely to miss some associations we had not intended.
+several answers, it's easy to make mistakes. Second, my own expert blind
+spot may prevent me from seeing an interpretation that would
+lead to an additional association. Finally, and specific to my case,
+since I had either curated or written all the programs and answers,
+I was likely to miss some associations I had not intended.
 
-To address this problem, we formalized misconceptions as
-interpreters. That is, for each misconception we created a
+To address this problem, I formalized misconceptions as
+interpreters. That is, for each misconception I created a
 corresponding \emph{misinterpreter}. This is an interpreter for the
 SMoL syntax that intentionally has a semantic error corresponding to
 that misconception. Put differently, a misinterpreter is a like a
 ``definitional interpreter for a misconception''.
 
-By running programs through the misinterpreters, we can more uniformly
+By running programs through the misinterpreters, I can more uniformly
 and rigorously identify \emph{all} the misconceptions associated with
-a wrong answer. Furthermore, if we identify a new misconception (or
+a wrong answer. Furthermore, if I identify a new misconception (or
 alter a misinterpreter), it is easy to automatically re-classify all
-the answers. By using misinterpreters, we indeed found new
+the answers. By using misinterpreters, I indeed found new
 interpretations for existing program-answer pairs.
-I provide all the misinterpreters in the artifact.
 
 \subsection{A Catalog of Misconceptions}
 
@@ -1661,32 +1665,32 @@ our final catalog of misconceptions
 I started
 with misinterpreters representing the misconceptions described in
 \Cref{s:misconceptions-quiz}. These are misconceptions for which we
-have reasonable validation (due to the prose in Quizius), so we call
+have reasonable validation (due to the prose in Quizius), so I call
 them \emph{grounded} misconceptions. I then looked at wrong answers
-not covered by these but chosen by students, and did our best to
+not covered by these but chosen by students, and did my best to
 distill these into misconceptions. These are \emph{surmised}
 misconceptions (which we
 identify with a $^\ddag$), which need to be validated in the future.\footnote{To keep
   the time spent in each module reasonable, the SMoL Tutor does not
-  ask students for rationales for their programs. However, we could
+  ask students for rationales for their programs. However, I could
   easily modify it to do so a small number of times per user, to make
   progress towards this need.} I then re-ran the misinterpreters
 against the chosen answers. I terminated when all the remaining wrong
 answers were either (a) found in very few students (we found a gap
 between 23\% and 13\%, and hence took 14\% as the threshold),
 (b) difficult for
-us to attribute to a misconception, or (c) appeared to us to be
+us to attribute to a misconception, or (c) appeared to me to be
 ``Lispy'' and hence not of broad interest.
 
 \Cref{t:tutor-grounded-misconceptions-1,t:tutor-grounded-misconceptions-2,t:tutor-surmised-misconceptions}
 list the final catalog.
-For each, we also
+For each, I also
 present a Tutor question
 for which the marked wrong answer can be explained by \emph{only} the
 named misconception.
 That is, that program-answer pair is a representative example of that
 misconception.\footnote{An astute reader may well imagine another
-  misinterpretation; but we presumably did not find evidence of it in our
+  misinterpretation; but I presumably did not find evidence of it in our
   data. I do welcome other misinterpretations, for which we
   can add more misinterpreters!}
 
@@ -1873,29 +1877,29 @@ misconception.\footnote{An astute reader may well imagine another
   \label{t:tutor-surmised-misconceptions}
 \end{table}
 
-\paragraph{Confirmed Misconceptions}
+% \paragraph{Confirmed Misconceptions}
 
-The Tutor confirmed all the misconceptions from Quizius via the SMoL Quizzes.
+% The Tutor confirmed all the misconceptions from Quizius via the SMoL Quizzes.
 
-\paragraph{Added Misconceptions}
+% \paragraph{Added Misconceptions}
 
-The misinterpreters helped us find misinterpretations that we had
-overlooked. For instance, consider this program from \quizState:
-\begin{lstlisting}
-(defvar x 12)
-(deffun (f x)
-  (set! x 0))
-(f x)
-x
-\end{lstlisting}
-I had assumed the wrong answer
-\texttt{0} is caused by \miscon{CallByRef}.
-However, our misinterpreters made us realize it can also be explained
-by \miscon{FlatEnv}. This could also explain why we see a difference in
-error rate when the formal and actual parameter have the same
-name (as mentioned in \Cref{s:misconceptions-quiz:state}).
+% The misinterpreters helped me find misinterpretations that I had
+% overlooked. For instance, consider this program from \quizState:
+% \begin{lstlisting}
+% (defvar x 12)
+% (deffun (f x)
+%   (set! x 0))
+% (f x)
+% x
+% \end{lstlisting}
+% I had assumed the wrong answer
+% \texttt{0} is caused by \miscon{CallByRef}.
+% However, my misinterpreters made me realize it can also be explained
+% by \miscon{FlatEnv}. This could also explain why I see a difference in
+% error rate when the formal and actual parameter have the same
+% name (as mentioned in \Cref{s:misconceptions-quiz:state}).
 
-% Tutor's refined program sets and misinterpreters also helped us to
+% Tutor's refined program sets and misinterpreters also helped me to
 % identify programs that detect one of the misconceptions but not the
 % other. Consider this new program
 % % mut-vars.not_aliased_by_defvar_1 (29)
@@ -1940,8 +1944,8 @@ For the following program, added in the Tutor:
   y
 \end{lstlisting}
 56\% of students asserted that it produces
-\texttt{1 3}. Based on this, we surmise that students might have
-another misconception, which we define as \surmisedMiscon{Lazy}. (Recall that
+\texttt{1 3}. Based on this, I surmise that students might have
+another misconception, which I define as \surmisedMiscon{Lazy}. (Recall that
 SMoL is eager, but even in many lazy languages, this would be an error.)
 
 \paragraph{Another Potential Misconception, and Its Effect on
@@ -1961,13 +1965,13 @@ Consider this program from the SMoL Tutor:
 This program, suitably translated, would produce \lstinline|2| in a wide
 variety of languages (Python, JavaScript, Racket, Java, etc.), because
 \lstinline|get-x| and the inner \lstinline|x| are in the same scope block. The
-answer \lstinline|1| cannot be explained by any of our existing
-misconceptions. Based on this, we surmise a new misconception,
+answer \lstinline|1| cannot be explained by any of my existing
+misconceptions. Based on this, I surmise a new misconception,
 \surmisedMiscon{NestedDef}. (Though its frequency falls below our
-threshold, our reading of answers suggests this may be more
-widespread, and we feel it needs to be investigated more.)
+threshold, my reading of answers suggests this may be more
+widespread, and I feel it needs to be investigated more.)
 
-Once we turned this into a misinterpreter, we found that it
+Once I turned this into a misinterpreter, I found that it
 unexpectedly captured the program-answer pair for the following
 program from \quizFun---which should be an error, due to the
 double-binding of \lstinline|x| in the same scope block---and the answer
@@ -1979,7 +1983,7 @@ double-binding of \lstinline|x| in the same scope block---and the answer
   x
   y
 \end{lstlisting}
-Previously, we had interpreted this only as \miscon{DefOrSet}, because
+Previously, I had interpreted this only as \miscon{DefOrSet}, because
 students had stated that the second \lstinline|(defvar x ....)|
 ``mutates'' or ``redefines'' \lstinline|x|. This is reminiscent of the
 behavior of languages like Python, which use the same syntax both for
@@ -1991,16 +1995,20 @@ second definition is interpreted. I had interpreted it as
 which fits \miscon{DefOrSet}. However, another possibility is that
 it \emph{shadows} the binding (i.e., establishes a new scope block). We
 did not recognize that the original misconception is underspecified
-until we uncovered the new (surmised) misconception.
+until I uncovered the new (surmised) misconception.
 
-\paragraph{Summary}
+\paragraph{Confirmed Misconceptions}
 
-To summarize, we used the SMoL Tutor, with an expanded set of
-programs, to investigate student misconceptions. I implemented the
-idea of misinterpreters to help us properly classify student
-performance. I were able to reconfirm all the previously identified
-misconceptions, refine some of them, and also identify potential new
-ones (that need further investigation).
+The Tutor confirmed all the misconceptions from Quizius via the SMoL Quizzes.
+
+% \paragraph{Summary}
+
+% To summarize, I used the SMoL Tutor, with an expanded set of
+% programs, to investigate student misconceptions. I implemented the
+% idea of misinterpreters to help me properly classify student
+% performance. I were able to reconfirm all the previously identified
+% misconceptions, refine some of them, and also identify potential new
+% ones (that need further investigation).
 
 \section{Is The Tutor Effective?}
 \label{s:effect-tutor}
@@ -2017,19 +2025,19 @@ ones (that need further investigation).
 \end{figure}
 
 Recall that the SMoL Tutor is not only a collection of MCQs: it is
-also a \emph{tutor}! So far, we have investigated the value of the
-MCQs. Now we examine its tutoring aspect. Concretely, we ask:
-\begin{description}
+also a \emph{tutor}! So far, I have investigated the value of the
+MCQs. Now I examine its tutoring aspect. Concretely, I ask:
+\begin{center}
 
-  \item[RQ] How effective is the Tutor at correcting each misconception?
+  How effective is the Tutor at correcting each misconception?
 
-\end{description}
-To study this, we perform the following analysis per
-misconception. Using misinterpreters, we identify those questions
+\end{center}
+To study this, I perform the following analysis per
+misconception. Using misinterpreters, I identify those questions
 whose wrong answers fit only one misconception (i.e., only one output
 matches that produced by that misinterpreter, and it matches only that
 misinterpreter). I then examine student performance over time across
-those questions. This would let us examine how they do on just that
+those questions. This would let me examine how they do on just that
 topic, in isolation, over time.
 
 I present the result of this analysis in two forms. Graphically, we
@@ -2037,7 +2045,7 @@ show plots in \Cref{f:tutor-trend-plots}. Each figure shows the percentage of st
 chose the answer corresponding to that misconception. Ideally, we
 would like to see these percentages diminish.
 
-Indeed, that is what we see in most of the graphs. The exceptions are
+Indeed, that is what I see in most of the graphs. The exceptions are
 \miscon{CallsCopyStructs}, \surmisedMiscon{NestedDef}, and
 \miscon{StructsCopyStructs}, which have only one problem (and hence no
 trend), and \miscon{DefOrSet} and \miscon{FunNotVal}, which show an
@@ -2070,7 +2078,7 @@ misconceptions. However, as noted in \Cref{s:misinterp-intro}, it is
 easy to be incomplete (or incorrect) in ascribing
 misconceptions. Furthermore, as their set grows, it is difficult to
 reassess all the problems manually. Once evaluated using
-misinterpreters, we found far fewer problems than we would have liked.
+misinterpreters, I found far fewer problems than I would have liked.
 Concretely, only 40 of the 71 eligible problems (after removing the
 non-SMoL modules) were useful in the above
 analysis.
@@ -2080,10 +2088,10 @@ purely formative: they suggest that the Tutor \emph{most likely did
   not do harm} and perhaps even \emph{may have done some
   good}. However, it would be improper to read too much into the
 analysis. It is quite possible that some of the other problems would
-have found issues. Rather, what we really see is value in the
+have found issues. Rather, what I really see is value in the
 misinterpreter concept. It is not only useful for analysis, it is also
 valuable for \emph{problem design}: in the next iteration of the
-Tutor, we will use misinterpreters actively to shape the incorrect answers and,
+Tutor, I will use misinterpreters actively to shape the incorrect answers and,
 as necessary, update the programs as well. I therefore hope to have
 much more thorough analyses in future work.
 
@@ -2091,139 +2099,139 @@ much more thorough analyses in future work.
 \label{s:generality-tutor}
 
 There is, of course, a significant danger that the data above have
-been overfitted to only one institution (\Cref{s:populations},
-henceforth University 1),
-thereby actually reflecting the state of its curriculum rather than
-some greater truth about program behavior understanding.  I already
-have some reason to believe this is not the case: the related work
-discussed in \Cref{s:background-misconceptions} is drawn from many institutions in
-multiple countries with different educational preparations, levels,
-and demographics. Nevertheless, that gives us only
-limited information about the specific questions and misconceptions
-described above.
+been overfitted to University 1, thereby actually reflecting the state
+of its curriculum rather than some greater truth about program
+behavior understanding.
 
-Fortunately, we were able to deploy the Tutor on two other
-populations:
-\begin{itemize}
+% I already have some reason to believe this is
+% not the case: the related work discussed in
+% \Cref{s:background-misconceptions} is drawn from many institutions in
+% multiple countries with different educational preparations, levels,
+% and demographics. Nevertheless, that gives me only limited information
+% about the specific questions and misconceptions described above.
 
-  \item University 2 is a primarily public university in the US. It is
-        one of the largest Hispanic-serving institutions in the country. As
-        such, its demographic is extremely different from those whose data
-        were used above. The Tutor was used in one course in Spring 2023,
-        taken by 12 students.
-        The course is a third-year, programming
-        language course. The students are required to have taken two
-        introductory programming courses (C++ focused).
+Fortunately, I were able to deploy the Tutor on two other
+populations: University 2 and Texbook (See \Cref{s:populations} for their details).
+% \begin{itemize}
 
-  \item A separate instance of the Tutor was published on the
-        website of a programming languages textbook [ANON]. Over the course
-        of 8 months, 597 people started with the first module and 103
-        users made it to the last one. To protect privacy, we intentionally
-        do not record demographic information, but we conjecture that the
-        population is largely self-learners  (who are known to use the
-        accompanying book),
-        including some professional
-        programmers. It is extremely
-        unlikely to be the students from either university, because they
-        would not get credit for their work on the public instance; they
-        needed to use the university-specific instance. Furthermore, since
-        they were not penalized for wrong answers, it would make little
-        sense to do a ``test run'' on the public instance. Finally, we note
-        that there is no overlap between the dates of submission on the
-        public instance and the semester at University 1.
+%   \item University 2 is a primarily public university in the US. It is
+%         one of the largest Hispanic-serving institutions in the country. As
+%         such, its demographic is extremely different from those whose data
+%         were used above. The Tutor was used in one course in Spring 2023,
+%         taken by 12 students.
+%         The course is a third-year, programming
+%         language course. The students are required to have taken two
+%         introductory programming courses (C++ focused).
 
-\end{itemize}
-These two populations are therefore at least somewhat different from
-the original population, and help us assess whether the problems we
-identify are merely an artifact of the first institution.
+%   \item A separate instance of the Tutor was published on the
+%         website of a programming languages textbook [ANON]. Over the course
+%         of 8 months, 597 people started with the first module and 103
+%         users made it to the last one. To protect privacy, I intentionally
+%         do not record demographic information, but I conjecture that the
+%         population is largely self-learners  (who are known to use the
+%         accompanying book),
+%         including some professional
+%         programmers. It is extremely
+%         unlikely to be the students from either university, because they
+%         would not get credit for their work on the public instance; they
+%         needed to use the university-specific instance. Furthermore, since
+%         they were not penalized for wrong answers, it would make little
+%         sense to do a ``test run'' on the public instance. Finally, I note
+%         that there is no overlap between the dates of submission on the
+%         public instance and the semester at University 1.
 
-To evaluate, we computed a Spearman's rank correlation $\rho$, ranking
+% \end{itemize}
+% These two populations are therefore at least somewhat different from
+% the original population, and help me assess whether the problems we
+% identify are merely an artifact of the first institution.
+
+To evaluate, I computed a Spearman's rank correlation $\rho$, ranking
 questions by what percentage of students got the question
 right. Between the original university and University 2,
 we obtain a \pValue~=~2.013e-07. Between the original university and
-the online population, we obtain a \pValue~<~2.2e-16. These show that
+the online population, I obtain a \pValue~<~2.2e-16. These show that
 the other two populations performed similarly to the original one.
 While
 further validation on other populations remains essential, these
 suggest that the questions are \emph{finding misconceptions that may
   be universal}.
 
-\section{Threats to Validity}
-\label{s:threats}
+% \section{Threats to Validity}
+% \label{s:threats}
 
-\subsection{Construct Validity}
+% \subsection{Construct Validity}
 
-Did we measure the right thing?
-While our goal is to study student understanding of language
-behavior, what we actually measure is performance on MCQs on select
-programs. MCQs as a mechanism introduce various clear biases, though
-we add the ``Other'' options to somewhat alleviate them. The small
-size, syntactic details (such as intentionally meaningless variable
-names), and other aspects of the programs may also impact our ability
-to measure understanding. (This could go both ways: students may have
-no trouble understanding behavior in a small program but may struggle
-to do so in a larger one.)
+% Did I measure the right thing?
+% While my goal is to study student understanding of language
+% behavior, what I actually measure is performance on MCQs on select
+% programs. MCQs as a mechanism introduce various clear biases, though
+% I add the ``Other'' options to somewhat alleviate them. The small
+% size, syntactic details (such as intentionally meaningless variable
+% names), and other aspects of the programs may also impact my ability
+% to measure understanding. (This could go both ways: students may have
+% no trouble understanding behavior in a small program but may struggle
+% to do so in a larger one.)
 
-A particularly notable threat is the use of Lispy
-syntax. I chose it for two reasons: both because it helps clarify
-scope (\Cref{s:smol}) and because the rest of the course used
-Racket. However, students may well perform differently with more
-familiar syntaxes. It seems unlikely their performance would be \emph{too}
-different given the many languages that have produced similar
-misconceptions (\Cref{t:rel-work}). Nevertheless, we intend to use a
-variety of syntaxes to examine this issue further.
+% A particularly notable threat is the use of Lispy
+% syntax. I chose it for two reasons: both because it helps clarify
+% scope (\Cref{s:smol}) and because the rest of the course used
+% Racket. However, students may well perform differently with more
+% familiar syntaxes. It seems unlikely their performance would be \emph{too}
+% different given the many languages that have produced similar
+% misconceptions (\Cref{t:rel-work}). Nevertheless, I intend to use a
+% variety of syntaxes to examine this issue further.
 
-Finally, we curated programs by hand, so they may well reflect our own
-biases about misconceptions. It may be possible to mitigate this
-problem by synthesizing MCQ programs using the misinterpreters.
+% Finally, I curated programs by hand, so they may well reflect my own
+% biases about misconceptions. It may be possible to mitigate this
+% problem by synthesizing MCQ programs using the misinterpreters.
 
-\subsection{Internal Validity}
+% \subsection{Internal Validity}
 
-Is our reasoning valid? I have applied standard techniques and
-measurements for evaluating student responses. However, our
-instruments still lack the validity of a proper concept
-inventory. Their creation requires heavyweight processes (such as
-Delphi methods \citep{goldmanSettingScopeConcept2010}) that require many hours of expert attention as
-well as conversations with learners, and can hence be prohibitive in
-cost. The Quizius method (\Cref{s:quizius}) was created precisely to
-be an inexpensive method that provides a good proxy.
+% Is my reasoning valid? I have applied standard techniques and
+% measurements for evaluating student responses. However, our
+% instruments still lack the validity of a proper concept
+% inventory. Their creation requires heavyweight processes (such as
+% Delphi methods \citep{goldmanSettingScopeConcept2010}) that require many hours of expert attention as
+% well as conversations with learners, and can hence be prohibitive in
+% cost. The Quizius method (\Cref{s:quizius}) was created precisely to
+% be an inexpensive method that provides a good proxy.
 
-Ultimately, our goal is to provide a reasonable instrument for
-widespread use. While the set of all misconceptions could be
-unbounded, we believe our tasks, especially as embedded in the Tutor,
-provide a good starting point for others. In particular, if students
-select a wrong answer, that is still of \emph{some} use to an
-educator, even if the precise misconception cannot be pinned down with
-the highest accuracy. I therefore believe our instruments, and our
-misinterpreter technique, are of general value.
+% Ultimately, my goal is to provide a reasonable instrument for
+% widespread use. While the set of all misconceptions could be
+% unbounded, I believe my tasks, especially as embedded in the Tutor,
+% provide a good starting point for others. In particular, if students
+% select a wrong answer, that is still of \emph{some} use to an
+% educator, even if the precise misconception cannot be pinned down with
+% the highest accuracy. I therefore believe my instruments, and our
+% misinterpreter technique, are of general value.
 
-A failure in our Tutor's logging infrastructure led us to miss some
-responses. These are unlikely to be task-specific because the Tutor
-has a generic framework that should perform the same across
-tasks. Moreover, on average only $0.4\%\ (\textrm{sd} = 0.6\%)$ of values are missing. Therefore, we do not believe
-this had a noticeable impact. (In addition, every wrong answer is
-still wrong! I may just not have exactly the right proportions of
-them.)
+% A failure in my Tutor's logging infrastructure led me to miss some
+% responses. These are unlikely to be task-specific because the Tutor
+% has a generic framework that should perform the same across
+% tasks. Moreover, on average only $0.4\%\ (\textrm{sd} = 0.6\%)$ of values are missing. Therefore, I do not believe
+% this had a noticeable impact. (In addition, every wrong answer is
+% still wrong! I may just not have exactly the right proportions of
+% them.)
 
-Because we don't randomize Tutor question order, it is hard to tell
-whether the general decreasing trend in \cref{f:tutor-trend-plots}
-shows misconceptions being corrected, or shows properties of the
-questions (e.g., maybe later questions in the plots are easier because
-their programs happen to be shorter).
+% Because I don't randomize Tutor question order, it is hard to tell
+% whether the general decreasing trend in \cref{f:tutor-trend-plots}
+% shows misconceptions being corrected, or shows properties of the
+% questions (e.g., maybe later questions in the plots are easier because
+% their programs happen to be shorter).
 
-\subsection{External Validity}
+% \subsection{External Validity}
 
-How well do our results generalize? Certainly there is reason to
-question whether our results would apply to other
-populations. \Cref{s:generality-tutor} provides preliminary evidence
-that the results are not specific to one institution, and
-\Cref{s:background-misconceptions} suggests these issues are widespread. Nevertheless,
-much more broad testing is needed to confirm our specific instruments.
+% How well do my results generalize? Certainly there is reason to
+% question whether my results would apply to other
+% populations. \Cref{s:generality-tutor} provides preliminary evidence
+% that the results are not specific to one institution, and
+% \Cref{s:background-misconceptions} suggests these issues are widespread. Nevertheless,
+% much more broad testing is needed to confirm my specific instruments.
 
-The other major concern is the tie to Lispy syntax. Learners in other
-settings may do worse or even better with it. Building a Tutor that
-supports multiple, and more traditional, syntaxes should help address
-this issue. I defer this to future work (\cref{s:future-work}).
+% The other major concern is the tie to Lispy syntax. Learners in other
+% settings may do worse or even better with it. Building a Tutor that
+% supports multiple, and more traditional, syntaxes should help address
+% this issue. I defer this to future work (\cref{s:future-work}).
 
 \section{Related Work}%
 \label{s:related-work}
@@ -2286,8 +2294,6 @@ threats to validity. In this semester I also want to write a new paper
 about the SMoL Tutor.
 
 I plan to defense in Spring 2025.
-
-\section{References}
 
 \bibliography{bibfile}
 
