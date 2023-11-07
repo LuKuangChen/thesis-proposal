@@ -496,13 +496,16 @@ results will likely include more populations.
 \subsection{Find Misconceptions in Student-written Programs}%
 \label{s:find-misconceptions-with-quizius}
 
-To find a reasonably comprehensive collection of misconceptions, I
-seek for inputs from students. Most prior works
-(\Cref{s:background-misconceptions}) have experts coming up with a
-list of potential misconceptions and then filter the potential
-misconceptions with student inputs. This approach can't find
-misconceptions not envisioned by experts and hence is hindered by
-experts' blind spots.
+In \Cref{s:background-misconceptions}, I discuss several papers that
+have provided reports of student misconceptions with different
+fragments of SMoL. However, it is difficult to know how comprehensive
+these are. While some are unclear on the origin of their programs,
+they generally seem to be expert-generated.
+
+The problem with expert-generated lists is that they can be quite
+incomplete. Education researchers have documented the phenomenon of
+the \emph{expert blind spot} \citep{nathanExpertBlindSpot2001}:
+experts simply do not conceive of many learner difficulties.
 
 To overcome such bias, I analyze a University~1 dataset produced by a
 two-year process to find (a) student-written programs that tend to
@@ -553,7 +556,8 @@ errors. I plan to adjust the process descrbed in
 in multiple languages: the SMoL version, a JavaScript translation, and
 a Python version.
 
-\subsection{Expected Results}
+\subsection{Expected Results}%
+\label{s:rq1-expected-results}
 
 Eventually, I expect to build a table of misconceptions. Each
 misconception comes with multiple programs. For each of these
@@ -561,7 +565,10 @@ programs, the wrong result that correspond to the misconception should
 be commonly predicted by students from various population.
 Furthermore, these students should give similar explanations for all
 the wrong answers. For example, I might find a misconception called
-\miscon{DefByRef}: when students are asked to predict the result of
+\miscon{DefByRef} (See
+\Cref{t:tutor-grounded-misconceptions-1,t:tutor-grounded-misconceptions-2,t:tutor-surmised-misconceptions}
+in \Cref{s:misconceptions-tutor} for a list of misconceptions that I
+have found): when students are asked to predict the result of
 \begin{lstlisting}
   (defvar x 12)
   (defvar y x)
@@ -594,12 +601,11 @@ plan to do the same things for any new misconceptions.
 To answer this RQ, I have done some literature review on what
 pedagogic techniques are helpful (\Cref{s:pedagogic-techniques}). My
 current takeaway is that refutation text, case comparison, notional
-machines, and language levels are helpful.
-
-I have created a tutor (\Cref{s:system-tutor}) that incorporates all
-these ideas (\Cref{s:tutor-uiux}) and have collected data from all
-populations. I plan to explore more literature and to improve the
-tutor if I find new helpful techniques.
+machines, and language levels are helpful. I have created a tutor
+(\Cref{s:system-tutor}) that incorporates all these ideas
+(\Cref{s:tutor-uiux}) and have collected data from all populations. I
+plan to explore more literature and to improve the tutor if I find new
+helpful techniques.
 
 I would like to first explain key aspects of the tutor
 (\Cref{s:tutorials,s:interpreting-tasks}) and then my plan to
@@ -618,6 +624,9 @@ Inspired by prior research on language levels
 (\Cref{s:pedagogic-techniques}), my sequence of tutorials is ordered,
 and each later tutorials cover one or more language constructs
 (\Cref{t:tutorials}).
+
+Each tutorial might be delivered as multiple sections to avoid forcing
+students to continuesly work for more than 30 minutes.
 
 \begin{table}[t]
   \centering\begin{tabularx}{\linewidth}{p{0.4\linewidth} X}
@@ -657,7 +666,7 @@ wrong answers that I do not anticipate, the tutor has been providing
 an ``Other'' option that, once choosen, allows students to enter
 arbitrary answer.
 
-Let's reconsider this program from \Cref{s:plan-rq1}
+Let's reconsider this program from \Cref{s:rq1-expected-results}
 \begin{lstlisting}
   (defvar x 12)
   (defvar y x)
@@ -687,24 +696,29 @@ has the following options:
 
 \paragraph{Panelty to Wrong Choices} To discourage students from
 making a random choice, the tutor has been giving panelty. Designing
-the strategy of assigning panelty is non-trivial. A common strategy is
-to grade students by their correctness. However, grading by
-correctness is not suitable for a tutoring system because we do not
-mind students doing badly on earlier tasks as long as they eventually
-master the concepts. Actually, if students generally succeed in all
-tasks, the tutoring system is failing -- it does not teach anything to
-the students. A alternative common strategy is to grade by completion.
-However, grading by completion alone encourage students to rush
-through the tutorials and hence might encourage students to make
-random choices. In short, I want to make students feel as follows:
+the strategy of assigning panelty is non-trivial:
+\begin{itemize}
+  \item A common strategy is to grade students by their correctness.
+  However, grading by correctness is not suitable for a tutoring
+  system because we do not mind students doing badly on earlier tasks
+  as long as they eventually master the concepts. Actually, if
+  students generally succeed in all tasks, the tutoring system is
+  failing -- it does not teach anything to the students.
+  \item A alternative common strategy is to grade by completion.
+  However, grading by completion alone encourage students to rush
+  through the tutorials and hence might encourage students to make
+  random choices.
+\end{itemize}
+In short, I want to make students feel as follows:
 \begin{itemize}
   \item They won't lose grade as long as they finish the tutorials.
   \item They should avoid giving wrong answers.
 \end{itemize}
 To encourage this feeling, I have been doing the following: when I
-deployed the tutor in my institution, I graded by
-completion\footnote{I have no control over how other institutions use
-  the tutor.}; when a student fails a task, the tutor gives an
+deployed the tutor in my institution, University 1, I graded by
+completion\footnote{I encourage collaborators to grade by
+completeness, but I have no real control over how they actually use
+the tutor.}; when a student fails a task, the tutor gives an
 \emph{extra} task:
 \begin{enumerate}
 
@@ -755,38 +769,77 @@ generic explanation.
 \subsection{Case Comparison}%
 \label{s:case-comparison}
 
-The tutor provides considerable opportunities for making case
-comparison: each interpreting task presents a SMoL program and the
-program's result. These program-result pairs are concrete cases of the
-semantics of SMoL. To incorporate the idea of case comparsion, the
-tutor currently prompts students to compare these cases and then to
-summarize the rules of program behavior at the end of \emph{some}
-tutorials. I plan to expand this to \emph{all} tutorials and use a
-consistent prompt. The prompt should asks about the behavior of new
-language constructs and their interaction with all previously
-introduced constructs. For example, at the end of \textbf{mut-vars}, I
-would want the tutor to ask
+The tutor provides opportunities for making case comparison: each
+interpreting task presents a SMoL program and the program's result.
+These program-result pairs are concrete cases of the semantics of
+SMoL. To incorporate the idea of case comparsion, the tutor currently
+prompts students to compare these cases and then to summarize the
+rules of program behavior at the end of \emph{some} tutorials. I plan
+to expand this to \emph{all} tutorials and use a consistent prompt.
+The prompt should asks about the behavior of new language constructs
+and their interaction with all previously introduced constructs.
+
+The current scope tutorial uses the following prompt
 \begin{quote}
-  What does \lstinline|set!| do? How does it interact with variables,
-  \lstinline|defvar|, and \lstinline|deffun|?
+  When we see a variable reference, how do we find the corresponding
+  declaration, if any?
 \end{quote}
+This prompt has a few problems:
+\begin{itemize}
+  \item It is unclear to adapt it to other tutorials.
+  \item Students tend to give brief response possibly because the
+  questions is asking for a lot and because students are tired when
+  they reach the end of a tutorial.
+\end{itemize}.
 
-\subsection{Multi-syntax}%
-\label{s:multi-syntax}
-
-[FILL] Use a random default syntax per task? Log syntax switch.
+So I plan to change the question format into a notice-and-wonder style
+of questions, which is known to be less demanding
+(\Cref{s:pedagogic-techniques}). So I plan to replace the
+\textbf{scope} prompt with
+\begin{quote}
+  \emph{Think about} the following questions:
+  \begin{itemize}
+    \item How do \lstinline|defvar|s work?
+    \item How do \lstinline|deffun|s work?
+    \item How do variable referencess (e.g., \lstinline|x| in \lstinline|(+ x 1)|) work?
+    \item How do \lstinline|defvar|s, \lstinline|deffun|s, and variable references interact with each other?
+  \end{itemize}
+  If you believe you know the answers perfectly, please \emph{response with}
+  \begin{quote}
+    I know the answers with 100\% certainty.
+  \end{quote}
+  Otherwise, please \emph{response with} what you are uncertain about these language constructs.
+\end{quote}
+I plan to use a similar prompt in later tutorials. For example, in \textbf{mut-vars},
+I would want the tutor to ask
+\begin{quote}
+  \emph{Think about} the following questions:
+  \begin{itemize}
+    \item How do \lstinline|set!|s work?
+    \item How do \lstinline|set!|s interact with other language constructs (namely, \lstinline|defvar|s, \lstinline|deffun|s, and variable references)?
+  \end{itemize}
+  If you believe you know the answers perfectly, please \emph{response with}
+  \begin{quote}
+    I know the answers with 100\% certainty.
+  \end{quote}
+  Otherwise, please \emph{response with} what you are uncertain about these language constructs.
+\end{quote}
+I am hoping these new prompt are
 
 \subsection{Notional Machine}%
 \label{s:notional-machine}
 
-Prior research argues that illustrating how programs runs with
-notional machines (NMs) is benefitial for students [CITE]. I have created a
-web-based notional machine
-\href{https://lukuangchen.github.io/stacker-2023}{https://lukuangchen.github.io/stacker-2023}.
+Prior research argues (\Cref{s:pedagogic-techniques})that illustrating
+how programs runs with notional machines (NMs) is benefitial for
+students. I have created a web-based notional machine
+\begin{center}
+  \href{https://lukuangchen.github.io/stacker-2023}{https://lukuangchen.github.io/stacker-2023}
+\end{center}
 
-The notional machine can be configurated with URL parameters. For example,
-\href{https://lukuangchen.github.io/stacker-2023/?program=\%28defvar+x+12\%29\%0A\%28defvar+y+x\%29\%0A\%28set\%21+y+0\%29\%0Ax\%0Ay}{this link}
-opens the NM with a program embeded.
+The notional machine can be configurated with URL parameters. For
+example,
+\href{https://lukuangchen.github.io/stacker-2023/?program=\%28defvar+x+12\%29\%0A\%28defvar+y+x\%29\%0A\%28set\%21+y+0\%29\%0Ax\%0Ay}{this
+link} opens the NM with a program embeded.
 
 My plan is to change the tutor such that it provides a
 program-specific link after each interpreting task and instructs
@@ -795,17 +848,11 @@ students to click the link for more explanation.
 \subsection{Evaluate the Tutor}%
 \label{s:evaluation}
 
-To fully answer my research questions, I should also try to prove that
-my tutor is effective. In this secton, I describe how I want to refine
-the design of the tutor to help me make the prove, what data I want to
-collect, and what (statistical) analysis do I want to perform on the
-data.
-
-I would like to evaluate the effectiveness from two perspectives:
-\begin{itemize}
-  \item How effective is the tutor at stopping students from holding
-        misconceptions?
-\end{itemize}
+To fully answer my research questions, I should also argue that my
+tutor is effective at correcting misconceptions. In this secton, I
+describe how I want to refine the design of the tutor to help me make
+the argument, what data I want to collect, and what (statistical)
+analysis do I want to perform on the data.
 
 I can infer whether students hold a misconception by analysing their
 responses to interpreting tasks. There are three possible responses to
@@ -840,26 +887,24 @@ models/theories:
   \item[TaskSpecific] Some students are more likely to choose the
   representing wrong answers in certain tasks.
   \item[PositionSpecific] Students are more likely to choose the
-  representing wrong answer in a task if the task appears earlier (or
-  later) in the tutorial.
+  representing wrong answer in task that appears earlier (or later) in
+  the tutorial.
 \end{description}
 
 If the \textbf{TaskSpecific} model best explains the data, I deduce
 that some programs are more confusing and that we need further
-investigation into the relationship between the tasks and misconceptions.
-
-If the \textbf{PositionSpecific} model best explains \emph{and} students
-perform better in later tasks, I deduce that the tutor seeems to be
-correcting misconceptions. If studnets perform worse in later taks, the
-tutor is potentially doing harm.
+investigation into the relationship between the tasks and
+misconceptions. If the \textbf{PositionSpecific} model best explains
+\emph{and} students perform better in later tasks, I deduce that the
+tutor seeems to be correcting misconceptions. If studnets perform
+worse in later taks, the tutor is potentially doing harm.
 
 To know students well, I would like to have as many tasks per
 misconception as possible. But in practice, the number of tasks is
 subject to the following limitations:
 \begin{enumerate}
-  \item I don't want the length of any tutorial to exceed 30 minutes.
-  Because the tutor is now asking for student explanation on choice,
-  students are likely to spend more time on each task then before.
+  \item I don't want the length of any tutorial section to exceed 30
+  minutes.
   \item Programs shouldn't be too long. Some misconceptions are really
   similar and as a consequence have only a small number of short
   programs to tell them apart.
@@ -873,50 +918,8 @@ differences by adding and removing programs. Adding randomization
 requires me to carefully check the dependencies between current
 explanations and goal sentences and resolve those dependencies if any.
 
-\section{What Pedagogic Techniques are Effective?}%
-\label{s:pedagogic-techniques}
-
-The SMoL Tutor is firmly grounded in one technique from
-cognitive and educational psychology. The fundamental problem is: how
-do you fix a misconception? One approach is to only ``present the
-right answer'', for fear that discussing the wrong conception might
-actually reinforce it. Instead, there is a body of literature starting
-from \cite{posnerTheoryConceptualChange1982} that presents a theory of conceptual
-change, at whose heart is the \emph{refutation text}. A refutation
-text tackles the misconception directly, discussing and providing a
-refutation for the incorrect idea. Several studies \citep{schroederRefutationTextFacilitates2022} have shown
-their effectiveness in multiple other domains.
-
-The SMoL Tutor's content structure is also influenced by work on \emph{case comparisons}
-(which draws analogies between examples).
-\cite{alfieriLearningCaseComparisons2013a} suggests that asking
-(rather than not asking) students to find similarities between cases,
-and providing principles \emph{after} the comparisons (rather than
-before or not at all), are associated with better learning
-outcomes.
-
-  [FILL Notional Machine]
-
-  [FILL Language Levels] Prior research argues for the benefits of \emph{language levels}
-[CITE]: a langauge has better be taught as a sequence of languages,
-where each later language includes more langauge constructs than the
-previous one.
-
 \section{Generating and Collating Problems}
 \label{s:gen-prob-quizius}
-
-In \Cref{s:background-misconceptions}, we discuss several papers that have provided
-reports of student misconceptions with different fragments of
-SMoL. However, it is difficult to know how comprehensive these
-are. While some are unclear on the origin of their programs, they
-generally seem to be expert-generated.
-
-The problem with expert-generated lists is that they can be quite
-incomplete. Education researchers have documented the
-phenomenon of the \emph{expert blind spot} \citep{nathanExpertBlindSpot2001}: experts
-simply do not conceive of many learner difficulties.
-Thus, we need
-methods to identify problems beyond what experts conceive.
 
 Additionally, in this paper, we intentionally use the word
 mis\emph{conceptions} rather than mis\emph{take}. A mistake can happen
@@ -1365,6 +1368,35 @@ SMoL Quizzes in \Cref{s:tutor-refine-program-set}.
 I then discuss what
 we learned from its data (\Cref{s:misconceptions-tutor}), and finally
 evaluate its effectiveness as a \emph{tutor} (\Cref{s:effect-tutor}).
+
+\section{What Pedagogic Techniques are Effective?}%
+\label{s:pedagogic-techniques}
+
+The SMoL Tutor is firmly grounded in one technique from
+cognitive and educational psychology. The fundamental problem is: how
+do you fix a misconception? One approach is to only ``present the
+right answer'', for fear that discussing the wrong conception might
+actually reinforce it. Instead, there is a body of literature starting
+from \cite{posnerTheoryConceptualChange1982} that presents a theory of conceptual
+change, at whose heart is the \emph{refutation text}. A refutation
+text tackles the misconception directly, discussing and providing a
+refutation for the incorrect idea. Several studies \citep{schroederRefutationTextFacilitates2022} have shown
+their effectiveness in multiple other domains.
+
+The SMoL Tutor's content structure is also influenced by work on \emph{case comparisons}
+(which draws analogies between examples).
+\cite{alfieriLearningCaseComparisons2013a} suggests that asking
+(rather than not asking) students to find similarities between cases,
+and providing principles \emph{after} the comparisons (rather than
+before or not at all), are associated with better learning
+outcomes.
+
+  [FILL Notional Machine]
+
+  [FILL Language Levels] Prior research argues for the benefits of \emph{language levels}
+[CITE]: a langauge has better be taught as a sequence of languages,
+where each later language includes more langauge constructs than the
+previous one.
 
 \subsection{The User Experience}
 \label{s:tutor-uiux}
