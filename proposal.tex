@@ -807,7 +807,7 @@ This prompt has a few problems:
 \begin{itemize}
   \item It is unclear to adapt it to other tutorials.
   \item Students tend to give brief responses possibly because the
-  questions is asking for a lot and because students are tired when
+  questions are asking for a lot and because students are tired when
   they reach the end of a tutorial.
 \end{itemize}
 
@@ -827,7 +827,7 @@ of questions, which is known to be less demanding
   \begin{quote}
     I know the answers with 100\% certainty.
   \end{quote}
-  Otherwise, please \emph{response with} what you are uncertain about these language constructs.
+  Otherwise, please \emph{respond with} what you are uncertain about these language constructs.
 \end{quote}
 I plan to use a similar prompt in later tutorials. For example, in \textbf{mut-vars},
 I would want the tutor to ask
@@ -837,13 +837,12 @@ I would want the tutor to ask
     \item How do \lstinline|set!|s work?
     \item How do \lstinline|set!|s interact with other language constructs (namely, \lstinline|defvar|s, \lstinline|deffun|s, and variable references)?
   \end{itemize}
-  If you believe you know the answers perfectly, please \emph{response with}
+  If you believe you know the answers perfectly, please \emph{respond with}
   \begin{quote}
     I know the answers with 100\% certainty.
   \end{quote}
-  Otherwise, please \emph{response with} what you are uncertain about these language constructs.
+  Otherwise, please \emph{respond with} what you are uncertain about these language constructs.
 \end{quote}
-I am hoping these new prompt are
 
 \subsection{Notional Machine}%
 \label{s:notional-machine}
@@ -860,7 +859,7 @@ example,
 \href{https://lukuangchen.github.io/stacker-2023/?program=\%28defvar+x+12\%29\%0A\%28defvar+y+x\%29\%0A\%28set\%21+y+0\%29\%0Ax\%0Ay}{this
 link} opens the NM with a program embedded.
 
-My plan is to change the tutor such that it provides a
+My plan is to change the tutor so that it provides a
 program-specific link after each interpreting task and instructs
 students to click the link for more explanation.
 
@@ -871,19 +870,19 @@ To fully answer my research questions, I should also argue that my
 tutor is effective at correcting misconceptions. In this section, I
 describe how I want to refine the design of the tutor to help me make
 the argument, what data I want to collect, and what (statistical)
-analysis do I want to perform on the data.
+analysis I want to perform on the data.
 
 I can infer whether students hold a misconception by analyzing their
 responses to interpreting tasks. There are three possible responses to
 an interpreting task:
 \begin{enumerate}
   \item They give the correct answer.
-  \item They give a wrong answer that correspond to some
+  \item They give a wrong answer that corresponds to some
         misconceptions.
-  \item They give a wrong answer that do not correspond to any (known)
+  \item They give a wrong answer that does not correspond to any (known)
         misconceptions.
 \end{enumerate}
-If a student gives a wrong answer corresponds to exactly one
+If a student gives a wrong answer that corresponds to exactly one
 misconception \emph{and} an explanation that matches the
 misconception, I deduce that the student holds the misconception when
 doing the task.
@@ -932,11 +931,11 @@ subject to the following limitations:
 The current tutor is not in the final shape yet. In particular, many
 of the wrong answers correspond to more than one misconception; some
 misconceptions are represented by only one question; the order of
-interpreting tasks are not randomized. I plan to tackle the first two
+interpreting tasks is not randomized. I plan to tackle the first two
 differences by adding and removing programs. Adding randomization
 requires me to carefully check the dependencies between current
 explanations and other texts in the tutor and resolve those
-dependencies if any.
+dependencies, if any.
 
 \section{Generating and Collating Problems}%
 \label{s:gen-prob-quizius}
@@ -1433,8 +1432,8 @@ providing a refutation for the incorrect idea. Several studies
 \citep{schroederRefutationTextFacilitates2022} have shown their
 effectiveness in multiple other domains.
 
-\emph{Case comparisons} draws analogies between examples.
-\cite{alfieriLearningCaseComparisons2013a} suggests that asking
+\emph{Case comparisons} draw analogies between examples.
+\cite{alfieriLearningCaseComparisons2013a} suggest that asking
 (rather than not asking) students to find similarities between cases,
 and providing principles \emph{after} the comparisons (rather than
 before or not at all), are associated with better learning outcomes.
@@ -1443,16 +1442,16 @@ Several groups of authors have argued for the benefits of visualizing
 program executions
 \citep{dicksonExperiencesImplementingUtilizing2022,
 guoOnlinePythonTutor2013, karnalimUsePythonTutor2017,
-napsExploringRoleVisualization2002}. These visualization seems to
-increase engadgments and help students understand how programs works.
+napsExploringRoleVisualization2002}. Visualization seems to
+increase engagement and help students understand how programs work.
 These work often mention \emph{notional machines}
 \citep{duboulayBlackBoxGlass1981}, which refers to the underlying
 mental models rather than the visual representations.
 
 Prior research argues for the benefits of \emph{language levels}
 \citep{findlerDrSchemeProgrammingEnvironment2002,crestaniExperienceReportGrowing2010}:
-a langauge has better be taught as a sequence of languages, where each
-later language includes more langauge constructs than the previous
+a language has better be taught as a sequence of languages, where each
+later language includes more language constructs than the previous
 one.
 
 \section{The SMoL Tutor}%
@@ -2100,7 +2099,7 @@ misinterpreter concept. It is not only useful for analysis, it is also
 valuable for \emph{problem design}: in the next iteration of the
 Tutor, I will use misinterpreters actively to shape the incorrect answers and,
 as necessary, update the programs as well. I therefore hope to have
-much more thorough analyses in future work.
+much more thorough analyzes in future work.
 
 \section{Performance on Other Populations}
 \label{s:generality-tutor}
@@ -2117,7 +2116,7 @@ behavior understanding.
 % and demographics. Nevertheless, that gives me only limited information
 % about the specific questions and misconceptions described above.
 
-Fortunately, I were able to deploy the Tutor on two other
+Fortunately, I was able to deploy the Tutor on two other
 populations: University 2 and Texbook (See \Cref{s:populations} for their details).
 % \begin{itemize}
 
@@ -2282,7 +2281,7 @@ By the end of Fall 2023, I would like to improve the SMoL Tutor:
         interpreting question. With student explanations, I check whether
         choosing the wrong answer indicates holding the corresponding misconception(s).
   \item Adjust the collection of interpreting questions such that
-        every misconception has at least two questions that aims at
+        every misconception has at least two questions that aim at
         correcting the misconception.
   \item Partially randomize the order of questions.
 \end{enumerate}
@@ -2295,12 +2294,12 @@ data collection.
 
 During Fall 2024, I plan to collect a new round of data from Brown. I
 expect these datasets and the datasets from Spring 2024 would give a
-more rigorously evaluation of the effectiveness of SMoL Tutor. The
+more rigorous evaluation of the effectiveness of SMoL Tutor. The
 improvements to be made in Fall 2023 should resolve many of the
 threats to validity. In this semester I also want to write a new paper
 about the SMoL Tutor.
 
-I plan to defense in Spring 2025.
+I plan to defend in Spring 2025.
 
 \bibliography{bibfile}
 
