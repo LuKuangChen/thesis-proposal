@@ -50,8 +50,8 @@
 \newcommand{\pValue}[0]{\textit{p}\nobreakdash-value}
 
 %% abbrev. for RQs
-\newcommand{\rqI}{What are the program-behavior misconceptions that apply to SMoL and present (even) in students with prior programming backgrounds?}
-\newcommand{\rqII}{What would be a tutoring system that aims at correcting the misconceptions, draws on cognitive, educational, or psychological concepts, and seems to be effective?}
+\newcommand{\rqI}{What program-behavior misconceptions apply to SMoL and present (even) in students with prior programming backgrounds?}
+\newcommand{\rqII}{What would be a tutoring system that aims to correct the misconceptions, draws on cognitive, educational, or psychological concepts, and seems to be effective?}
 
 %% abbrev. for JavaScript etc.
 \newcommand{\js}{JavaScript}
@@ -196,11 +196,11 @@ This lead to my \textbf{research questions}:
 \end{description}
 
 In the rest of this document, I first define SMoL (\Cref{s:smol}),
-then presents literature review of misconceptions
+then present a literature review of misconceptions
 (\Cref{s:background-misconceptions}) and tutoring systems
-(\Cref{s:background-tutoring-systems}), then outline my research plans
-for the RQs (\Cref{s:plan-rq1,s:plan-rq2}). The remaining sections
-detail my current progress.
+(\Cref{s:background-tutoring-systems}), and then outline my research
+plans for the RQs (\Cref{s:plan-rq1,s:plan-rq2}). The remaining
+sections detail my current progress.
 
 
 % To answer my research questions, I have (a) run a multi-year,
@@ -509,7 +509,7 @@ populations that very likely have prior experience
 \end{description}
 
 I am contacting professors from various other universities. Several of
-them have expressed interests in using my instruments. So the final
+them have expressed interest in using my instruments. So, the final
 results will likely include more populations.
 
 \subsection{Find Misconceptions in Student-written Programs}%
@@ -541,19 +541,19 @@ misconceptions found with this process.
 \label{s:find-misconceptions-with-tutor}
 
 I have another source of misconceptions. I have been creating a tutor
-to answer my RQ2, which I explain in details in \Cref{s:plan-rq2}. The
-tutor includes many tasks that asks students to predict the result(s)
+to answer my RQ2, which I explain in detail in \Cref{s:plan-rq2}. The
+tutor includes many tasks that ask students to predict the result(s)
 of running a program. Although these programs originate from
 student-written programs (\Cref{s:find-misconceptions-with-quizius}), they
-have been modified to fit tutoring purpose. Perhaps because of the
+have been modified to fit tutoring purposes. Perhaps because of the
 modification or because of the population variance, I have found
 several unanticipated patterns of errors
 (\Cref{s:misconceptions-tutor}), which suggest unknown misconceptions.
 
-I plan to change the tutor such that it asks students' to explain
+I plan to change the tutor such that it asks students to explain
 their prediction. I plan to eyeball the explanations to find new
-misconceptions. This piece of data also helps me to confirm that
-anticipated wrong answers do represent the expected misconceptions.
+misconceptions. This piece of data also helps me confirm that
+anticipated wrong answers represent the expected misconceptions.
 
 \subsection{Reduce Syntactic Bias}%
 \label{s:reduce-syntactic-bias}
@@ -571,8 +571,8 @@ This checks whether $\verb|3| > \verb|n|$, but those students
 presumably vocalized it as ``greater than \lstinline|3|,
 \lstinline|n|?''. Although I have tried to remove programs like this
 from my instruments, there is still a risk of having biase in student
-errors. I plan to adjust the process descrbed in
-\Cref{s:find-misconceptions-with-tutor} such that it presents programs
+errors. I plan to adjust the process described in
+\Cref{s:find-misconceptions-with-tutor} so that it presents programs
 in multiple languages: the SMoL version, a JavaScript translation, and
 a Python version.
 
@@ -581,7 +581,7 @@ a Python version.
 
 Eventually, I expect to build a table of misconceptions. Each
 misconception comes with multiple programs. For each of these
-programs, the wrong result that correspond to the misconception should
+programs, the wrong result that corresponds to the misconception should
 be commonly predicted by students from various population.
 Furthermore, these students should give similar explanations for all
 the wrong answers. For example, I might find a misconception called
@@ -596,7 +596,7 @@ have found): when students are asked to predict the result of
   x
   y
 \end{lstlisting}
-X\% of them responded \lstinline|12 0|; and when asked to predict
+X\% of them responded \lstinline|12 0|; when asked to predict
 \begin{lstlisting}
   (defvar x 12)
   (defvar y x)
@@ -623,13 +623,13 @@ pedagogic techniques are helpful (\Cref{s:pedagogic-techniques}). My
 current takeaway is that refutation text, case comparison, notional
 machines, and language levels are helpful. I have created a tutor that
 incorporates all these ideas (\Cref{s:tutor}) and have collected
-data from all populations. I plan to explore more literature and to
+data from all populations. I plan to explore more literature and
 improve the tutor if I find new helpful techniques.
 
 I would like to first explain key aspects of the tutor
 (\Cref{s:tutorials,s:interpreting-tasks}) and then my plan to
 incorporate ideas of refutation text (\Cref{s:refutationt-text}), case
-comparsion (\Cref{s:case-comparison}), and notional machines
+comparison (\Cref{s:case-comparison}), and notional machines
 (\Cref{s:notional-machine}). Finally, I present my plan to evaluate
 the effectiveness of the tutor and how evaluation impacts the tutor
 design (\Cref{s:evaluation}).
@@ -638,14 +638,14 @@ design (\Cref{s:evaluation}).
 \label{s:tutorials}
 
 There are many misconceptions to correct. To make the tutoring process
-managable, I have design the tutor as a sequence of tutorials.
+manageable, I have designed the tutor as a sequence of tutorials.
 Inspired by prior research on language levels
 (\Cref{s:pedagogic-techniques}), my sequence of tutorials is ordered,
-and each later tutorials cover one or more language constructs
+and each tutorial covers one or more new language constructs
 (\Cref{t:tutorials}).
 
 Each tutorial might be delivered as multiple modules to avoid forcing
-students to continuesly work for more than 30 minutes.
+students to continuously work for more than 30 minutes.
 
 \begin{table}[t]
   \centering\begin{tabularx}{\linewidth}{p{0.4\linewidth} X}
@@ -674,16 +674,16 @@ students to continuesly work for more than 30 minutes.
 \subsection{Interpreting Tasks}%
 \label{s:interpreting-tasks}
 
-The tutor is mostly consist of \emph{interpreting tasks}:
-multiple-choice questions (MCQs) that asks students to interprete
+The tutor is mostly consisted of \emph{interpreting tasks}:
+multiple-choice questions (MCQs) that asks students to interpret
 program.
 
 \paragraph{The MCQ Options} The options include (among other options
 that I will explain shortly) the correct answer and wrong answers that
 correspond to known misconceptions. Because students might conceive
 wrong answers that I do not anticipate, the tutor has been providing
-an ``Other'' option that, once choosen, allows students to enter
-arbitrary answer.
+an ``Other'' option that, once chosen, allows students to enter
+arbitrary answers.
 
 Let's reconsider this program from \Cref{s:rq1-expected-results}
 \begin{lstlisting}
@@ -694,28 +694,28 @@ Let's reconsider this program from \Cref{s:rq1-expected-results}
   y
 \end{lstlisting}
 In this case, the options should include the correct answer
-\lstinline|12 0| and a wrong answer \lstinline|0 0|, which correspond
-to the \miscon{DefByRef} misconception. If an MCQ only has a small
-number of options like this example, students have a great chance (in
-this case, 50\%) of just guessing the correct answer or successfully
-using a process of elimination. So I have been adding additional
-options that are not obviously wrong. The tutor is adding options with
-an ad hoc rules. Eventually, I plan to generate options by moving
-and/or copying numbers in the current options. In this case, my plan
-would add \lstinline|12 12| and \lstinline|0 12|. In summary, each MCQ
-has the following options:
+\lstinline|12 0| and a wrong answer \lstinline|0 0|, which corresponds
+to the \miscon{DefByRef} misconception. If an MCQ only has few options
+like this example, students have a great chance (in this case, 50\%)
+of just guessing the correct answer or successfully using a process of
+elimination. So I have been adding additional options that are not
+obviously wrong. The tutor is adding options with an ad hoc rule.
+Eventually, I plan to generate options by moving and/or copying
+numbers in the current options. In this case, my plan would add
+\lstinline|12 12| and \lstinline|0 12|. In summary, each MCQ has the
+following options:
 \begin{itemize}
   \item the correct answer,
   \item wrong answers that correspond to known misconceptions,
   \item options generated by moving and/or copying numbers in the
         current options
-  \item the ``Other'' option (which, once choosen, allows students to
-        enter arbitrary answer)
+  \item the ``Other'' option (which, once chosen, allows students to
+        enter arbitrary answers)
 \end{itemize}
 
-\paragraph{Panelty to Wrong Choices} To discourage students from
-making a random choice, the tutor has been giving panelty. Designing
-the strategy of assigning panelty is non-trivial:
+\paragraph{Penalty to Wrong Choices} To discourage students from
+making a random choice, the tutor has been giving penalty. Designing
+the strategy of assigning penalty is non-trivial:
 \begin{itemize}
   \item A common strategy is to grade students by their correctness.
   However, grading by correctness is not suitable for a tutoring
@@ -723,14 +723,14 @@ the strategy of assigning panelty is non-trivial:
   as long as they eventually master the concepts. Actually, if
   students generally succeed in all tasks, the tutoring system is
   failing -- it does not teach anything to the students.
-  \item A alternative common strategy is to grade by completion.
-  However, grading by completion alone encourage students to rush
+  \item An alternative common strategy is to grade by completion.
+  However, grading by completion alone encourages students to rush
   through the tutorials and hence might encourage students to make
   random choices.
 \end{itemize}
 In short, I want to make students feel as follows:
 \begin{itemize}
-  \item They won't lose grade as long as they finish the tutorials.
+  \item They won't lose grades as long as they finish the tutorials.
   \item They should avoid giving wrong answers.
 \end{itemize}
 To encourage this feeling, I have been doing the following: when I
@@ -762,16 +762,16 @@ the tutor.}; when a student fails a task, the tutor gives an
 \label{s:refutationt-text}
 
 The tutor has been presenting a refutation text when a student chooses
-a wrong answer that correspond to known misconception(s). Let's
+a wrong answer that corresponds to known misconception(s). Let's
 reconsider the program in \Cref{s:interpreting-tasks}. If a student
 answers \lstinline|0 0|, which suggests they hold the
 \miscon{DefByRef} misconception, the tutor responds
 \begin{quote}
   \lstinline|y| was bound to \lstinline|12| (i.e., the value of
   \lstinline|x|) rather than to \lstinline|x|. So changing the value
-  of \lstinline|y| does not changes the value of \lstinline|x|.
+  of \lstinline|y| does not change the value of \lstinline|x|.
 \end{quote}
-If a students gave a wrong answer that does not correspond to a
+If a student gave a wrong answer that does not correspond to a
 misconception (either by choosing one of the generated option or by
 choosing the ``Other'' option), the tutor presents a generic
 explanation. For example, if a student answers \lstinline|12 12|, the
@@ -788,17 +788,17 @@ generic explanation.
 \subsection{Case Comparison}%
 \label{s:case-comparison}
 
-The tutor provides opportunities for making case comparison: each
+The tutor provides opportunities for making case comparisons: each
 interpreting task presents a SMoL program and the program's result.
 These program-result pairs are concrete cases of the semantics of
-SMoL. To incorporate the idea of case comparsion, the tutor currently
+SMoL. To incorporate the idea of case comparison, the tutor currently
 prompts students to compare these cases and then to summarize the
 rules of program behavior at the end of \emph{some} tutorials. I plan
 to expand this to \emph{all} tutorials and use a consistent prompt.
-The prompt should asks about the behavior of new language constructs
+The prompt should ask about the behavior of new language constructs
 and their interaction with all previously introduced constructs.
 
-The current scope tutorial uses the following prompt
+The current scope tutorial uses the following prompt:
 \begin{quote}
   When I see a variable reference, how do I find the corresponding
   declaration, if any?
@@ -806,10 +806,10 @@ The current scope tutorial uses the following prompt
 This prompt has a few problems:
 \begin{itemize}
   \item It is unclear to adapt it to other tutorials.
-  \item Students tend to give brief response possibly because the
+  \item Students tend to give brief responses possibly because the
   questions is asking for a lot and because students are tired when
   they reach the end of a tutorial.
-\end{itemize}.
+\end{itemize}
 
 So I plan to change the question format into a notice-and-wonder style
 of questions, which is known to be less demanding
@@ -849,16 +849,16 @@ I am hoping these new prompt are
 \label{s:notional-machine}
 
 Prior research argues (\Cref{s:pedagogic-techniques})that illustrating
-how programs runs with notional machines (NMs) is benefitial for
+how programs runs with notional machines (NMs) is beneficial for
 students. I have created a web-based notional machine
 \begin{center}
   \href{https://lukuangchen.github.io/stacker-2023}{https://lukuangchen.github.io/stacker-2023}
 \end{center}
 
-The notional machine can be configurated with URL parameters. For
+The notional machine can be configured with URL parameters. For
 example,
 \href{https://lukuangchen.github.io/stacker-2023/?program=\%28defvar+x+12\%29\%0A\%28defvar+y+x\%29\%0A\%28set\%21+y+0\%29\%0Ax\%0Ay}{this
-link} opens the NM with a program embeded.
+link} opens the NM with a program embedded.
 
 My plan is to change the tutor such that it provides a
 program-specific link after each interpreting task and instructs
@@ -868,12 +868,12 @@ students to click the link for more explanation.
 \label{s:evaluation}
 
 To fully answer my research questions, I should also argue that my
-tutor is effective at correcting misconceptions. In this secton, I
+tutor is effective at correcting misconceptions. In this section, I
 describe how I want to refine the design of the tutor to help me make
 the argument, what data I want to collect, and what (statistical)
 analysis do I want to perform on the data.
 
-I can infer whether students hold a misconception by analysing their
+I can infer whether students hold a misconception by analyzing their
 responses to interpreting tasks. There are three possible responses to
 an interpreting task:
 \begin{enumerate}
@@ -915,8 +915,8 @@ that some programs are more confusing and that I need further
 investigation into the relationship between the tasks and
 misconceptions. If the \textbf{PositionSpecific} model best explains
 \emph{and} students perform better in later tasks, I deduce that the
-tutor seeems to be correcting misconceptions. If studnets perform
-worse in later taks, the tutor is potentially doing harm.
+tutor seems to be correcting misconceptions. If students perform
+worse in later tasks, the tutor is potentially doing harm.
 
 To know students well, I would like to have as many tasks per
 misconception as possible. But in practice, the number of tasks is
@@ -925,14 +925,14 @@ subject to the following limitations:
   \item I don't want the length of any tutorial section to exceed 30
   minutes.
   \item Programs shouldn't be too long. Some misconceptions are really
-  similar and as a consequence have only a small number of short
-  programs to tell them apart.
+  similar and as a consequence have few short programs to tell them
+  apart.
 \end{enumerate}
 
 The current tutor is not in the final shape yet. In particular, many
-of the wrong answers correspond to more than one misconceptions; some
+of the wrong answers correspond to more than one misconception; some
 misconceptions are represented by only one question; the order of
-interpreting tasks are not randomized. I plan to tackles the first two
+interpreting tasks are not randomized. I plan to tackle the first two
 differences by adding and removing programs. Adding randomization
 requires me to carefully check the dependencies between current
 explanations and other texts in the tutor and resolve those
@@ -1494,7 +1494,7 @@ down into 2--3 modules. The goal was for students to spend at most
 spent about 9.8 (median) minutes.
 
 \Cref{f:smol-tutor-example} illustrates an interpreting task as
-descrbed in \Cref{s:interpreting-tasks}. The Tutor also asked students
+described in \Cref{s:interpreting-tasks}. The Tutor also asked students
 to perform some other activities, like showing programs and asking for
 their heap content, which I do not cover in this paper.
 
@@ -2278,8 +2278,8 @@ between uni-syntax tutor and multi-syntax tutor.
 
 By the end of Fall 2023, I would like to improve the SMoL Tutor:
 \begin{enumerate}
-  \item Ask students to explained when they gave a wrong answer in a
-        interepreting question. With student explanations, I check whether
+  \item Ask students to explain when they gave a wrong answer in an
+        interpreting question. With student explanations, I check whether
         choosing the wrong answer indicates holding the corresponding misconception(s).
   \item Adjust the collection of interpreting questions such that
         every misconception has at least two questions that aims at
@@ -2294,7 +2294,7 @@ in Spring 2024, so I do not plan to make more progress other than
 data collection.
 
 During Fall 2024, I plan to collect a new round of data from Brown. I
-expect this datasets and the datasets from Spring 2024 would give a
+expect these datasets and the datasets from Spring 2024 would give a
 more rigorously evaluation of the effectiveness of SMoL Tutor. The
 improvements to be made in Fall 2023 should resolve many of the
 threats to validity. In this semester I also want to write a new paper
