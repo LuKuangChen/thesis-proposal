@@ -107,6 +107,11 @@
 
 \maketitle
 
+\clearpage
+
+\tableofcontents
+
+\clearpage
 
 \section{Introduction}
 \label{s:intro}
@@ -467,14 +472,14 @@ a basic programming background and focuses entirely on program
 behavior misconceptions and correcting them. I are not aware of a
 tutoring system (in computer science) that has this specific design.
 
-\section{Plan for \textbf{RQ1}}%
+\section{Plan for \textbf{RQ1}: Find Misconceptions}%
 \label{s:plan-rq1}
 
 \begin{description}
   \item[RQ1] \rqI
 \end{description}
 
-\subsection{Populations}%
+\subsection{In What Populations to Find?}%
 \label{s:populations}
 
 To find misconceptions that ``present (even) in students with prior
@@ -512,7 +517,7 @@ I am contacting professors from various other universities. Several of
 them have expressed interest in using my instruments. So, the final
 results will likely include more populations.
 
-\subsection{Find Misconceptions in Student-written Programs}%
+\subsection{Find Misconceptions by Analyzing Student-written Programs}%
 \label{s:find-misconceptions-with-quizius}
 
 In \Cref{s:background-misconceptions}, I discuss several papers that
@@ -537,7 +542,7 @@ these programs are still tricky in the same way
 \Cref{s:misconceptions-tutor} presents the final list of
 misconceptions found with this process.
 
-\subsection{Find Misconceptions with Expert-written Programs}%
+\subsection{Find Misconceptions by Testing Students with Expert-written Programs}%
 \label{s:find-misconceptions-with-tutor}
 
 I have another source of misconceptions. I have been creating a tutor
@@ -587,14 +592,22 @@ explained something like ``\lstinline|y| is \lstinline|x|''.
 To be reasonably specific about misconceptions, I have created a
 definitional interpreter for each misconception that I have found. I
 plan to do the same things for any new misconceptions. I call these
-interpreters \emph{misinterpreters}.
+interpreters \emph{misinterpreters}. Having definitional interpreters
+makes it convenient (and less error-prone) to associate wrong answers 
+with misconceptions (\Cref{s:misconceptions-tutor}).
 
-\section{Plan for \textbf{RQ2}}%
+\section{Plan for \textbf{RQ2}: Correct Misconceptions}%
 \label{s:plan-rq2}
 
 \begin{description}
   \item[RQ2] \rqII
 \end{description}
+
+To answer this RQ, I plan to create a tutor (\Cref{s:design-tutor}) and
+argue that the tutor is effective (\Cref{s:evaluation}).
+
+\subsection{Design a Tutor for Correcting Misconceptions}%
+\label{s:design-tutor}
 
 To answer this RQ, I have done some literature review on what
 pedagogic techniques are helpful (\Cref{s:pedagogic-techniques}).
@@ -611,7 +624,7 @@ comparison (\Cref{s:case-comparison}), and notional machines
 the effectiveness of the tutor and how evaluation impacts the tutor
 design (\Cref{s:evaluation}).
 
-\subsection{Tutorials and Language Levels}%
+\subsubsection{Tutorials and Language Levels}%
 \label{s:tutorials}
 
 There are many misconceptions to correct. To make the tutoring process
@@ -619,9 +632,7 @@ manageable, I have designed the tutor as a sequence of tutorials.
 Inspired by prior research on language levels
 (\Cref{s:pedagogic-techniques}), my sequence of tutorials is ordered,
 and each tutorial covers one or more new language constructs
-(\Cref{t:tutorials}).
-
-Each tutorial might be delivered as multiple modules to avoid forcing
+(\Cref{t:tutorials}). Each tutorial might be delivered as multiple modules to avoid forcing
 students to continuously work for more than 30 minutes.
 
 \begin{table}[t]
@@ -648,14 +659,12 @@ students to continuously work for more than 30 minutes.
   \label{t:tutorials}
 \end{table}
 
-\subsection{Interpreting Tasks}%
+\subsubsection{Interpreting Tasks}%
 \label{s:interpreting-tasks}
 
 The tutor is mostly consisted of \emph{interpreting tasks}:
 multiple-choice questions (MCQs) that asks students to interpret
-program.
-
-\paragraph{The MCQ Options} The options include (among other options
+program. The options include (among other options
 that I will explain shortly) the correct answer and wrong answers that
 correspond to known misconceptions. Because students might conceive
 wrong answers that I do not anticipate, the tutor has been providing
@@ -724,9 +733,10 @@ the tutor.}; when a student fails a task, the tutor gives an
 
 \end{enumerate}
 
-\subsection{Refutation Text and Other Explanations}%
-\label{s:refutationt-text}
+\subsubsection{Design with Pedagogic Techniques Known to Work}
 
+\paragraph{Refutation Text and Other Explanations}%
+\label{s:refutationt-text}
 The tutor has been presenting a refutation text when a student chooses
 a wrong answer that corresponds to known misconception(s). Let's
 reconsider the program in \Cref{s:interpreting-tasks}. If a student
@@ -751,7 +761,7 @@ tutor responds
 If a student gave the correct answer, the tutor also presents the
 generic explanation.
 
-\subsection{Case Comparison}%
+\paragraph{Case Comparison}%
 \label{s:case-comparison}
 
 The tutor provides opportunities for making case comparisons: each
@@ -761,7 +771,7 @@ SMoL. To incorporate the idea of case comparison, the tutor currently
 prompts students to compare these cases and then to summarize the
 rules of program behavior at the end of \emph{some} tutorials.
 
-\subsection{Notional Machine}%
+\paragraph{Notional Machine}%
 \label{s:notional-machine}
 
 Prior research argues (\Cref{s:pedagogic-techniques})that illustrating
@@ -1216,7 +1226,7 @@ addition of closures and higher-order functions. It extends what we
 saw with loops in \Cref{s:intro}: that students have misconceptions
 about their interaction with mutable variables.
 
-\subsection{Collating Problems for the Tutor}%
+\subsection{Further Collating Problems, for the Tutor}%
 \label{s:tutor-refine-program-set}
 
 The SMoL Tutor's interpreting questions are the final instrument of
@@ -1282,8 +1292,7 @@ following alterations:
   \item I removed questions related to function equality, which was
         not a focus of the Tutor.
 
-  \item I removed programs of a ``Lispy'' nature (See
-        \Cref{s:reduce-syntactic-bias}).
+  \item I removed programs of a ``Lispy'' nature.
 
 \end{enumerate}
 Most of these steps either modify or elide programs. Two cases,
@@ -2145,7 +2154,16 @@ languages; misinterpreters aim at capturing students' misconceptions.
 \section{Future Work \& Timeline}%
 \label{s:future-work}
 
-\subsection{Notional Machine}
+\subsection{Keep Exploring More Pedagogic Techniques}
+
+I have learned (\Cref{s:pedagogic-techniques}) that refutation text,
+case comparison, notional machines, and language levels are helpful. I
+plan to explore more literature and improve the tutor if I find new
+helpful techniques.
+
+\subsection{Implemented But Not Evaluated Improvements in the Tutor}
+
+\paragraph{Ease Access to the Notional Machine}
 
 The preliminary tutor provides a ``Copy This Program'' button that
 helps students to run the program in DrRacket, where a SMoL
@@ -2153,10 +2171,7 @@ implementation is provided.
 
 This approach is inconvenient both for the students and for me. For
 students, they have to click, paste, and run, which is less convenient
-than a single click. For me, because students run program in DrRacket
-rather than ``within'' the tutor, I do not know whether they have run
-the programs. This limits my ability to claim that the tutor is using
-NM to help teach.
+than a single click.
 
 Given these shortcomings, I have created a web-based notional machine
 \begin{center}
@@ -2171,27 +2186,16 @@ The latest tutor provides a button on the top-right of each program.
 If students click the button, they will open a new browser tab that
 shows the NM populated with the program. I have deployed the latest
 tutor to the latest population at Brown (i.e., University 1), but I
-have not analyzed the data, which I plan to do in Spring 2024.
+have not analyzed the data, so the new tutor is not presented in
+the preliminary results.
 
-I have not changed the logging systems to log when students click the
-buttons. I plan to make the change before Spring 2024.
-
-Another issue with the current design is that students might run a
-program before giving an answer. I don't know yet how often this
-happens. But, given that students receive a penalty (\Cref{s:penalty})
-for giving wrong answers, they might do so when the program is overly
-complicated. This problem is more of an issue after the switch to a
-web-based notional machine because now the ``cost'' of running a
-program is cheaper. My plan is to change the tutor so that it provides
-a program-specific link \emph{only} after each interpreting task.
-
-\subsection{Reduce Syntactic Bias}
+\paragraph{Reduce Syntactic Bias with Multiple Syntax}
 
 The processes described in
 \Cref{s:find-misconceptions-with-quizius,s:find-misconceptions-with-tutor}
 have been conducted with SMoL's Lispy syntax (\Cref{s:smol}). This can
 potentially introduce biases to the found misconceptions. For example,
-current results find that some students think the following program
+when using SMoL Quizzes, I found that some students think the following program
 produces \lstinline|'(4 5)| rather than \lstinline|'(1 2)|.
 \begin{lstlisting}
   (filter (lambda (n) (> 3 n)) '(1 2 3 4 5))
@@ -2199,14 +2203,32 @@ produces \lstinline|'(4 5)| rather than \lstinline|'(1 2)|.
 This checks whether $\verb|3| > \verb|n|$, but those students
 presumably vocalized it as ``greater than \lstinline|3|,
 \lstinline|n|?''. Although I have tried to remove programs like this
-from my instruments, there is still a risk of having biases in student
+from the tutor, there is still a risk of having biases in student
 errors. This semester (Fall 2023) I am already deploying a newer SMoL
 Tutor at Brown. This new tutor is able to display programs in
 JavaScript and Python, in addition to the Lispy syntax. I plan to
 compare in Spring 2024 the new tutor data with the current results,
 i.e., a comparison between uni-syntax tutor and multi-syntax tutor.
 
-\subsection{Use Case Comparisons More Consistently}
+\subsection{The Rest of Fall 2023: Improve the Tutor}
+
+\paragraph{Log Access to the Notional Machine}
+
+I have not changed the logging systems to log when students click the
+buttons to access the NM. I plan to make the change before Spring 2024.
+
+\paragraph{Limit Access to the Notional Machine}
+
+Another issue with the current design is that students might run a
+program before giving an answer. I don't know how often this
+happens. But, given that students receive a penalty (\Cref{s:penalty})
+for giving wrong answers, they might do so when the program is overly
+complicated. This problem is more of an issue after the switch to a
+web-based notional machine because now the ``cost'' of running a
+program is cheaper. My plan is to change the tutor so that it provides
+a program-specific link \emph{only} after each interpreting task.
+
+\paragraph{Use Case Comparisons More Consistently}
 
 The tutor currently prompts students to compare program-output pairs
 and then to summarize the rules of program behavior at the end of
@@ -2263,7 +2285,7 @@ I would want the tutor to ask
   Otherwise, please \emph{respond with} what you are uncertain about these language constructs.
 \end{quote}
 
-\subsection{Options in Interpreting Tasks}
+\paragraph{Use More Sensible Options in Interpreting Tasks}
 
 The tutor is adding extra options to interpreting tasks in an ad hoc
 way. Eventually, I plan to generate options by moving and/or copying
@@ -2279,39 +2301,44 @@ numbers in the current options. In the case of the example question in
         enter arbitrary answers)
 \end{itemize}
 
-\subsection{Other Changes in the Tutor}
+\paragraph{Ask For Explanation on Choices}
 
-By the end of Fall 2023, I also want to improve the SMoL Tutor at
-least on the following aspects:
-\begin{enumerate}
-  \item The tutor currently does not ask students to explain when they
+The tutor currently does not ask students to explain when they
         gave a wrong answer in an interpreting question. This limits my
         ability to find new misconceptions and to confirm that the
         tasks do detect the anticipated misconceptions. I plan to
         change the tutor so that it asks for an explanation in each
         interpreting task.
+
+\paragraph{Clean Up the Program Set}
         % With student explanations, I check whether
         % choosing the wrong answer indicates holding the corresponding
         % misconception(s). I plan to eyeball the explanations to find
         % new misconceptions. This piece of data also helps me confirm
         % that anticipated wrong answers represent the expected
         % misconceptions.
-  \item As I said in \Cref{s:effect-tutor}, for many of the
+As I said in \Cref{s:effect-tutor}, for many of the
         misconceptions, the tutor has too few questions. On the other
         hand, there are many questions that do not produce useful data
         because their wrong answers do not uniquely point to a
         misconception. I plan to adjust the collection of interpreting
         questions so that every misconception has at least two
         questions that aim to correct the misconception.
-  \item The tutor is not randomizing the order of questions. This makes
+
+\paragraph{Randomize the Order of Interpreting Tasks}
+
+The tutor is not randomizing the order of questions. This makes
         it difficult to compare questions for one misconception --
         earlier questions might be difficult simply because the
         programs are somehow more difficult. I plan to randomize the
         order of interpreting tasks within each tutorial module.
-  \item After randomizing question orders, I would need to check
+After randomizing question orders, I would need to check
         carefully the dependencies between explanations and
         resolve these dependencies, if any.
-  \item The tutor uses many variable names, some are separated by dashes
+
+\paragraph{Clean Up Variable Names}
+
+The tutor uses many variable names, some are separated by dashes
         (e.g., \lstinline|get-x|). Students might misread these
         variables. For example, some students might misread
         \lstinline|(get-x)| (a function named \lstinline|get-x| is
@@ -2320,30 +2347,28 @@ least on the following aspects:
         \lstinline|x|). These misreadings add noise to the data. So I
         plan to use consistent and simple variable names in all
         programs.
-\end{enumerate}
 
-\subsection{Explore More Pedagogic Techniques}
-
-I have learned (\Cref{s:pedagogic-techniques}) that refutation text,
-case comparison, notional machines, and language levels are helpful. I
-plan to explore more literature and improve the tutor if I find new
-helpful techniques.
-
-\subsection{Expand Populations}
+\subsection{Spring 2024: Collect More Data}
 
 Several faculties from other institutions have expressed interest in
 using the Tutor in Spring 2024. My goal is to collect data from at
 least two other institutions.
 
-\subsection{Further Plans}
-
 I am officially taking a personal leave to do military service in my
 country in Spring 2024, so I do not plan to make more progress
 other than data collection.
 
+\subsection{Summer 2024: Data Analysis and Write a Paper}
+
+During this time, I plan to analyze the data I collected in Fall 2023 
+and Spring 2024 and start working on paper about the changes in the tutor.
+
+\subsection{Fall 2024: Collect More Data and Write a Paper}
+
 During Fall 2024, I plan to collect a new round of data from Brown, analyze
-data that I collected in Spring 2024, and hopefully write a paper about the
-updates.
+data that I collected in Spring 2024, and hopefully finish writing the new paper.
+
+\subsection{Spring 2025: Defense}
 
 I plan to defend in Spring 2025.
 
