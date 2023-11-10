@@ -57,14 +57,6 @@
 \newcommand{\js}{JavaScript}
 \newcommand{\py}{Python}
 
-%% abbrev. for quizzes
-\newcommand{\QuizFun}{Quiz 1}
-\newcommand{\QuizState}{Quiz 2}
-\newcommand{\QuizHof}{Quiz 3}
-\newcommand{\quizFun}{Quiz 1}
-\newcommand{\quizState}{Quiz 2}
-\newcommand{\quizHof}{Quiz 3}
-
 %% abbrev. for tutorials
 \newcommand{\TutDef}{The \textbf{def} tutorial}
 \newcommand{\TutSet}{The \textbf{set} tutorial}
@@ -533,12 +525,10 @@ experts simply do not conceive of many learner difficulties.
 
 To overcome such bias, I analyze a University~1 dataset produced by a
 two-year process to find (a) student-written programs that tend to
-trip up students and (b) incorrect responses to those programs
-(\Cref{s:gen-prob-quizius}), using a tool for the purpose
+trip up students and (b) incorrect responses to those programs using a tool for the purpose
 (\Cref{s:quizius}). I have been cleaning up those programs
-(\Cref{s:smol-quizzes,s:tutor-refine-program-set}) and confirming that
-these programs are still tricky in the same way
-(\Cref{s:misconceptions-quiz,s:misconceptions-tutor}).
+(\Cref{s:collating-problems}) and confirming that
+these programs are still tricky in the same way.
 \Cref{s:misconceptions-tutor} presents the final list of
 misconceptions found with this process.
 
@@ -847,40 +837,12 @@ subject to the following limitations:
 The current tutor is not prepared for this analysis yet. I describe how
 I plan to change the tutor in \Cref{s:future-work}.
 
-\section{Generating and Collating Problems}%
-\label{s:gen-prob-quizius}
-
-% Additionally, in this paper, I intentionally use the word
-% mis\emph{conceptions} rather than mis\emph{take}. A mistake can happen
-% for any reason (e.g., selecting the wrong answer from a menu). A
-% misconception, however, implies a conceptual problem: the student has
-% formed an incorrect concept in their head. For instance, they may
-% think that mutable structures are copied on function calls, or that
-% scope is resolved dynamically. This requires probing what they are
-% thinking.
-
-% All these, however, add up to a somewhat challenging demand. I want
-% to produce a list of questions (each one an MCQ) such that
-% \begin{enumerate}
-
-%   \item I can get past the expert blind spot,
-
-%   \item I have a sense of what misconceptions students have, and
-
-%   \item I can generally associate wrong answers with specific
-%         misconceptions, approaching a concept inventory.
-
-% \end{enumerate}
-
-This section describes preliminary results on finding misconceptions
-from student-written programs (\Cref{s:quizius}) and what I have done
-to distill misconception-detecting programs from student inputs
-(\Cref{s:smol-quizzes,s:tutor-refine-program-set}).
+\section{Preliminary Results}
 
 \subsection{Generating Problems Using Quizius}
 \label{s:quizius}
 
-My main solution to the expert blind spot is to use the Quizius system
+As said in \Cref{s:plan-rq1}, my main solution to the expert blind spot is to use the Quizius system
 \citep{saarinenHarnessingWisdomClasses2019}. In contrast to the very
 heavyweight process (involving a lot of expert time) that is generally
 used to create a concept inventory, Quizius uses a lightweight,
@@ -942,7 +904,7 @@ The Quizius instrucment was set up by other people. I analyzed the
 collected data.
 
 \subsection{Collating Problems}
-\label{s:smol-quizzes}
+\label{s:collating-problems}
 
 While Quizius is very useful in principle, it also produced data that
 needed significant curation for the following reasons:
@@ -990,254 +952,8 @@ needed significant curation for the following reasons:
         correspond to multiple (mis)conceptions. In these cases, the program
         must be refined to be more discriminative.
 
-\end{itemize}
-and so on.
-I therefore manually curated the Quizius output
-to address these issues.
-
-% \begin{figure}[t]
-%   \centering
-%   \includegraphics[width=\linewidth]{images/smol-quizzes-example.png}
-%   \caption{Screenshot of a SMoL Quiz question.}
-%   \label{f:smol-quizzes-example}
-% \end{figure}
-
-\subsection{The SMoL Quizzes}%
-\label{s:misconceptions-quiz}
-
-Having curated the output, I had to confirm that these programs were
-still effective! That is, they needed to actually find student errors.
-
-I therefore turned the programs into a set of quizzes (in the US
-sense: namely, a brief test of knowledge) that I call the SMoL
-Quizzes.
-% There were three quizzes, ordered by linguistic
-% complexity. The first consisted of only basic operators and
-% first-order functions. The second added variable and structure
-% mutation. The third added \lstinline|lambda| and higher-order functions.
-Each quiz is a sequence of MCQs. The options are from the Quizius
-data. In addition, there is an ``Other'' option. If chosen, the quiz
-gave the user a text box with the caption ``Please specify''. The goal
-here was to record any other answers, which in turn might lead to
-fresh misconceptions.
-
-The quizzes were administered in the third year in University 1.
-
-% Question orders were partially randomized. I wanted students to get
-% some easy, warm-up questions initially, so those were kept at the
-% beginning. Similarly, I wanted programs that are syntactically
-% similar to stay close to each other in the quiz. This is so that, when
-% students got a second such program, they would not have to look far to
-% find the first one and confirm that they are indeed (slightly)
-% different, rather than wonder if they were seeing the same program
-% again.
-
-% Students only received feedback after having completed a whole quiz.
-% At the end of each quiz, they received both summative feedback
-% \emph{and} a refutation text that explained every program that
-% appeared in the quiz. Students were also encouraged to run the
-% programs, but I have little reason to believe that they did (and
-% certainly they asked few questions on the class forum about them).
-
-% Due to space limitations, I present the entire instrument in
-% \supplRef{SMoL Quizzes/instrument}. Here I focus on a few programs
-% where student choices correspond to misconceptions identified earlier,
-% thereby also showing that the curated programs are still effective. I
-% use a * to indicate the correct answer (which also matches the
-% implementation's output).
-
-% Syntactically, \lstinline|#t| and \lstinline|#f| are true and false,
-% while \lstinline|#(...)| is a vector.
-
-% This quiz starts with two warm-up and not very interesting questions
-% and then other questions. The order of the other questions are fully
-% randomized.
-
-\begin{table}[t]
-  \centering
-  \begin{tabularx}{\linewidth}{l X}
-    \textbf{Questions}                       &
-    \textbf{Table of Answers}                    \\\hline
-    \lstinputlisting{programs/def_twice.txt} & {
-        \begin{tabularx}{\linewidth}{r X}
-          $^\dag$59\% & \lstinline|2 0|             \\
-          *32\%       & \lstinline|Error|           \\
-          4\%         & \lstinline|Other: 2 2|      \\
-          3\%         & ``Nothing is printed'' \\
-          2\%         & \lstinline|0 0|             \\
-        \end{tabularx}
-    }                                            \\\hline
-    \lstinputlisting{programs/dyn_scope.txt} & {
-        \begin{tabularx}{\linewidth}{r X}
-          *65\%       & \lstinline|Error| \\
-          $^\dag$29\% & \lstinline|42 #t| \\
-          6\%         & Other        \\
-        \end{tabularx}
-    }                                            \\\hline
-    % \lstinputlisting{programs/reassign.txt}  & {
-    %     \begin{tabularx}{\linewidth}{r X}
-    %       *53\%       & \lstinline|#(6 5) 5|                 \\
-    %       *20\%       & \lstinline|Error|                    \\
-    %       $^\dag$11\% & \lstinline|#(6 6) 5|                 \\
-    %       $^\dag$11\% & \lstinline|#(6 6) 6|                 \\
-    %       5\%         & ``Nothing is printed'' or Other \\
-    %     \end{tabularx}
-    % }                                            \\\hline
-  \end{tabularx}
-  \caption{Some questions and student answers from \quizFun. Each
-    table row is a program and the (relative) frequencies of
-    student answers. Answers that can be considered correct are marked
-    with \texttt{*}.}
-  \label{t:quizzes-data-fun}
-\end{table}
-\Cref{t:quizzes-data-fun} lists programs in \quizFun{} that I
-consider the most interesting. These data confirm the presence of
-scope-related misconceptions.
-% :
-% \begin{enumerate}
-%   \item At least 59\% of students incorrectly believe that a
-%         variable can be defined twice in one block.
-%   \item 29\% of students believe that a variable defined in a function
-%         will be available in the top-level (or global) environment
-%         after the function is called. That is, these students may have a
-%         dynamic scope misconception.
-%   \item 22\% (11\% + 11\%) of students believe variables themselves
-%         can be passed as arguments and redefined inside the function.
-%         They disagree on whether the redefinition persists after the
-%         function call.
-% \end{enumerate}
-
-% This quiz randomizes the order of all questions.
-
-\begin{table}[t]
-  \centering
-  \begin{tabularx}{\linewidth}{l X}
-    \textbf{Question}                           &
-    \textbf{Table of Answers}                       \\\hline
-    \lstinputlisting{programs/circularity.txt}  & {
-        \begin{tabularx}{\linewidth}{r X}
-          $^\dag$50\% & \lstinline|#(#(2 #(2 3)) #(2 3))| \\
-          *29\%       & \lstinline|x=#(x x)| or
-          something similar. Both \lstinline|(left x)| and \lstinline|(right x)|
-          are \lstinline|x| itself.                       \\
-          $^\dag$16\% & \lstinline|Error|                 \\
-          5\%         & Other                        \\
-        \end{tabularx}
-    }                                               \\\hline
-    % \lstinputlisting{programs/mvec_in_mvec.txt} & {
-    %     \begin{tabularx}{\linewidth}{r X}
-    %       *62\%       & \lstinline|#(#(100 2 3 4) #(100 2 3 4))| \\
-    %       $^\dag$26\% & \lstinline|#(#(1 2 3 4) #(100 2 3 4))|   \\
-    %       6\%         & \texttt{Error}                      \\
-    %       4\%         & \lstinline|#(#(1 2 3 4) #(1 2 3 4))|     \\
-    %       2\%         & Other                               \\
-    %     \end{tabularx}
-    % }                                               \\\hline
-    % \lstinputlisting{programs/vset_in_let.txt}  & {
-    %     \begin{tabularx}{\linewidth}{r X}
-    %       *59\%       & \lstinline|#(10)|  \\
-    %       $^\dag$36\% & \lstinline|#(123)| \\
-    %       5\%         & Other         \\
-    %     \end{tabularx}
-    % }                                               \\\hline
-    \lstinputlisting{programs/var_as_arg.txt}   & {
-        \begin{tabularx}{\linewidth}{r X}
-          *65\%       & \texttt{12} \\
-          $^\dag$31\% & \texttt{0}  \\
-          4\%         & Other       \\
-        \end{tabularx}
-    }                                               \\\hline
-    % \lstinputlisting{programs/setset.txt}       & {
-    %     \begin{tabularx}{\linewidth}{r X}
-    %       *59\%       & Other: \texttt{5 7}   \\
-    %       $^\dag$27\% & \texttt{6 7}          \\
-    %       11\%        & \texttt{5 5}          \\
-    %       2\%         & Other: \texttt{Error} \\
-    %       1\%         & Other: \texttt{5 6}   \\
-    %     \end{tabularx}
-    % }                                               \\\hline
-  \end{tabularx}
-  \caption{Some questions and student answers from \quizState. Each
-    table row is a program and the (relative) frequencies of
-    student answers. Answers that can be considered correct are marked
-    with \texttt{*}.}
-  \label{t:quizzes-data-state}
-\end{table}
-\Cref{t:quizzes-data-state} lists interesting programs after the
-addition of state. These data suggest the students have aliasing-related misconceptions.
-% :
-% \begin{itemize}
-%   \item Up to 50\% of students think vectors are copied rather than
-%         aliased.
-%   \item 16\% of students think trying to construct and print a
-%         self-referring vector would error. (This program is ambiguous:
-%         \emph{constructing} works in most SMoL languages, but \emph{printing}
-%         may well cause a problem. These identified ambiguities are
-%         addressed in \Cref{s:tutor-refine-program-set}.)
-%   \item 31\% of students think a variable is aliased by a parameter if
-%         the two variables have the same name. Perhaps interestingly,
-%         fewer students (27\%) think the variable aliasing would
-%         happen if the two variables had different names.
-% \end{itemize}
-
-\begin{table}[t]
-  \centering
-  \begin{tabularx}{\linewidth}{l X}
-    \textbf{Question}                                 &
-    \textbf{Table of Answers}                             \\\hline
-    \lstinputlisting{programs/fun_returns_lambda.txt} & {
-        \begin{tabularx}{\linewidth}{r X}
-          *82\%       & \lstinline|3|     \\
-          $^\dag$17\% & \lstinline|Error| \\
-          1\%         & Other        \\
-        \end{tabularx}
-    }                                                     \\\hline
-    \lstinputlisting{programs/fun_and_state_1.txt}    & {
-        \begin{tabularx}{\linewidth}{r X}
-          *74\%       & \lstinline|4|            \\
-          $^\dag$21\% & \lstinline|3|            \\
-          6\%         & Other: \lstinline|Error| \\
-        \end{tabularx}
-    }                                                     \\\hline
-    % \lstinputlisting{programs/fun_and_state_2.txt}    & {
-    %     \begin{tabularx}{\linewidth}{r X}
-    %       *88\%       & \lstinline|4|            \\
-    %       $^\dag$10\% & \lstinline|3|            \\
-    %       3\%         & Other: \lstinline|Error| \\
-    %     \end{tabularx}
-    % }                                                     \\\hline
-    \lstinputlisting{programs/counter.txt}            & {
-        \begin{tabularx}{\linewidth}{r X}
-          *62\%       & \lstinline|1 1 2 3 2| \\
-          $^\dag$34\% & \lstinline|1 1 1 1 1| \\
-          4\%         & Other            \\
-          1\%         & \lstinline|1 1 2 3 4| \\
-        \end{tabularx}
-    }                                                     \\\hline
-  \end{tabularx}
-  \caption{Some questions and student answers from \quizHof. Each
-    table row is a program and the (relative) frequencies of
-    student answers. Answers that can be considered correct are marked
-    with \texttt{*}.}
-  \label{t:quizzes-data-hof}
-\end{table}
-\Cref{t:quizzes-data-hof} lists interesting programs after the
-addition of closures and higher-order functions. It extends what we
-saw with loops in \Cref{s:intro}: that students have misconceptions
-about their interaction with mutable variables.
-
-\subsection{Further Collating Problems, for the Tutor}%
-\label{s:tutor-refine-program-set}
-
-The SMoL Tutor's interpreting questions are the final instrument of
-this paper. I bootstrap it from the SMoL Quizzes, but made the
-following alterations:
-\begin{enumerate}
-
-  % fill gaps in goal sentences
   \item I felt the existing programs were insufficient to cover the
-        ideas I wanted students to work through. For instance, SMoL
-        Quizzes did not alias vectors using \lstinline|defvar|, so we
+        ideas I wanted students to work through. For instance, I found no program that aliases vectors using \lstinline|defvar|, so we
         added this program:
 
 \begin{lstlisting}
@@ -1294,65 +1010,17 @@ following alterations:
 
   \item I removed programs of a ``Lispy'' nature.
 
-\end{enumerate}
-Most of these steps either modify or elide programs. Two cases,
-filling gaps in light of the goal sentences and resolving ambiguities,
-introduce programs. Starting with the 37 programs in the SMoL Quizzes,
-I added 52 more programs to arrive at a total of 89.
+\end{itemize}
 
-In addition to generating this set of programs, I also modified the
-answer options. In addition to retaining the correct and incorrect
-answers from the SMoL Quizzes (and constructing my best guess of
-analogous incorrect answers for the new problems), I added more wrong
-answers to for the reasons given in \Cref{s:interpreting-tasks}. In
-general, I ended up increasing the number of choices substantially:
-only 8 out of the 89 questions have three or four choices; 70
-questions have 5--8 choices; and 11 questions have 9--14 choices.
-
-\section{Preliminary List of Misconceptions}%
+\subsection{Preliminary List of Misconceptions}%
 \label{s:misconceptions-tutor}
 
 I now examine what I learned from the tutor's interpreting tasks in
 terms of program behavior misconceptions.
 
-I do not present the results of and \textbf{local}
-(\Cref{t:tutor-goal-sentences}), because they focus on constructs not
-usually found in non-Lispy languages. They were included in the Tutor
-to help students write programs for the course, but are not
-interesting from a SMoL perspective.
-
-% \subsection{Misinterpreters}
-% \label{s:misinterp-intro}
-
-% In principle, an expert can identify what misconceptions a particular
-% incorrect answer might correspond to. In practice, I found this
-% rather difficult for three reasons. First, with 89 programs, each with
-% several answers, it's easy to make mistakes. Second, my own expert blind
-% spot may prevent me from seeing an interpretation that would
-% lead to an additional association. Finally, and specific to my case,
-% since I had either curated or written all the programs and answers,
-% I was likely to miss some associations I had not intended.
-
-% To address this problem, I formalized misconceptions as
-% interpreters. That is, for each misconception I created a
-% corresponding \emph{misinterpreter}. This is an interpreter for the
-% SMoL syntax that intentionally has a semantic error corresponding to
-% that misconception. Put differently, a misinterpreter is a like a
-% ``definitional interpreter for a misconception''.
-
-% By running programs through the misinterpreters, I can more uniformly
-% and rigorously identify \emph{all} the misconceptions associated with
-% a wrong answer. Furthermore, if I identify a new misconception (or
-% alter a misinterpreter), it is easy to automatically re-classify all
-% the answers. By using misinterpreters, I indeed found new
-% interpretations for existing program-answer pairs.
-
-% \subsection{A Catalog of Misconceptions}
-
 I iteratively created our final catalog of misconceptions (from the
 perspective of the data in this paper). I started with misinterpreters
-representing the misconceptions described in
-\Cref{s:misconceptions-quiz}. These are misconceptions for which we
+representing the misconceptions for which we
 have reasonable validation (due to the prose in Quizius), so I call
 them \emph{grounded} misconceptions. I then looked at wrong answers
 not covered by these but chosen by students, and did my best to
@@ -1554,63 +1222,6 @@ representative example of that misconception.
   \label{t:tutor-surmised-misconceptions}
 \end{table}
 
-% \paragraph{Confirmed Misconceptions}
-
-% The Tutor confirmed all the misconceptions from Quizius via the SMoL Quizzes.
-
-% \paragraph{Added Misconceptions}
-
-% The misinterpreters helped me find misinterpretations that I had
-% overlooked. For instance, consider this program from \quizState:
-% \begin{lstlisting}
-% (defvar x 12)
-% (deffun (f x)
-%   (set! x 0))
-% (f x)
-% x
-% \end{lstlisting}
-% I had assumed the wrong answer
-% \texttt{0} is caused by \miscon{CallByRef}.
-% However, my misinterpreters made me realize it can also be explained
-% by \miscon{FlatEnv}. This could also explain why I see a difference in
-% error rate when the formal and actual parameter have the same
-% name (as mentioned in \Cref{s:misconceptions-quiz:state}).
-
-% Tutor's refined program sets and misinterpreters also helped me to
-% identify programs that detect one of the misconceptions but not the
-% other. Consider this new program
-% % mut-vars.not_aliased_by_defvar_1 (29)
-% \begin{lstlisting}
-%   (defvar x 12)
-%   (defvar y x)
-%   (set! x 0)
-%   x
-%   y
-% \end{lstlisting}
-% 12\% of students asserted that the following program produces
-% \texttt{0 0}, which suggest that they have the \textbf{BindByRef}
-% misconception. Students with a \miscon{FlatEnv} misconception would
-% have chosen \texttt{0 12}, which happens to be the correct answer.
-% (1\% wrote \textit{depends on
-% implementation}; 2\% asserted \texttt{error}; the remaining 85\%
-% asserted \texttt{0 12}).
-
-% The second program in \Cref{t:quizzes-data-fun} is already a good
-% detector for \miscon{FlatEnv}. SMoL Tutor includes an alternative
-% program that does not depend on equality checks.
-% % scope.error_when_refer_to_undefined (9)
-% \begin{lstlisting}
-%   (deffun (addy x)
-%     (defvar y 200)
-%     (+ x y))
-%   (+ (addy 2) y)
-% \end{lstlisting}
-% 4\% of students asserted that the following program produces
-% \texttt{402}, which suggest that they have the \miscon{FlatEnv}
-% misconception. Students with a \textbf{BindByRef} misconception would
-% have chosen \texttt{error}, which happens to be the correct answer.
-% (the remaining 96\% asserted \texttt{error}).
-
 \paragraph{A New Potential Misconception}
 
 For the following program, added in the Tutor:
@@ -1650,7 +1261,7 @@ widespread, and I feel it needs to be investigated more.)
 
 Once I turned this into a misinterpreter, I found that it
 unexpectedly captured the program-answer pair for the following
-program from \quizFun---which should be an error, due to the
+program --- which should be an error, due to the
 double-binding of \lstinline|x| in the same scope block---and the answer
 \lstinline|2 0|:
 \begin{lstlisting}
@@ -1674,20 +1285,7 @@ it \emph{shadows} the binding (i.e., establishes a new scope block). We
 did not recognize that the original misconception is underspecified
 until I uncovered the new (surmised) misconception.
 
-\paragraph{Confirmed Misconceptions}
-
-The Tutor confirmed all the misconceptions from Quizius via the SMoL Quizzes.
-
-% \paragraph{Summary}
-
-% To summarize, I used the SMoL Tutor, with an expanded set of
-% programs, to investigate student misconceptions. I implemented the
-% idea of misinterpreters to help me properly classify student
-% performance. I were able to reconfirm all the previously identified
-% misconceptions, refine some of them, and also identify potential new
-% ones (that need further investigation).
-
-\section{What Pedagogic Techniques are Effective?}%
+\subsection{What Pedagogic Techniques are Effective?}%
 \label{s:pedagogic-techniques}
 
 The fundamental problem about correcting misconceptions is: how do you
@@ -1723,35 +1321,8 @@ a language has better be taught as a sequence of languages, where each
 later language includes more language constructs than the previous
 one.
 
-\section{The SMoL Tutor}%
+\subsection{The SMoL Tutor}%
 \label{s:tutor}
-
-% So far, I have focused on identifying problems. As noted earlier
-% (\Cref{s:smol-quizzes}), I provided students with refutation texts
-% after the quizzes, but it is unclear to what extent students read,
-% understood, or internalized these. I also wanted to determine whether
-% other populations run into these issues, and it was unclear whether we
-% would be able to administer passive quizzes to them.
-
-% Furthermore, while the quizzes may be a useful diagnostic, my goal is
-% not only to find faults but to improve the understanding of basic
-% programming language behavior. I believe (and presumably so does
-% anyone else who writes a formal semantics!)\ that an understanding of
-% these basic program behaviors is important, and even more so when it
-% comes to understanding concurrency, ownership, and other advanced
-% features. Even more simply, misunderstanding these clearly impacts
-% development and debugging time.
-
-% In response, I decided to create a \emph{tutor}: the SMoL Tutor. It is built
-% around my quiz instruments and the detected misconceptions. We
-% describe the Tutor from a user's perspective in \Cref{s:tutor}, and
-% explain how it was populated from the
-% SMoL Quizzes in \Cref{s:tutor-refine-program-set}.
-% I then discuss what
-% I learned from its data (\Cref{s:misconceptions-tutor}), and finally
-% evaluate its effectiveness as a \emph{tutor} (\Cref{s:effect-tutor}).
-
-% \subsection{The User Experience}
 
 This section describe the current status of the tutor.
 
@@ -1765,41 +1336,6 @@ spent about 9.8 (median) minutes.
 described in \Cref{s:interpreting-tasks}. The Tutor also asked students
 to perform some other activities, like showing programs and asking for
 their heap content, which I do not cover in this paper.
-
-% Each tutorial consists of a sequence of questions. Most questions in
-% the Tutor are \newterm{interpreting questions}.\footnote{The Tutor
-% also asked students to perform some other activities, like showing
-% programs and asking for their heap content, which I do not cover in
-% this paper.} These questions (illustrated in
-% \Cref{f:smol-tutor-example}) are versions of the SMoL Quizzes
-% (obtained by the process described in
-% \Cref{s:tutor-refine-program-set}). In each of these questions,
-% students are shown a program and asked to predict the program's
-% running result(s) by answering an MCQ (with an ``Other'' option).
-% After making a choice, students receive feedback. If a student chooses
-% incorrectly, they are (a) given an explanation that is \emph{based on
-% the misconception associated with that wrong answer} (or a generic
-% one, if there is not a specific misconception), and then (b) asked to
-% answer a second question:
-% \begin{enumerate}
-
-%   \item The second question is semantically the same as the first, but
-%         with superficial changes (e.g., variable names, constants, and operators are
-%         changed) so that the student cannot immediately
-%         guess the answer.
-
-%   \item Instead of multiple-choice, students must \emph{type} the answer
-%         into a text box. (The Tutor normalizes text to accommodate variations.)
-%         This is
-%         intentional. First, I wanted to force reflection on the
-%         explanation just given, whereas with an
-%         MCQ, students could just guess. Second, I felt that students would
-%         find typing more onerous than clicking. In case students
-%         had just guessed on a question, my hope is that the penalty of having to
-%         type means, on \emph{subsequent} tasks, they
-%         would be more likely to pause and reflect before choosing.
-
-% \end{enumerate}
 
 \begin{figure}[t]
   \centering
@@ -1875,24 +1411,7 @@ about \textbf{scope}, and \textbf{lambda} starts with questions about
 \textbf{mut-vars} and \textbf{vectors}. I plan to keep this design to
 check retention.
 
-% Of the modules, \textbf{local} is the least portable across
-% languages. While local binding is of course present in other
-% languages, this is mostly covered using nested \lstinline|defvar|s in
-% earlier modules, starting with \textbf{scope}. The distinction central
-% to this module (between three local-binding constructs with slightly
-% different scopes) is primarily a focus of Lispy languages. Therefore,
-% I exclude this module from my analysis and instruments, and indeed
-% plan to deprecate the module in future versions.
-
-% \Cref{s:smol-quizzes} discusses the partial randomization employed by
-% the SMoL Quizzes. In contrast, the SMoL Tutor does \emph{not}
-% randomize question order. This is because the Tutor consists of more
-% than just questions: it also has explanatory text. This text is based
-% on the preceding problems. Authoring it is therefore somewhat like
-% writing a textbook, with complex dependencies that can easily be
-% broken.
-
-\section{How Effective Is the Tutor?}
+\subsection{How Effective Is the Tutor?}
 \label{s:effect-tutor}
 
 \begin{figure}[p]
@@ -1982,7 +1501,7 @@ in the above analysis.
 % as necessary, update the programs as well. I therefore hope to have
 % much more thorough analyzes in future work.
 
-\section{How Generalizable is My Observations?}
+\subsection{How Generalizable are My Results?}
 \label{s:generality-tutor}
 
 % There is, of course, a significant danger that the data above have
@@ -2195,7 +1714,7 @@ The processes described in
 \Cref{s:find-misconceptions-with-quizius,s:find-misconceptions-with-tutor}
 have been conducted with SMoL's Lispy syntax (\Cref{s:smol}). This can
 potentially introduce biases to the found misconceptions. For example,
-when using SMoL Quizzes, I found that some students think the following program
+I found that some students think the following program
 produces \lstinline|'(4 5)| rather than \lstinline|'(1 2)|.
 \begin{lstlisting}
   (filter (lambda (n) (> 3 n)) '(1 2 3 4 5))
