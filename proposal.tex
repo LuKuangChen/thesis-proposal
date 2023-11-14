@@ -50,8 +50,8 @@
 \newcommand{\pValue}[0]{\textit{p}\nobreakdash-value}
 
 %% abbrev. for RQs
-\newcommand{\rqI}{What program-behavior misconceptions apply to SMoL and present (even) in students with prior programming backgrounds?}
-\newcommand{\rqII}{What would be a tutoring system that aims to correct the misconceptions, draws on cognitive, educational, or psychological concepts, and seems to be effective?}
+\newcommand{\rqI}{What program-behavior misconceptions apply to SMoL and present even in students with prior programming backgrounds?}
+\newcommand{\rqII}{How effective is a tutoring system driven by cognitive and educational principles at correcting these misconceptions?}
 
 %% abbrev. for JavaScript etc.
 \newcommand{\js}{JavaScript}
@@ -83,7 +83,7 @@
   and higher-order functions seem to be widespread. But how do we
   detect them, given that experts have blind spots and may not realize
   the myriad ways in which students can misunderstand programs?
-  Furthermore, once identified, what can I do to correct them?
+  Furthermore, once identified, what can we do to correct them?
 
   I propose a plan for finding misconceptions possibly not anticipated
   by experts, and the design of an automated, self-guided tutoring
@@ -134,7 +134,7 @@ this the \emph{Standard Model of Languages} (SMoL).
 
 Unfortunately, this combination of features appears to also be non-trivial for
 programmers to understand. Consider the following scenario: to create a
-calculator, I have to construct a callback that can be attached to
+calculator, we have to construct a callback that can be attached to
 each button. The following Python program seems to achieve the
 construction of these callbacks and the act of pushing the buttons in
 order:
@@ -193,8 +193,7 @@ In the rest of this document, I first define SMoL (\Cref{s:smol}),
 then present a literature review of misconceptions
 (\Cref{s:background-misconceptions}) and tutoring systems
 (\Cref{s:background-tutoring-systems}), and then outline my research
-plans for the RQs (\Cref{s:plan-rq1,s:plan-rq2}). The remaining
-sections detail my current progress.
+plans for the RQs (\Cref{s:plan-rq1,s:plan-rq2}). After that, I describe preliminary results (\Cref{s:preliminary-results} and propose my next steps (\Cref{s:future-work}).
 
 \section{The SMoL Language}\label{s:smol}
 
@@ -372,7 +371,7 @@ In terms of mechanics, a concept inventory is just an instrument
 consisting of multiple-choice questions (MCQs), where each question
 has one correct answer and several wrong ones. However, the wrong ones
 are chosen with great care. Each one has been validated so that if a
-student picks it, I can quite unambiguously determine \emph{what
+student picks it, we can quite unambiguously determine \emph{what
 misconception the student has}. For instance, if the question is
 ``What is \lstinline|sqrt(4)|?'', then \lstinline|37| is probably an
 uninteresting wrong answer, but if people appear to confuse
@@ -421,7 +420,7 @@ programming backgrounds'', I have been collecting data from multiple
 populations that very likely have prior experience
 (\Cref{s:generality-tutor}). I have the following data sources so far:
 \begin{description}
-  \item[University 1] students in a ``Principles of Programming
+  \item[University 1] includes students in a ``Principles of Programming
     Languages'' class at Brown University. The class has about 70--75
     students per year. It is not required, so students take it by
     choice. Virtually all are computer science majors. Most are in
@@ -431,14 +430,14 @@ populations that very likely have prior experience
     experience with it. Most have had close to a semester of
     functional programming. The student work described here was
     required, but students were graded on effort, not correctness.
-  \item[University 2] a primarily public university in the US. It is
+  \item[University 2] includes students at a primarily public university in the US. It is
     one of the largest Hispanic-serving institutions in the country. As
     such, its demographic is extremely different from those whose data
     were used above. The Tutor was used in one course in Spring 2023,
     taken by 12 students. The course is a third-year, programming
     language course. The students are required to have taken two
     introductory programming courses (C++ focused).
-  \item[Textbook] an instrument was published on the website of a
+  \item[Textbook] includes visitors to the website of a
     programming languages textbook. Over the course of 8 months,
     several hundreds of people submitted to the instrument. To protect
     privacy, I intentionally do not record demographic information,
@@ -779,7 +778,8 @@ subject to the following limitations:
 The current Tutor is not prepared for this analysis yet. I describe how
 I plan to change the Tutor in \Cref{s:future-work}.
 
-\section{Preliminary Results}
+\section{Preliminary Results}%
+\label{s:preliminary-results}
 
 \subsection{Generating Problems Using Quizius}
 \label{s:quizius}
@@ -1584,33 +1584,6 @@ future (\Cref{s:future-work}).
 % supports multiple, and more traditional, syntaxes should help address
 % this issue. I defer this to future work (\cref{s:future-work}).
 
-\section{Related Work}%
-\label{s:related-work}
-
-\subsection{Program Behavior}
-
-Our idea of ``goal sentences'' is not substantially different from the
-\textit{rules of program behavior} from \cite{duranRulesProgramBehavior2021}.
-I only used these sentences (or rules) to guide the
-design of the Tutor and as text in the Tutor itself.
-\cite{duranRulesProgramBehavior2021} argue for other uses of such
-sentences.
-
-\subsection{Misinterpreters}
-
-Our idea of misinterpreters is related to mystery languages
-\citep{diwanPLdetectiveSystemTeaching2004,
-  pombrioTeachingProgrammingLanguages2017}. Both approaches use
-evaluators that represent alternative semantics to the same syntax.
-However, the two are complementary.
-In mystery languages, instructors design the space of semantics with
-pedagogic intent, and
-students must create programs to explore that space. Misinterpreters,
-in contrast, are driven by student input, while the programs are provided
-by instructors. The two approaches also have different goals:
-mystery languages focus on encouraging students to experiment with
-languages; misinterpreters aim at capturing students' misconceptions.
-
 \section{Future Work \& Timeline}%
 \label{s:future-work}
 
@@ -1704,45 +1677,17 @@ The current scope tutorial uses the following prompt:
   When I see a variable reference, how do I find the corresponding
   declaration, if any?
 \end{quote}
-This prompt has a few problems:
-\begin{itemize}
-  \item It is unclear to adapt it to other tutorials.
-  \item Students tend to give brief responses possibly because the
-  questions are asking for a lot and because students are tired when
-  they reach the end of a tutorial.
-\end{itemize}
+It is unclear to adapt it to other tutorials.
 
-So I plan to change the question format into a notice-and-wonder style
-of questions, which is known to be less demanding
-(\Cref{s:pedagogic-techniques}). So I plan to replace the
+So I plan to change the question format into a more consistent style. So I plan to replace the
 \textbf{scope} prompt with
 \begin{quote}
-  \emph{Think about} the following questions:
-  \begin{itemize}
-    \item How do \lstinline|defvar|s work?
-    \item How do \lstinline|deffun|s work?
-    \item How do variable referencess (e.g., \lstinline|x| in \lstinline|(+ x 1)|) work?
-    \item How do \lstinline|defvar|s, \lstinline|deffun|s, and variable references interact with each other?
-  \end{itemize}
-  If you believe you know the answers perfectly, please \emph{response with}
-  \begin{quote}
-    I know the answers with 100\% certainty.
-  \end{quote}
-  Otherwise, please \emph{respond with} what you are uncertain about these language constructs.
+  How do variable referencess (e.g., the \lstinline|x| in \lstinline|(+ x 1)|) , \lstinline|defvar|s, and \lstinline|deffun|s interact with each other?
 \end{quote}
 I plan to use a similar prompt in later tutorials. For example, in \textbf{mut-vars},
 I would want the Tutor to ask
 \begin{quote}
-  \emph{Think about} the following questions:
-  \begin{itemize}
-    \item How do \lstinline|set!|s work?
-    \item How do \lstinline|set!|s interact with other language constructs (namely, \lstinline|defvar|s, \lstinline|deffun|s, and variable references)?
-  \end{itemize}
-  If you believe you know the answers perfectly, please \emph{respond with}
-  \begin{quote}
-    I know the answers with 100\% certainty.
-  \end{quote}
-  Otherwise, please \emph{respond with} what you are uncertain about these language constructs.
+  How do \lstinline|set!|s interact with other language constructs (namely, \lstinline|defvar|s, \lstinline|deffun|s, and variable references)?
 \end{quote}
 
 \paragraph{Use More Sensible Options in Interpreting Tasks}
@@ -1831,6 +1776,33 @@ data that I collected in Spring 2024, and hopefully finish writing the new paper
 \subsection{Spring 2025: Defense}
 
 I plan to defend in Spring 2025.
+
+\section{Related Work}%
+\label{s:related-work}
+
+\subsection{Program Behavior}
+
+Our idea of ``goal sentences'' is not substantially different from the
+\textit{rules of program behavior} from \cite{duranRulesProgramBehavior2021}.
+I only used these sentences (or rules) to guide the
+design of the Tutor and as text in the Tutor itself.
+\cite{duranRulesProgramBehavior2021} argue for other uses of such
+sentences.
+
+\subsection{Misinterpreters}
+
+Our idea of misinterpreters is related to mystery languages
+\citep{diwanPLdetectiveSystemTeaching2004,
+  pombrioTeachingProgrammingLanguages2017}. Both approaches use
+evaluators that represent alternative semantics to the same syntax.
+However, the two are complementary.
+In mystery languages, instructors design the space of semantics with
+pedagogic intent, and
+students must create programs to explore that space. Misinterpreters,
+in contrast, are driven by student input, while the programs are provided
+by instructors. The two approaches also have different goals:
+mystery languages focus on encouraging students to experiment with
+languages; misinterpreters aim at capturing students' misconceptions.
 
 \bibliography{bibfile}
 
